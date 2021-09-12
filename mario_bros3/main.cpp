@@ -314,12 +314,12 @@ void Update(DWORD dt)
 	//Uncomment the whole function to see the brick moves and bounces back when hitting left and right edges
 	//brick_x++;
 
-	//brick_x += brick_vx * dt;
+	brick_x += brick_vx * dt;
 	brick_y += brick_vy * dt;
 
-	//if (brick_x <= 0 || brick_x >= BackBufferWidth - BRICK_WIDTH) {
+	if (brick_x <= 0 || brick_x >= BackBufferWidth - BRICK_WIDTH) {
 
-		//brick_vx = -brick_vx;
+		brick_vx = -brick_vx;
 
 		//	//Why not having these logics would make the brick disappear sometimes?  
 			/*if (brick_x <= 0)
@@ -330,7 +330,7 @@ void Update(DWORD dt)
 			{
 				brick_x = BackBufferWidth - BRICK_WIDTH;
 			}*/
-	//}
+	}
 
 
 	if (brick_y >= BackBufferHeight|| brick_y<0)
