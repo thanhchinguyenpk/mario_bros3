@@ -1,14 +1,2 @@
 ﻿  debug.cpp
-  Game.cpp
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\Game.cpp(250,68): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [41]' to 'wchar_t *'
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\Game.cpp(250,11): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\debug.h(28,6): message : see declaration of 'DebugOut'
-  GameObject.cpp
-  main.cpp
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\main.cpp(114,75): error C2664: 'void DebugOutTitle(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [27]' to 'wchar_t *'
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\main.cpp(114,16): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\debug.h(35,6): message : see declaration of 'DebugOutTitle'
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\main.cpp(188,102): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [53]' to 'wchar_t *'
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\main.cpp(188,12): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
-C:\Users\win\Desktop\Game Project\mario_bros3\mario_bros3\debug.h(28,6): message : see declaration of 'DebugOut'
-  Generating Code...
+  mario_bros3.vcxproj -> C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe
