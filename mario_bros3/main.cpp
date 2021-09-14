@@ -42,7 +42,7 @@ CMario* mario;
 #define MARIO_START_X 10.0f
 #define MARIO_START_Y 100.0f
 #define MARIO_START_VX 0.1f
-#define MARIO_START_VY 0.1f
+#define MARIO_START_VY 0.15f
 
 
 CBrick* brick;
