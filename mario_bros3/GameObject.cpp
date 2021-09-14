@@ -26,10 +26,12 @@ CGameObject::~CGameObject()
 
 #define MARIO_VX 0.1f
 #define MARIO_WIDTH 14
+#define MARIO_HEIGHT 16
 
 void CMario::Update(DWORD dt)
 {
-	x += vx*dt;
+	
+	/*x += vx * dt;
 
 	int BackBufferWidth = CGame::GetInstance()->GetBackBufferWidth();
 	if (x <= 0 || x >= BackBufferWidth - MARIO_WIDTH) {
@@ -43,6 +45,24 @@ void CMario::Update(DWORD dt)
 		else if (x >= BackBufferWidth - MARIO_WIDTH)
 		{
 			x = (float)(BackBufferWidth - MARIO_WIDTH);
+		}
+	}*/
+	
+
+	y += vx * dt;
+
+	int BackBufferHeight = CGame::GetInstance()->GetBackBufferHeight();
+	if (y <= 0 || y >= BackBufferHeight - MARIO_HEIGHT) {
+
+		vx = -vx;
+
+		if (y <= 0)
+		{
+			y = 0;
+		}
+		else if (y >= BackBufferHeight - MARIO_HEIGHT)
+		{
+			y = (float)(BackBufferHeight - MARIO_HEIGHT);
 		}
 	}
 }
