@@ -1,0 +1,6 @@
+mot map:
+chieu cao, chieu rong texture
+sprite
+chiều dài chiều rong map
+mot mang tile map so nguyen
+
