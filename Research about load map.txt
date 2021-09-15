@@ -4,3 +4,7 @@ sprite
 chiều dài chiều rong map
 mot mang tile map so nguyen
 
+dau tien đọc file va cat hinh
+doc map ( mot mang so nguyen)
+ve map nguyen canh
+ve map trong camera
