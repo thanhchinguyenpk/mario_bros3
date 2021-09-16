@@ -8,3 +8,5 @@ class CSampleKeyHandler: public CKeyEventHandler
 	virtual void OnKeyDown(int KeyCode);
 	virtual void OnKeyUp(int KeyCode);
 };
+
+//
