@@ -8,3 +8,7 @@ dau tien đọc file va cat hinh
 doc map ( mot mang so nguyen)
 ve map nguyen canh
 ve map trong camera
+
+chu y:
+neu load het map se bị lag lag giac giac
+chi load map trong pham vi camera
