@@ -3,12 +3,8 @@
 
 HWND _hwnd = NULL;
 
-void DebugOut(const wchar_t* fmt, ...)
+void DebugOut(const wchar_t *fmt, ...)
 {
-	/*wchar_t s[4096];
-	VA_PRINTS(s);
-	OutputDebugString(s);*/
-
 	va_list argp;
 	va_start(argp, fmt);
 	wchar_t dbg_out[4096];
@@ -28,4 +24,3 @@ void SetDebugWindow(HWND hwnd)
 {
 	_hwnd = hwnd;
 }
-//////////////////////////////////////////

@@ -1,4 +1,5 @@
-﻿  GameObject.cpp
-  main.cpp
-  Generating Code...
-  mario_bros3.vcxproj -> C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe
+﻿Game.obj : error LNK2019: unresolved external symbol DirectInput8Create referenced in function "public: void __cdecl CGame::InitKeyboard(class CKeyEventHandler *)" (?InitKeyboard@CGame@@QEAAXPEAVCKeyEventHandler@@@Z)
+Game.obj : error LNK2001: unresolved external symbol IID_IDirectInput8W
+Game.obj : error LNK2001: unresolved external symbol GUID_SysKeyboard
+Game.obj : error LNK2001: unresolved external symbol c_dfDIKeyboard
+C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe : fatal error LNK1120: 4 unresolved externals
