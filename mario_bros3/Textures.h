@@ -11,14 +11,14 @@ using namespace std;
 */
 class CTextures
 {
-	static CTextures* __instance;
+	static CTextures * __instance;
 
 	unordered_map<int, LPTEXTURE> textures;
 
-public:
+public: 
 	CTextures();
 	void Add(int id, LPCWSTR filePath);
 	LPTEXTURE Get(unsigned int i);
 
-	static CTextures* GetInstance();
+	static CTextures * GetInstance();
 };
