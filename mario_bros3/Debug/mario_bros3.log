@@ -1,2 +1,14 @@
-﻿  main.cpp
-  mario_bros3.vcxproj -> C:\Users\win\Desktop\Game Project\mario_bros3\Debug\mario_bros3.exe
+﻿main.obj : error LNK2005: "public: __thiscall CGameObject::CGameObject(float,float)" (??0CGameObject@@QAE@MM@Z) already defined in GameObject.obj
+Mario.obj : error LNK2005: "public: virtual void __thiscall CBrick::Render(void)" (?Render@CBrick@@UAEXXZ) already defined in Brick.obj
+Game.obj : error LNK2019: unresolved external symbol _DirectInput8Create@20 referenced in function "public: void __thiscall CGame::InitKeyboard(class CKeyEventHandler *)" (?InitKeyboard@CGame@@QAEXPAVCKeyEventHandler@@@Z)
+Game.obj : error LNK2001: unresolved external symbol _IID_IDirectInput8W
+Game.obj : error LNK2001: unresolved external symbol _GUID_SysKeyboard
+Game.obj : error LNK2001: unresolved external symbol _c_dfDIKeyboard
+Goomba.obj : error LNK2019: unresolved external symbol "public: void __thiscall CGameObject::RenderBoundingBox(void)" (?RenderBoundingBox@CGameObject@@QAEXXZ) referenced in function "private: virtual void __thiscall CGoomba::Render(void)" (?Render@CGoomba@@EAEXXZ)
+Goomba.obj : error LNK2019: unresolved external symbol "public: virtual void __thiscall CGameObject::Update(unsigned long,class std::vector<class CGameObject *,class std::allocator<class CGameObject *> > *)" (?Update@CGameObject@@UAEXKPAV?$vector@PAVCGameObject@@V?$allocator@PAVCGameObject@@@std@@@std@@@Z) referenced in function "private: virtual void __thiscall CGoomba::Update(unsigned long,class std::vector<class CGameObject *,class std::allocator<class CGameObject *> > *)" (?Update@CGoomba@@EAEXKPAV?$vector@PAVCGameObject@@V?$allocator@PAVCGameObject@@@std@@@std@@@Z)
+main.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall CGameObject::Update(unsigned long,class std::vector<class CGameObject *,class std::allocator<class CGameObject *> > *)" (?Update@CGameObject@@UAEXKPAV?$vector@PAVCGameObject@@V?$allocator@PAVCGameObject@@@std@@@std@@@Z)
+main.obj : error LNK2019: unresolved external symbol "public: __thiscall CGameObject::CGameObject(void)" (??0CGameObject@@QAE@XZ) referenced in function "public: __thiscall CGameObject::CGameObject(float,float)" (??0CGameObject@@QAE@MM@Z)
+main.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall CMario::Update(unsigned long,class std::vector<class CGameObject *,class std::allocator<class CGameObject *> > *)" (?Update@CMario@@UAEXKPAV?$vector@PAVCGameObject@@V?$allocator@PAVCGameObject@@@std@@@std@@@Z)
+main.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall CMario::SetState(int)" (?SetState@CMario@@UAEXH@Z)
+main.obj : error LNK2001: unresolved external symbol "public: virtual void __thiscall CMario::GetBoundingBox(float &,float &,float &,float &)" (?GetBoundingBox@CMario@@UAEXAAM000@Z)
+C:\Users\win\Desktop\Game Project\mario_bros3\Debug\mario_bros3.exe : fatal error LNK1120: 10 unresolved externals

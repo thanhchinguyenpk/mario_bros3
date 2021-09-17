@@ -2,4 +2,5 @@
 Game.obj : error LNK2001: unresolved external symbol IID_IDirectInput8W
 Game.obj : error LNK2001: unresolved external symbol GUID_SysKeyboard
 Game.obj : error LNK2001: unresolved external symbol c_dfDIKeyboard
-C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe : fatal error LNK1120: 4 unresolved externals
+main.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl CBrick::GetBoundingBox(float &,float &,float &,float &)" (?GetBoundingBox@CBrick@@UEAAXAEAM000@Z)
+C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe : fatal error LNK1120: 5 unresolved externals
