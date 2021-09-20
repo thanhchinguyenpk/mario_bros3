@@ -14,3 +14,4 @@ neu load het map se bị lag lag giac giac
 chi load map trong pham vi camera
 chu y vi tri cua chieu dai va chieu rong
 chu y vi tri cua x va y
+hi

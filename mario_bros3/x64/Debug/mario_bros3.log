@@ -1,6 +1,42 @@
-﻿Game.obj : error LNK2019: unresolved external symbol DirectInput8Create referenced in function "public: void __cdecl CGame::InitKeyboard(class CKeyEventHandler *)" (?InitKeyboard@CGame@@QEAAXPEAVCKeyEventHandler@@@Z)
-Game.obj : error LNK2001: unresolved external symbol IID_IDirectInput8W
-Game.obj : error LNK2001: unresolved external symbol GUID_SysKeyboard
-Game.obj : error LNK2001: unresolved external symbol c_dfDIKeyboard
-main.obj : error LNK2001: unresolved external symbol "public: virtual void __cdecl CBrick::GetBoundingBox(float &,float &,float &,float &)" (?GetBoundingBox@CBrick@@UEAAXAEAM000@Z)
-C:\Users\win\Desktop\Game Project\mario_bros3\x64\Debug\mario_bros3.exe : fatal error LNK1120: 5 unresolved externals
+﻿  Animation.cpp
+  Animations.cpp
+  Brick.cpp
+  Collision.cpp
+  debug.cpp
+  Game.cpp
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(255,68): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [41]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(255,11): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(270,51): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [36]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(270,12): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(277,45): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [30]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(277,12): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(316,49): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [34]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(316,12): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(322,65): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [51]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(322,11): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(339,47): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [30]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(339,14): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(357,68): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [49]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\Game.cpp(357,12): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+  GameObject.cpp
+  Goomba.cpp
+  main.cpp
+  Mario.cpp
+  SampleKeyEventHandler.cpp
+C:\Users\win\Desktop\New folder\mario_bros3\SampleKeyEventHandler.cpp(12,43): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [20]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\SampleKeyEventHandler.cpp(12,11): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+C:\Users\win\Desktop\New folder\mario_bros3\SampleKeyEventHandler.cpp(32,41): error C2664: 'void DebugOut(wchar_t *,...)': cannot convert argument 1 from 'const wchar_t [18]' to 'wchar_t *'
+C:\Users\win\Desktop\New folder\mario_bros3\SampleKeyEventHandler.cpp(32,11): message : Conversion from string literal loses const qualifier (see /Zc:strictStrings)
+C:\Users\win\Desktop\New folder\mario_bros3\debug.h(21,6): message : see declaration of 'DebugOut'
+  Sprite.cpp
+  Sprites.cpp
+  Textures.cpp
+  Generating Code...
