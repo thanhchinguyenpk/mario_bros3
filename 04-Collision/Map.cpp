@@ -12,9 +12,9 @@ void Map::LoadTileSet()
 	ifstream f;
 	f.open(mapFilePath);
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < height_map; i++)
 	{
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < width_map; j++)
 		{
 			f >> map[i][j];
 			
@@ -22,8 +22,8 @@ void Map::LoadTileSet()
 		}
 	}
 	
-	DebugOut(L"day nefff: %d \n", map[0][0]);
-	DebugOut(L"day nefff: %d \n", map[0][1]);
+	//DebugOut(L"day nefff: %d \n", map[0][0]);
+	//DebugOut(L"day nefff: %d \n", map[0][1]);
 	
 	f.close();
 
@@ -36,11 +36,11 @@ void Map::LoadTileSet()
 
 
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < height_tile_set; i++)
 	{
-		for (int j = 0; j < 29; j++)
+		for (int j = 0; j < width_tile_set; j++)
 		{
-			sprites->Add(id++, j*48, i*48, j*48+48 , i*48+48, titleset);
+			sprites->Add(id++, j*48, i*48, j*48+48 , i*48+48, titleset); // can chinh cho nay
 		}
 	}
 	
@@ -81,7 +81,7 @@ void Map::Draw()
 		{
 			if (map[i][j] <= 0)
 				continue;
-			sprites->Get(map[i][j] - 1)->Draw(j * w, i * h);
+			sprites->Get(map[i][j] - 1)->Draw(j * w, i * h);// trừ một vì số thứ tự của tile đánh số từ 0 
 		}
 
 	}
