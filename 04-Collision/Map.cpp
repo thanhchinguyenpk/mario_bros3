@@ -59,14 +59,14 @@ void Map::Draw()
 	float cam_x = 0, cam_y = 0;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
 
-	int begin_row = cam_y / w +1;//
+	int begin_row = cam_y / w ;//
 	int end_row =( cam_y + SCREEN_HEIGHT) / w -1;//
 
 	if (begin_row < 0)
 		begin_row = 0;
 
 
-	int begin_column = cam_x / h + 1; //cọng 1 để nó trồi lên 1 tiled, để quan sát
+	int begin_column = cam_x / h ; //cọng 1 để nó trồi lên 1 tiled, để quan sát
 	int end_column = (cam_x  + SCREEN_WIDTH)/h;//
 
 	if (begin_column < 0)
