@@ -126,6 +126,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="Textures.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="Gamee.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="meomeo.h" />
     <ClInclude Include="Sprites.h" />
