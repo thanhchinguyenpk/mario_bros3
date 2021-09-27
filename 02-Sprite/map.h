@@ -2,6 +2,7 @@
 #pragma once
 #include "Textures.h"
 #include "Sprites.h"
+#include "debug.h"
 class map
 {
 	CSprites* sprites = CSprites::GetInstance();
