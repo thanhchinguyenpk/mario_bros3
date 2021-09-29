@@ -26,6 +26,7 @@
 
 
 #include "Mario.h"
+#include "Map.h"
 
 
 #define WINDOW_CLASS_NAME L"SampleWindow"
@@ -125,6 +126,10 @@ void LoadResources()
 	
 	mario = new CMario(MARIO_START_X, MARIO_START_Y, MARIO_START_VX);
 	brick = new CBrick(100.0f, 100.0f);
+
+
+	Map* map = new Map();
+	map->LoadTileSet();
 }
 
 /*
