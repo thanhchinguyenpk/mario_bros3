@@ -21,9 +21,9 @@ void Map::LoadTileSet()
 	ifstream f;
 	f.open(mapFilePath);
 
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < height_map; i++)
 	{
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < width_map; j++)
 		{
 			f >> map[i][j];
 
@@ -31,8 +31,36 @@ void Map::LoadTileSet()
 		}
 	}
 
-	DebugOut(L"day nefff: %d \n", map[0][0]);
-	DebugOut(L"day nefff: %d \n", map[0][1]);
+	//DebugOut(L"day nefff: %d \n", map[0][0]);
+	//DebugOut(L"day nefff: %d \n", map[0][1]);
 
 	f.close();
+
+	CTextures* textures = CTextures::GetInstance();
+
+
+	textures->Add(100, L"textures\\Final1.png");
+
+	int id = 0;
+	CSprites* sprites = CSprites::GetInstance();
+
+
+	LPTEXTURE titleset = textures->Get(100);
+
+
+
+	for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 29; j++)
+		{
+			sprites->Add(id++, j * width_tileset, i * height_tileset,
+				j * width_tileset + width_tileset, i * height_tileset + height_tileset, titleset);
+		}
+	}
+}
+
+void Map::Draw()
+{
+	
+
 }
