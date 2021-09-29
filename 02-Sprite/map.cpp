@@ -61,6 +61,17 @@ void Map::LoadTileSet()
 
 void Map::Draw()
 {
-	
+	CSprites* sprites = CSprites::GetInstance();
+
+	for (int i = 15; i < 30; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			if (map[i][j] <= 0)
+				continue;
+			sprites->Get(map[i][j] - 1)->Draw(j * width_tileset, (i - 15) * height_tileset);
+		}
+
+	}
 
 }
