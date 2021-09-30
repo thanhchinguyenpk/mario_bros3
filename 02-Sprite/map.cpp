@@ -70,7 +70,7 @@ void Map::Draw()
 			if (map[i][j] <= 0)
 				continue;
 
-			sprites->Get(map[i][j] - 1)->Draw(j * width_tileset, (i - 14) * height_tileset);
+			sprites->Get(map[i][j] - 1)->DrawMap(j * width_tileset, (i - 14) * height_tileset);
 		}
 
 	}

@@ -181,12 +181,21 @@ void CGame::Draw(float x, float y, LPTEXTURE tex, RECT* rect)
 	// Create the translation matrix
 	D3DXMatrixTranslation(&matTranslation, x, (backBufferHeight - y), 0.1f);
 
+	
+	//D3DXMatrixTranslation(&matTranslation, x,  y, 0.1f);
+	//D3DXMatrixTranslation(&matTranslation, -x + 200, (backBufferHeight - y), 0.1f);
+
 	// Scale the sprite to its correct width and height because by default, DirectX draws it with width = height = 1.0f 
 	D3DXMATRIX matScaling;
 	D3DXMatrixScaling(&matScaling, (FLOAT)spriteWidth, (FLOAT)spriteHeight , 1.0f);
 
+	//D3DXMatrixScaling(&matScaling, -1.0f, 1.0f, .0f);
+
 	// Setting the sprite’s position and size
+	D3DXMatrixRotationX(&matScaling, D3DXToRadian(15.0f));
+
 	sprite.matWorld = (matScaling * matTranslation);
+	
 
 	spriteObject->DrawSpritesImmediate(&sprite, 1, 0, 0);
 }
