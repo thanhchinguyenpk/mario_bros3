@@ -29,7 +29,7 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex
 
 	//D3DXMatrixScaling(&this->matScaling, -1.0f, 1.0f, 1.0f);
 
-	//D3DXMatrixRotationX(&this->matScaling, 6.28319f);
+	//D3DXMatrixRotationX(&this->matScaling,  D3DXToRadian(30.0f));
 	
 	//D3DXMatrixTranslation(&this->matScaling, 16.0f, 16.0f, 1.0f);
 }
@@ -41,7 +41,7 @@ void CSprite::Draw(float x, float y)
 	D3DXMATRIX matTranslation;
 	//D3DXMatrixTranslation(&matTranslation, (g->GetBackBufferWidth() - x), (g->GetBackBufferHeight() - y), 0.1f); // -x lật ngược vị trí theo chiều âm
 	//D3DXMatrixTranslation(&matTranslation, -x+200, (g->GetBackBufferHeight() - y), 0.1f); // -x lật ngược vị trí theo chiều âm
-	D3DXMatrixTranslation(&matTranslation, -x + 200, (g->GetBackBufferHeight() - y), 0.1f); // -x lật ngược vị trí theo chiều âm
+	D3DXMatrixTranslation(&matTranslation, x , (g->GetBackBufferHeight() - y), 0.1f); // -x lật ngược vị trí theo chiều âm
 
 	
 	this->sprite.matWorld = (this->matScaling * matTranslation);
