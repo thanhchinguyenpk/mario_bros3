@@ -228,7 +228,7 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
 
-	animations->Get(1700)->Render(x, y);
+	animations->Get(ID_ANI_MARIO_BIG_FIRE_FLY_SHOOT_BULLET_RIGHT)->Render(x, y);
 
 	RenderBoundingBox();
 	
