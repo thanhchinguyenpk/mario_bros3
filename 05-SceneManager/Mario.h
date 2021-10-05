@@ -35,6 +35,8 @@
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 
+#define MARIO_STATE_STAND_SHOOT			700
+
 
 #pragma region ANIMATION_ID
 
@@ -119,6 +121,8 @@ class CMario : public CGameObject
 	int level; 
 	int untouchable; 
 	ULONGLONG untouchable_start;
+	ULONGLONG throw_start = 0;
+
 	BOOLEAN isOnPlatform;
 	int coin; 
 
@@ -127,6 +131,7 @@ class CMario : public CGameObject
 
 	int GetAniIdBig();
 	int GetAniIdSmall();
+	int GetAniIdFire();
 
 public:
 	CMario(float x, float y) : CGameObject(x, y)
@@ -136,7 +141,8 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 
-		level = MARIO_LEVEL_BIG;
+		//level = MARIO_LEVEL_BIG;
+		level = 3;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;

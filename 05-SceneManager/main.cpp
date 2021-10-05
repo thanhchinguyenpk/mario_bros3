@@ -308,7 +308,7 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_MARIO_BIG_FIRE_IDLE_RIGHT);
 	animations->Add(ID_ANI_MARIO_BIG_FIRE_IDLE_RIGHT, ani);
 
-	ani = new CAnimation(100);
+	ani = new CAnimation(200);
 	ani->Add(ID_SPRITE_MARIO_BIG_FIRE_HAND_UP_RIGHT);
 	ani->Add(ID_SPRITE_MARIO_BIG_FIRE_HAND_DOWN_RIGHT);
 	animations->Add(ID_ANI_MARIO_BIG_FIRE_SHOOT_BULLET_RIGHT, ani);

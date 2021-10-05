@@ -22,6 +22,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		untouchable_start = 0;
 		untouchable = 0;
 	}
+	//if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start > 800 && throw_start)
+	if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start >= 400 && throw_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		throw_start = 0;
+		
+	}
 
 	isOnPlatform = false;
 
@@ -154,6 +161,25 @@ int CMario::GetAniIdSmall()
 	return aniId;
 }
 
+int CMario::GetAniIdFire()
+{
+	int aniId = -1;
+
+	/*if (!isOnPlatform)
+	{
+	}
+	else
+	{*/
+		if(state== MARIO_STATE_STAND_SHOOT)
+		aniId = ID_ANI_MARIO_BIG_FIRE_SHOOT_BULLET_RIGHT;
+	//}
+
+
+	if (aniId == -1) aniId = ID_ANI_MARIO_BIG_FIRE_IDLE_RIGHT;
+
+	return aniId;
+}
+
 
 //
 // Get animdation ID for big Mario
@@ -227,8 +253,10 @@ void CMario::Render()
 		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
+	else if (level == 3)
+		aniId = GetAniIdFire();
 
-	animations->Get(ID_ANI_MARIO_BIG_FIRE_FLY_SHOOT_BULLET_RIGHT)->Render(x, y);
+	animations->Get(aniId)->Render(x, y);
 
 	RenderBoundingBox();
 	
@@ -242,6 +270,11 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
+	case MARIO_STATE_STAND_SHOOT:
+		throw_start = GetTickCount64();
+
+
+		break;
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_RUNNING_SPEED;
@@ -317,7 +350,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if (level==MARIO_LEVEL_BIG|| level == 3)
 	{
 		if (isSitting)
 		{

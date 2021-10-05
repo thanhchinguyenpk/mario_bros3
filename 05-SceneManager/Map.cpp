@@ -31,8 +31,8 @@ void Map::LoadTileSet()
 		}
 	}
 
-	DebugOut(L"day nefff: %d \n", map[0][0]);
-	DebugOut(L"day nefff: %d \n", map[0][1]);
+	//DebugOut(L"day nefff: %d \n", map[0][0]);
+	//DebugOut(L"day nefff: %d \n", map[0][1]);
 
 	f.close();
 
@@ -87,8 +87,8 @@ void Map::Draw()
 	if (begin_column < 0)
 		begin_column = 0;
 
-	DebugOut(L"end row %d \n", end_row);
-	DebugOut(L"end column %d \n", end_column);
+	//DebugOut(L"end row %d \n", end_row);
+	//DebugOut(L"end column %d \n", end_column);
 
 
 	//CSprites* sprites = CSprites::GetInstance();
