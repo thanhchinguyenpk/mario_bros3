@@ -31,7 +31,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_A: 
 	case 14:
-		mario->SetState(MARIO_STATE_STAND_SHOOT);
+		if(mario->GetLevel()==3)
+			mario->SetState(MARIO_STATE_STAND_SHOOT);
+		else if(mario->GetLevel()==4)
+			mario->SetState(MARIO_STATE_SPIN);
 		break;
 	}
 }
@@ -73,6 +76,9 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	{
 		if (mario->GetState() == MARIO_STATE_STAND_SHOOT)
 			return;
+		if (mario->GetState() == MARIO_STATE_SPIN)
+			return;
+		//DebugOut(L"[INFO] ra luôn luôn?\n" );
 		mario->SetState(MARIO_STATE_IDLE);
 	}
 		
