@@ -36,6 +36,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Platform.h"
+#include "MarioBullet.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -168,6 +169,23 @@ void LoadAssetsMario()
 	sprites->Add(ID_SPRITE_MARIO_BIG_FIRE_FLY_THROW_OPEN_RIGHT, 555, 109, 555 + 19, 109 + 27, texMarioPro);
 	sprites->Add(ID_SPRITE_MARIO_BIG_FIRE_FLY_THROW_CLOSE_RIGHT, 621, 109, 621 + 18, 109 + 27, texMarioPro);
 	
+
+
+	//# spin
+	//	10062	12	13	21	28	113
+	//	10063	55	13	39	28	113
+	//	10064	103	13	35	28	113
+	//	10077	147	12	32	29	113
+	//	11003	192	13	35	28	113
+	//	11004	12	13	21	28	113
+
+
+	//============= bullet
+	sprites->Add(18000, 162, 124, 162 + 8, 124 + 8, texMarioPro);
+
+
+
+
 
 	/*#fly and throw
 10105	555	109	19	27	30
@@ -318,6 +336,9 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_MARIO_BIG_FIRE_FLY_THROW_CLOSE_RIGHT);
 	animations->Add(ID_ANI_MARIO_BIG_FIRE_FLY_SHOOT_BULLET_RIGHT, ani);
 	
+	ani = new CAnimation(100);
+	ani->Add(18000);
+	animations->Add(1800, ani);
 	
 }
 
@@ -443,6 +464,9 @@ void Reload()
 {
 	ClearScene();
 
+	MarioBullet* bullet = new MarioBullet(200,1000);
+	objects.push_back(bullet);
+
 	// Main ground
 	for (int i = 0; i < NUM_BRICKS; i++)
 	{
@@ -497,11 +521,11 @@ void Reload()
 	mario = new CMario(MARIO_START_X, MARIO_START_Y);
 	objects.push_back(mario);
 
-	for (int j = 0; j < 1; j++)
+	/*for (int j = 0; j < 1; j++)
 	{
 		CGoomba* goomba = new CGoomba(GOOMBA_X + j * 60, GROUND_Y - 120.0f);
 		objects.push_back(goomba);
-	}
+	}*/
 
 	// COINS 
 
