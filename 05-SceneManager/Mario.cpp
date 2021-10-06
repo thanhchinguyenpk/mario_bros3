@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "debug.h"
 
 #include "Mario.h"
@@ -34,7 +34,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		spin_start = 0;
-		DebugOut(L"[INFO] ra lu�n lu�n?\n");
+		DebugOut(L"[INFO] ra luôn luôn?\n");
 
 	}
 
@@ -72,6 +72,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
+
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
@@ -99,7 +100,11 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 				}
 			}
 		}
+
+		DebugOut(L"[INFO] trung koompas không bên trong %d\n");
+
 	}
+	DebugOut(L"[INFO] trung koompas không bên ngoài %d\n");
 }
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
@@ -408,6 +413,34 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
 		}
+	}
+	if (level== 4)
+	{
+		//MARIO_TAIL_BBOX_WIDTH
+		//MARIO_TAIL_BBOX_HEIGHT
+		if (this->GetState() == MARIO_STATE_SPIN)
+		{
+			//chỗ này nè
+			/*left = x - MARIO_TAIL_BBOX_WIDTH / 2-90;
+			top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+			right = left + MARIO_TAIL_BBOX_WIDTH;
+			bottom = top + MARIO_TAIL_BBOX_HEIGHT;*/
+
+			left = x - MARIO_TAIL_BBOX_WIDTH / 2 - 90;
+			//top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+			top = y - 5;
+
+			right = x + MARIO_TAIL_BBOX_WIDTH / 2 + 90;
+			bottom = y + MARIO_TAIL_BBOX_HEIGHT / 2;
+		}
+		else
+		{
+			left = x - MARIO_TAIL_BBOX_WIDTH / 2;
+			top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+			right = left + MARIO_TAIL_BBOX_WIDTH;
+			bottom = top + MARIO_TAIL_BBOX_HEIGHT;
+		}
+		
 	}
 	else
 	{

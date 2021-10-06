@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Mario.h"
 
 #define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_WALKING_SPEED 0.05f
@@ -20,12 +21,15 @@
 class CGoomba : public CGameObject
 {
 protected:
+
+	
+
 	float ax;				
 	float ay; 
-
+	CMario* player;
 	ULONGLONG die_start;
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom);
+	
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
@@ -36,6 +40,7 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public: 	
-	CGoomba(float x, float y);
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+	CGoomba(float x, float y,CMario* mario);
 	virtual void SetState(int state);
 };
