@@ -43,7 +43,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		fly_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
-	DebugOut(L"[INFO] state la: %d\n", state);
+	//DebugOut(L"[INFO] state la: %d\n", state);
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -301,7 +301,7 @@ void CMario::Render()
 		aniId = GetAniIdTail();
 	//ID_ANI_MARIO_BIG_TAIL_SPIN_RIGHT
 	animations->Get(aniId)->Render(x, y);
-	DebugOut(L"[INFO] anii: %d\n", aniId);
+	//DebugOut(L"[INFO] anii: %d\n", aniId);
 	RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);

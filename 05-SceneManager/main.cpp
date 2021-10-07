@@ -37,6 +37,7 @@
 #include "Coin.h"
 #include "Platform.h"
 #include "MarioBullet.h"
+#include "Koompas.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -61,7 +62,7 @@
 
 #define TEXTURE_PATH_MARIOPRO TEXTURES_DIR "\\MARIOPRO.png"
 #define TEXTURE_PATH_TAIL TEXTURES_DIR "\\MARIO_TAIL_SPIN.png"
-
+#define TEXTURE_PATH_ENEMY TEXTURES_DIR "\\enemy.png"
 
 
 CGame *game;
@@ -94,7 +95,7 @@ void LoadAssetsMario()
 	LPTEXTURE texMario = textures->Get(ID_TEX_MARIO);
 	LPTEXTURE texMarioPro = textures->Get(30);
 	LPTEXTURE texMarioTail = textures->Get(40);
-	
+	LPTEXTURE texEnemy = textures->Get(50);
 
 	// IDLE
 	sprites->Add(ID_SPRITE_MARIO_BIG_IDLE_RIGHT + 1, 246, 154, 246 + 13, 154 + 26, texMario);
@@ -189,6 +190,18 @@ void LoadAssetsMario()
 
 	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_JUMP_LEFT , 257, 143, 257 + 23, 143 + 27, texMarioPro);
 	
+
+
+	sprites->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT,  31, 119, 31 + 16, 119 + 26, texEnemy);
+	sprites->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT+1, 50, 118, 50 + 16, 118 + 27, texEnemy);
+
+	
+
+
+	//# GREEN KOOPA
+	//	# walking left
+	//	40021	31	119	16	26	
+	//	40022	50	118	16	27	
 
 	//# jump
 	//	10057	257	143	23	27	
@@ -405,6 +418,11 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT + 2);
 	animations->Add(ID_ANI_MARIO_BIG_TAIL_FLY_DOWN_RIGHT, ani);
 	
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT);
+	ani->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT + 1);
+	animations->Add(ID_ANI_KOOMPAS_WALKING_LEFT, ani);
+	
 	
 }
 
@@ -492,6 +510,8 @@ void LoadResources()
 
 	textures->Add(30, TEXTURE_PATH_MARIOPRO);
 	textures->Add(40, TEXTURE_PATH_TAIL);
+	textures->Add(50, TEXTURE_PATH_ENEMY);
+	
 	
 
 	LoadAssetsMario();
@@ -597,11 +617,15 @@ void Reload()
 
 	// COINS 
 
-	/*for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2), GROUND_Y - 96.0f);
+		CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2) +200, GROUND_Y - 96.0f+1150);
 		objects.push_back(c);
-	}*/
+	}
+
+	Koompas* m = new Koompas(400,800,mario);
+	objects.push_back(m);
+
 }
 
 bool IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }

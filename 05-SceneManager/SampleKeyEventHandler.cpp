@@ -33,13 +33,14 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetLevel(3);
 		break;
 	case DIK_4:
+	
 		mario->SetLevel(4);
 		break;
 	case DIK_R: // reset
 		Reload();
 		break;
 	case DIK_A: 
-	case 14:
+	case 14://DIK_BACKSPACE
 		if(mario->GetLevel()==3)
 			mario->SetState(MARIO_STATE_STAND_SHOOT);
 		else if(mario->GetLevel()==4)
