@@ -39,6 +39,8 @@
 
 #define MARIO_STATE_SPIN		800
 
+#define MARIO_STATE_FLY		820
+
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_IDLE_RIGHT 400
@@ -91,6 +93,9 @@
 //===spin
 #define ID_ANI_MARIO_BIG_TAIL_STAND_RIGHT 1900
 #define ID_ANI_MARIO_BIG_TAIL_SPIN_RIGHT 1901
+#define ID_ANI_MARIO_BIG_TAIL_JUMP_RIGHT 1915
+
+#define ID_ANI_MARIO_BIG_TAIL_FLY_DOWN_RIGHT 1920
 
 #pragma endregion
 
@@ -130,6 +135,7 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG throw_start = 0;
 	DWORD spin_start = 0;
+	DWORD fly_start = 0;
 
 	BOOLEAN isOnPlatform;
 	int coin; 
@@ -169,7 +175,7 @@ public:
 	}
 
 	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable==0); }
-
+	bool IsOnTheFlatForm() { return isOnPlatform; };
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 

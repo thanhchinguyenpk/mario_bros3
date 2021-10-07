@@ -1,4 +1,4 @@
-/* =============================================================
+﻿/* =============================================================
 	INTRODUCTION TO GAME PROGRAMMING SE102
 	
 	SAMPLE 04 - COLLISION
@@ -183,7 +183,25 @@ void LoadAssetsMario()
 	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_SPIN_LEFT+4,  192, 13,192 + 35, 13 + 28, texMarioTail);
 	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_SPIN_LEFT+5,   12, 13, 12 + 21, 13 + 28, texMarioTail);
 
+	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT,	283, 143, 283 + 23, 143 + 27, texMarioPro);
+	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT + 1, 334, 142, 334 + 23, 142 + 28, texMarioPro);
+	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT + 2, 309, 143, 309 + 23, 143 + 27, texMarioPro);
+
+	sprites->Add(ID_SPRITE_MARIO_BIG_TAIL_JUMP_LEFT , 257, 143, 257 + 23, 143 + 27, texMarioPro);
 	
+
+	//# jump
+	//	10057	257	143	23	27	
+
+	//# FLY
+	//	10069	441	143	24	27	30
+	//	10070	468	143	24	27	30
+	//	10071	495	142	24	28	30
+	
+	//#fly hạ cánh áp lực
+	//	11000	283	143	23	27	
+	//	11001	334	142	23	28	
+	//	11002	309	143	23	27	
 
 
 	//15100
@@ -375,6 +393,17 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_SPIN_LEFT+4);
 	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_SPIN_LEFT+5);
 	animations->Add(ID_ANI_MARIO_BIG_TAIL_SPIN_RIGHT, ani);
+	
+	
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_JUMP_LEFT);
+	animations->Add(ID_ANI_MARIO_BIG_TAIL_JUMP_RIGHT, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT);
+	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT + 1);
+	ani->Add(ID_SPRITE_MARIO_BIG_TAIL_FLY_DOWN_LEFT + 2);
+	animations->Add(ID_ANI_MARIO_BIG_TAIL_FLY_DOWN_RIGHT, ani);
 	
 	
 }

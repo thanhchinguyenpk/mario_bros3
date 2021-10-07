@@ -12,7 +12,8 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	vy += ay * dt;
+	if(state!= MARIO_STATE_FLY)
+		vy += ay * dt;
 	vx += ax * dt;
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
@@ -34,10 +35,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		spin_start = 0;
-		DebugOut(L"[INFO] ra luôn luôn?\n");
-
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
-
+	if (GetState() == MARIO_STATE_FLY && GetTickCount64() - fly_start >= 300 && fly_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		fly_start = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+	DebugOut(L"[INFO] state la: %d\n", state);
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -131,7 +137,7 @@ int CMario::GetAniIdSmall()
 		else
 		{
 			if (nx >= 0)
-				aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT;
+				aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_RIGHT; // là nhảy lên
 			else
 				aniId = ID_ANI_MARIO_SMALL_JUMP_WALK_LEFT;
 		}
@@ -199,6 +205,11 @@ int CMario::GetAniIdTail()
 
 	if (!isOnPlatform)
 	{
+		
+		if (nx >= 0)
+			aniId = ID_ANI_MARIO_BIG_TAIL_JUMP_RIGHT;
+		if (state == MARIO_STATE_FLY)
+			aniId = ID_ANI_MARIO_BIG_TAIL_FLY_DOWN_RIGHT;
 	}
 	else
 	{
@@ -290,7 +301,7 @@ void CMario::Render()
 		aniId = GetAniIdTail();
 	//ID_ANI_MARIO_BIG_TAIL_SPIN_RIGHT
 	animations->Get(aniId)->Render(x, y);
-
+	DebugOut(L"[INFO] anii: %d\n", aniId);
 	RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);
@@ -303,11 +314,13 @@ void CMario::SetState(int state)
 
 	switch (state)
 	{
-		
+		//MARIO_STATE_FLY
+	case MARIO_STATE_FLY:
+		fly_start = GetTickCount64();
+		vy = -0.02;
+		break;
 	case MARIO_STATE_SPIN:
 		spin_start = GetTickCount64();
-		
-
 		break;
 	case MARIO_STATE_STAND_SHOOT:
 		throw_start = GetTickCount64();
@@ -346,6 +359,10 @@ void CMario::SetState(int state)
 				vy = -(MARIO_JUMP_RUN_SPEED_Y+0.2);
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
+		}
+		else
+		{
+
 		}
 		break;
 
