@@ -9,7 +9,7 @@ Koompas::Koompas(float x, float y, CMario* mario) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(GOOMBA_STATE_INDENT_IN);
 
 	player = mario;
 }
@@ -87,22 +87,26 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
 	{
 		//SetState(CONCO_STATE_WAS_SHOOTED);
-
+		//DebugOut(L"[INFO] bump, kill koompas  \n");
 		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
-		this->SetState(GOOMBA_STATE_DIE);
+		//this->SetState(GOOMBA_STATE_DIE);
 	}
 }
 
 
 void Koompas::Render()
 {
-	int aniId = ID_ANI_GOOMBA_WALKING;
+	int aniId = ID_ANI_KOOMPAS_WALKING_LEFT;
 	if (state == GOOMBA_STATE_DIE)
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
+	else if (state == GOOMBA_STATE_INDENT_IN)// á
+	{
+		aniId = ID_ANI_KOOMPAS_INDENT_IN;
+	}
 
-	CAnimations::GetInstance()->Get(ID_ANI_KOOMPAS_WALKING_LEFT)->Render(x, y);
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	RenderBoundingBox();
 }
 
@@ -119,8 +123,14 @@ void Koompas::SetState(int state)
 		ay = 0;
 		break;
 	case GOOMBA_STATE_WALKING:
-		//vx = -GOOMBA_WALKING_SPEED;
+		vx = -GOOMBA_WALKING_SPEED;
 		vx = 0;
 		break;
+	case GOOMBA_STATE_INDENT_IN:
+		//vx = -GOOMBA_WALKING_SPEED;
+		vx = 0;
+		vy = 0; 
+		break;
+		
 	}
 }

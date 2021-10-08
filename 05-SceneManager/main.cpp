@@ -62,7 +62,7 @@
 
 #define TEXTURE_PATH_MARIOPRO TEXTURES_DIR "\\MARIOPRO.png"
 #define TEXTURE_PATH_TAIL TEXTURES_DIR "\\MARIO_TAIL_SPIN.png"
-#define TEXTURE_PATH_ENEMY TEXTURES_DIR "\\enemy.png"
+#define TEXTURE_PATH_ENEMY_1 TEXTURES_DIR "\\enemy.png"
 
 
 CGame *game;
@@ -194,6 +194,8 @@ void LoadAssetsMario()
 
 	sprites->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT,  31, 119, 31 + 16, 119 + 26, texEnemy);
 	sprites->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT+1, 50, 118, 50 + 16, 118 + 27, texEnemy);
+
+	sprites->Add(ID_SPRITE_KOOMPAS_INDENT_IN , 32, 149, 32 + 16, 149 + 16, texEnemy);
 
 	
 
@@ -422,6 +424,12 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT);
 	ani->Add(ID_SPRITE_KOOMPAS_WALKING_LEFT + 1);
 	animations->Add(ID_ANI_KOOMPAS_WALKING_LEFT, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_KOOMPAS_INDENT_IN);
+	animations->Add(ID_ANI_KOOMPAS_INDENT_IN, ani);
+
+	
 	
 	
 }
@@ -510,7 +518,7 @@ void LoadResources()
 
 	textures->Add(30, TEXTURE_PATH_MARIOPRO);
 	textures->Add(40, TEXTURE_PATH_TAIL);
-	textures->Add(50, TEXTURE_PATH_ENEMY);
+	textures->Add(50, TEXTURE_PATH_ENEMY_1);
 	
 	
 

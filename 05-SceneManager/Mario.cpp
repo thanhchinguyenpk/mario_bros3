@@ -6,6 +6,7 @@
 
 #include "Goomba.h"
 #include "Coin.h"
+#include "Koompas.h"
 
 #include "Collision.h"
 #include "MarioBullet.h"
@@ -47,6 +48,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
+	DebugOut(L"[INFO] vx la: %f\n", vx);
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -72,6 +75,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
 		OnCollisionWithCoin(e);
+	else if (dynamic_cast<Koompas*>(e->obj))
+		OnCollisionWithKoompas(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -117,6 +122,19 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
 	coin++;
+}
+
+void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
+{
+	Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
+	if (e->ny < 0)
+	{
+		if (koompas->GetState() != GOOMBA_STATE_INDENT_IN)
+		{
+			//koompas->SetState(GOOMBA_STATE_INDENT_IN);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+	}
 }
 
 //
