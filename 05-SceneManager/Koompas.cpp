@@ -7,7 +7,7 @@
 Koompas::Koompas(float x, float y, CMario* mario) :CGameObject(x, y)
 {
 	this->ax = 0;
-	this->ay = GOOMBA_GRAVITY;
+	//this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
 
@@ -16,7 +16,7 @@ Koompas::Koompas(float x, float y, CMario* mario) :CGameObject(x, y)
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == GOOMBA_STATE_INDENT_IN)
+	if (state == GOOMBA_STATE_INDENT_IN || state == GOOMBA_STATE_SHELL_RUNNING)
 	{
 		left = x - GOOMBA_BBOX_WIDTH_INDENT_IN / 2;
 		top = y - GOOMBA_BBOX_HEIGHT_INDENT_IN / 2;
@@ -36,6 +36,7 @@ void Koompas::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
+	//y += vy * dt;
 };
 
 void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -55,8 +56,8 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
+	vy += 0.002 * dt;
+	//vx += ax * dt;
 
 	if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
 	{
@@ -77,7 +78,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
 	}*/
 
-
+	//DebugOut(L"[INFO] state con co la: %d \n",state);
 	float ml, mt, mr, mb;
 	float il, it, ir, ib;
 
@@ -91,6 +92,8 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
 		//this->SetState(GOOMBA_STATE_DIE);
 	}
+
+	DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
 }
 
 
@@ -101,7 +104,7 @@ void Koompas::Render()
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
-	else if (state == GOOMBA_STATE_INDENT_IN)// á
+	else if (state == GOOMBA_STATE_INDENT_IN||state==400)// á
 	{
 		aniId = ID_ANI_KOOMPAS_INDENT_IN;
 	}
@@ -130,7 +133,16 @@ void Koompas::SetState(int state)
 		//vx = -GOOMBA_WALKING_SPEED;
 		vx = 0;
 		vy = 0; 
+		//ax = 0;
+		//ay = 0;
 		break;
+	case GOOMBA_STATE_SHELL_RUNNING:
+		vx = 0.2;
+		//vy = 0;
+
+		break;
+
+		
 		
 	}
 }

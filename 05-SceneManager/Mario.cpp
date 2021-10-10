@@ -49,7 +49,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
-	DebugOut(L"[INFO] vx la: %f\n", vx);
+	//DebugOut(L"[INFO] vx la: %f\n", vx);
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -132,9 +132,18 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		if (koompas->GetState() != GOOMBA_STATE_INDENT_IN)
 		{
 			koompas->SetState(GOOMBA_STATE_INDENT_IN);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			
 		}
+		else if(koompas->GetState() == GOOMBA_STATE_INDENT_IN)
+		{
+			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+			
+		}
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
+
+	
+
 }
 
 //
