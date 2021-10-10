@@ -129,6 +129,9 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
 	if (e->ny < 0)
 	{
+		float x, y;
+		koompas->GetPosition(x, y);
+		koompas->SetPosition(x, y - 1); // trừ bớt để khi đội đầu không bị rớt ra khỏi tg
 		if (koompas->GetState() != GOOMBA_STATE_INDENT_IN)
 		{
 			koompas->SetState(GOOMBA_STATE_INDENT_IN);

@@ -137,7 +137,7 @@ void Koompas::SetState(int state)
 		//ay = 0;
 		break;
 	case GOOMBA_STATE_SHELL_RUNNING:
-		vx = 0.2;
+		vx = 0.02;
 		//vy = 0;
 
 		break;
