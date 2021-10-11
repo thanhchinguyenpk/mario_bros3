@@ -14,6 +14,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	//DebugOut(L"key code : %d\n", KeyCode);
+	case DIK_W:
+		mario->SetIsHolding(false);
+		break;
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT);
 		break;
@@ -45,6 +48,8 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			mario->SetState(MARIO_STATE_STAND_SHOOT);
 		else if(mario->GetLevel()==4)
 			mario->SetState(MARIO_STATE_SPIN);
+		else if(mario->GetLevel()==1)
+			mario->SetIsHolding(true);
 		break;
 	}
 }
@@ -62,6 +67,11 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		break;
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT_RELEASE);
+		break;
+	case DIK_A:
+	case 14://DIK_BACKSPACE
+		 if (mario->GetLevel() == 1)
+			mario->SetIsHolding(false);
 		break;
 	}
 }

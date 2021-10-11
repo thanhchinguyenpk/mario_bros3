@@ -16,7 +16,8 @@ Koompas::Koompas(float x, float y, CMario* mario) :CGameObject(x, y)
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == GOOMBA_STATE_INDENT_IN || state == GOOMBA_STATE_SHELL_RUNNING)
+	if (state == GOOMBA_STATE_INDENT_IN || state == GOOMBA_STATE_SHELL_RUNNING|| 
+		state == GOOMBA_STATE_BEING_HOLDING)
 	{
 		left = x - GOOMBA_BBOX_WIDTH_INDENT_IN / 2;
 		top = y - GOOMBA_BBOX_HEIGHT_INDENT_IN / 2;
@@ -34,6 +35,7 @@ void Koompas::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void Koompas::OnNoCollision(DWORD dt)
 {
+	
 	x += vx * dt;
 	y += vy * dt;
 	//y += vy * dt;
@@ -52,11 +54,22 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = -vx;
 	}
+
+
 }
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += 0.002 * dt;
+	//DebugOut(L"[INFO] state koompas %d \n",state);
+	if (state == GOOMBA_STATE_BEING_HOLDING)
+	{
+		float x, y;
+		player->GetPosition(x, y);
+		SetPosition(x+50, y-40);
+		//return;
+	}
+	if (state != GOOMBA_STATE_BEING_HOLDING)
+		vy += 0.002 * dt;
 	//vx += ax * dt;
 
 	if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
@@ -93,7 +106,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//this->SetState(GOOMBA_STATE_DIE);
 	}
 
-	DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
+	//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
 }
 
 
@@ -104,7 +117,7 @@ void Koompas::Render()
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
 	}
-	else if (state == GOOMBA_STATE_INDENT_IN||state==400)// á
+	else if (state == GOOMBA_STATE_INDENT_IN||state==400 || state == GOOMBA_STATE_BEING_HOLDING)// á
 	{
 		aniId = ID_ANI_KOOMPAS_INDENT_IN;
 	}
@@ -139,8 +152,13 @@ void Koompas::SetState(int state)
 	case GOOMBA_STATE_SHELL_RUNNING:
 		vx = 0.02;
 		//vy = 0;
-
 		break;
+	case GOOMBA_STATE_BEING_HOLDING:
+		vx = 0;
+		vy = 0;
+		//vy = 0;
+		break;
+		
 
 		
 		

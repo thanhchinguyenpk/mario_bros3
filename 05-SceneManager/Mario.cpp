@@ -77,6 +77,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<Koompas*>(e->obj))
 		OnCollisionWithKoompas(e);
+
+	if (holding_something != NULL)
+	{
+		if (isHolding == false)
+		{
+			Koompas* koompas = dynamic_cast<Koompas*>(holding_something);
+			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+			holding_something = NULL;
+		
+		}
+	}
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -144,6 +155,23 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		}
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
+	else
+	{
+		if (isHolding ==true)
+		{
+			if (koompas->GetState() == GOOMBA_STATE_INDENT_IN)
+			{
+				holding_something = koompas;
+				koompas->SetState(GOOMBA_STATE_BEING_HOLDING);
+			}
+		}
+		
+
+		
+		
+	}
+
+	
 
 	
 
