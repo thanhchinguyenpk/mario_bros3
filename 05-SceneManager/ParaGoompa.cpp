@@ -2,6 +2,7 @@
 
 #include "Goomba.h"
 #include "Mario.h"
+#include "Brick.h"
 
 //extern  CMario* mario;
 ParaGoompa::ParaGoompa(float x, float y, CMario* mario) :CGameObject(x, y)
@@ -9,7 +10,7 @@ ParaGoompa::ParaGoompa(float x, float y, CMario* mario) :CGameObject(x, y)
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
-	SetState(GOOMBA_STATE_WALKING);
+	SetState(GOOMBA_STATE_WALKING_LEFT);
 
 	player = mario;
 }
@@ -43,6 +44,8 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
 
+	DebugOut(L"[INFO] state con cua do la: %d\n", state);
+
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -51,6 +54,49 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = -vx;
 	}
+	if (dynamic_cast<CBrick*>(e->obj))
+	{
+		if ((GetState() == GOOMBA_STATE_WALKING_LEFT|| GetState() == GOOMBA_STATE_WALKING_RIGHT)
+			&& GetTickCount64() - walking_start >= 2000 && walking_start)
+		{
+
+
+			SetState(GOOMBA_STATE_JUMP_SHORT_1);
+			walking_start = 0;
+
+		}
+		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_1)
+		{
+			vy = -0.25 * 1.5;
+			SetState(GOOMBA_STATE_JUMP_SHORT_2);
+		}
+		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_2)
+		{
+			vy = -0.25 * 1.5;
+			SetState(GOOMBA_STATE_JUMP_SHORT_3);
+		}
+		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_3)
+		{
+			vy = -0.25 * 1.5;
+			SetState(GOOMBA_STATE_JUMP_HIGH);
+		}
+		else if (GetState() == GOOMBA_STATE_JUMP_HIGH)
+		{
+			vy = -0.25 * 2.5;
+			
+
+			float x_player, y_player;
+			player->GetPosition(x_player, y_player);
+			if(this->x> x_player)
+				SetState(GOOMBA_STATE_WALKING_LEFT);
+			else
+				SetState(GOOMBA_STATE_WALKING_RIGHT);
+
+		}
+		
+	}
+
+	
 }
 
 void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -119,9 +165,23 @@ void ParaGoompa::SetState(int state)
 		vy = 0;
 		ay = 0;
 		break;
-	case GOOMBA_STATE_WALKING:
-		//vx = -GOOMBA_WALKING_SPEED;
-		vx = 0;
+	case GOOMBA_STATE_WALKING_LEFT:
+		walking_start = GetTickCount64();
+		vx = -0.02;
 		break;
+	case GOOMBA_STATE_WALKING_RIGHT:
+		walking_start = GetTickCount64();
+		vx = 0.02;
+		break;
+		
+	case GOOMBA_STATE_JUMP_SHORT_1:
+		break;
+	case GOOMBA_STATE_JUMP_SHORT_2:
+		break;
+	case GOOMBA_STATE_JUMP_SHORT_3:
+		break;
+	case GOOMBA_STATE_JUMP_HIGH:
+		break;
+		
 	}
 }

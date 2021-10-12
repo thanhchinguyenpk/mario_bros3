@@ -578,9 +578,6 @@ void Reload()
 
 	
 
-	MarioBullet* bullet = new MarioBullet(200,1000);
-	objects.push_back(bullet);
-
 	// Main ground
 	//for (int i = 0; i < NUM_BRICKS; i++)
 	//{
@@ -635,11 +632,11 @@ void Reload()
 	mario = new CMario(MARIO_START_X, 1200);
 	objects.push_back(mario);
 
-	for (int j = 0; j < 1; j++)
+	/*for (int j = 0; j < 1; j++)
 	{
 		CGoomba* goomba = new CGoomba(GOOMBA_X + j * 60, GROUND_Y - 120.0f,mario);
 		objects.push_back(goomba);
-	}
+	}*/
 
 	// COINS 
 
@@ -652,8 +649,12 @@ void Reload()
 	//CBrick* c = new CBrick(300, 1100);
 	//objects.push_back(c);
 
-	Koompas* m = new Koompas(400,800,mario);
-	objects.push_back(m);
+	/*Koompas* m = new Koompas(400,800,mario);
+	objects.push_back(m);*/
+
+	/*MarioBullet* bullet = new MarioBullet(200, 1000);
+	objects.push_back(bullet);*/
+
 
 	ParaGoompa* p = new ParaGoompa(500, 800, mario);
 	objects.push_back(p);
