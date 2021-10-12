@@ -38,6 +38,7 @@
 #include "Platform.h"
 #include "MarioBullet.h"
 #include "Koompas.h"
+#include "ParaGoompa.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -63,7 +64,7 @@
 #define TEXTURE_PATH_MARIOPRO TEXTURES_DIR "\\MARIOPRO.png"
 #define TEXTURE_PATH_TAIL TEXTURES_DIR "\\MARIO_TAIL_SPIN.png"
 #define TEXTURE_PATH_ENEMY_1 TEXTURES_DIR "\\enemy.png"
-
+#define TEXTURE_PATH_CONPHUMLUA TEXTURES_DIR "\\CONPHUNLUA.png"
 
 CGame *game;
 CMario *mario;
@@ -96,6 +97,8 @@ void LoadAssetsMario()
 	LPTEXTURE texMarioPro = textures->Get(30);
 	LPTEXTURE texMarioTail = textures->Get(40);
 	LPTEXTURE texEnemy = textures->Get(50);
+	LPTEXTURE texConPhunLua = textures->Get(109);
+
 
 	// IDLE
 	sprites->Add(ID_SPRITE_MARIO_BIG_IDLE_RIGHT + 1, 246, 154, 246 + 13, 154 + 26, texMario);
@@ -197,7 +200,15 @@ void LoadAssetsMario()
 
 	sprites->Add(ID_SPRITE_KOOMPAS_INDENT_IN , 32, 149, 32 + 16, 149 + 16, texEnemy);
 
-	
+	sprites->Add(ID_SPRITE_PARA_GOOMPA_WALKING, 104, 70, 104 + 16, 70 + 16, texConPhunLua);
+
+
+
+
+	//red goomba
+	//40033	104	70	16	16	109
+	//	40034	125	70	16	16	109
+
 
 
 	//# GREEN KOOPA
@@ -429,6 +440,10 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_KOOMPAS_INDENT_IN);
 	animations->Add(ID_ANI_KOOMPAS_INDENT_IN, ani);
 
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_PARA_GOOMPA_WALKING);
+	animations->Add(ID_ANI_PARA_GOOMBA_WALKING, ani);
+	
 	
 	
 	
@@ -519,6 +534,7 @@ void LoadResources()
 	textures->Add(30, TEXTURE_PATH_MARIOPRO);
 	textures->Add(40, TEXTURE_PATH_TAIL);
 	textures->Add(50, TEXTURE_PATH_ENEMY_1);
+	textures->Add(109, TEXTURE_PATH_CONPHUMLUA);
 	
 	
 
@@ -559,6 +575,8 @@ void ClearScene()
 void Reload()
 {
 	ClearScene();
+
+	
 
 	MarioBullet* bullet = new MarioBullet(200,1000);
 	objects.push_back(bullet);
@@ -636,6 +654,9 @@ void Reload()
 
 	Koompas* m = new Koompas(400,800,mario);
 	objects.push_back(m);
+
+	ParaGoompa* p = new ParaGoompa(500, 800, mario);
+	objects.push_back(p);
 
 }
 
