@@ -125,6 +125,11 @@
 
 class CMario : public CGameObject
 {
+	float vx_store = 0;
+	float vy_store = 0;
+	
+	float y_store = 0;
+
 	CGameObject* holding_something = NULL;
 	BOOLEAN isHolding = false;
 
@@ -146,6 +151,7 @@ class CMario : public CGameObject
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoompas(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

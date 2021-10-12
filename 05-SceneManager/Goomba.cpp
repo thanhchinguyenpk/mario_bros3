@@ -63,7 +63,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}
 
 	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	float no_thing;
+	CCollision::GetInstance()->Process(this, dt, coObjects,no_thing);
 
 	/*float l_a, t_a, r_a, b_a;
 	float l_b, t_b, r_b, b_b;
@@ -86,8 +87,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	{
 		//SetState(CONCO_STATE_WAS_SHOOTED);
 
-		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
-		this->SetState(GOOMBA_STATE_DIE);
+		/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
+		this->SetState(GOOMBA_STATE_DIE);*/
 	}
 }
 

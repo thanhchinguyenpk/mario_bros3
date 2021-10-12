@@ -62,7 +62,8 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	float no_thing;
+	CCollision::GetInstance()->Process(this, dt, coObjects, no_thing);
 }
 
 
