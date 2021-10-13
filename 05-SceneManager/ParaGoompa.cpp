@@ -44,7 +44,7 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<CGoomba*>(e->obj)) return;
 
-	DebugOut(L"[INFO] state con cua do la: %d\n", state);
+	//DebugOut(L"[INFO] state con cua do la: %d\n", state);
 
 	if (e->ny != 0)
 	{

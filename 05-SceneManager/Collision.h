@@ -17,7 +17,7 @@ struct CCollisionEvent
 	LPGAMEOBJECT src_obj;		// source object : the object from which to calculate collision
 	LPGAMEOBJECT obj;			// the target object
 	
-	float t, nx, ny;
+	float t, nx, ny;	//t: time
 
 	float dx, dy;				// *RELATIVE* movement distance between this object and obj
 	bool isDeleted;		

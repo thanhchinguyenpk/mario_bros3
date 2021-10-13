@@ -67,7 +67,7 @@ void CMario::OnNoCollision(DWORD dt)
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	
-	if (e->ny != 0 && e->obj->IsBlocking())
+	if (e->ny != 0 && e->obj->IsBlocking()) // hàm ảo: nếu vật thể đó là block
 	{
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;

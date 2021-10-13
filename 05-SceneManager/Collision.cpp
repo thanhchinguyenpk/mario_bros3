@@ -1,4 +1,4 @@
-#include "Collision.h"
+﻿#include "Collision.h"
 #include "GameObject.h"
 
 #include "debug.h"
@@ -165,7 +165,7 @@ void CCollision::Scan(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* objDe
 	{
 		LPCOLLISIONEVENT e = SweptAABB(objSrc, dt, objDests->at(i));
 
-		if (e->WasCollided()==1)
+		if (e->WasCollided()==1) //va chạm hay chưa?
 			coEvents.push_back(e);
 		else
 			delete e;
@@ -226,7 +226,7 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 
 	coEvents.clear();
 
-	if (objSrc->IsCollidable())
+	if (objSrc->IsCollidable()) // mario chết thì ko cần nữa? trường hợp khác?
 	{
 		Scan(objSrc, dt, coObjects, coEvents);
 	}
@@ -238,7 +238,7 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 	}
 	else
 	{
-		Filter(objSrc, coEvents, colX, colY);
+		Filter(objSrc, coEvents, colX, colY); // ;ọc để lấy 2 cái thui
 
 		float x, y, vx, vy, dx, dy;
 		objSrc->GetPosition(x, y);
