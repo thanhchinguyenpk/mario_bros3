@@ -59,7 +59,19 @@ void CBrick::SetState(int state)
 		
 		BrickDebris* debrick_brick = NULL;
 
-		debrick_brick = new BrickDebris(this->x, this->y-40, 1, 1.5);
+
+		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, 1, 1.5);
+		vec_debris.push_back(debrick_brick);
+
+
+		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, 1, 1);
+		vec_debris.push_back(debrick_brick);
+
+
+		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, -1, 1);
+		vec_debris.push_back(debrick_brick);
+
+		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, -1, 1.5);
 		vec_debris.push_back(debrick_brick);
 		
 		break;
