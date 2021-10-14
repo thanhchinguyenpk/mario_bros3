@@ -125,6 +125,7 @@
 
 class CMario : public CGameObject
 {
+	bool jump_down_to_up=false;
 	float vx_store = 0;
 	float vy_store = 0;
 	

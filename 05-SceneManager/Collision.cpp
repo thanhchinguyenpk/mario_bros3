@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include "debug.h"
+#include "Brick.h"
 
 #define BLOCK_PUSH_FACTOR 0.4f
 
@@ -196,7 +197,7 @@ void CCollision::Filter( LPGAMEOBJECT objSrc,
 		if (c->obj->IsDeleted()) continue; 
 
 		// ignore collision event with object having IsBlocking = 0 (like coin, mushroom, etc)
-		if (filterBlock == 1 && !c->obj->IsBlocking()) 
+		if (filterBlock == 1 && !c->obj->IsBlocking()) // nếu ko phải là loại block thì skip, 
 		{
 			continue;
 		}
@@ -328,17 +329,31 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 		else 
 			if (colY != NULL)
 			{
+				DebugOut(L"[INFO] có phải vô trục y khum?\n");
 				x += dx;
-				y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
+				//dynamic_cast<CBrick*>(e->obj)
+
+				//if (dynamic_cast<CBrick*>(colY->obj) && colY->ny > 0)
+				//{
+
+				//}
+				//else
+					y += colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
+
+				//temp= colY->t * dy + colY->ny * BLOCK_PUSH_FACTOR;
 				objSrc->OnCollisionWith(colY);
 			}
 			else // both colX & colY are NULL 
 			{
+				
 				x += dx;
 				y += dy;
 			}
-
-		objSrc->SetPosition(x, y);
+		
+			
+			objSrc->SetPosition(x, y);
+		
+		
 	}
 
 	//

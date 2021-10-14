@@ -629,7 +629,7 @@ void Reload()
 		16, 15, 16, ID_SPRITE_CLOUD_BEGIN, ID_SPRITE_CLOUD_MIDDLE, ID_SPRITE_CLOUD_END);
 	objects.push_back(p);*/
 
-	mario = new CMario(MARIO_START_X, 1200);
+	mario = new CMario(MARIO_START_X+200, 1200);
 	objects.push_back(mario);
 
 	/*for (int j = 0; j < 1; j++)
@@ -640,14 +640,14 @@ void Reload()
 
 	// COINS 
 
-	/*for (int i = 0; i < 10; i++)
+	for (int i = -5; i < 10; i++)
 	{
 		CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2) +200, GROUND_Y - 96.0f+1150);
 		objects.push_back(c);
-	}*/
+	}
 
-	//CBrick* c = new CBrick(300, 1100);
-	//objects.push_back(c);
+	CBrick* c = new CBrick(300, 1100);
+	objects.push_back(c);
 
 	/*Koompas* m = new Koompas(400,800,mario);
 	objects.push_back(m);*/

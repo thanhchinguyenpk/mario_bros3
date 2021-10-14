@@ -54,14 +54,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects,y_store);
+	if (jump_down_to_up == true)
+	{
+		SetPosition(x, y-1);
+		jump_down_to_up = false;
+	}
 
-	//DebugOut(L"[INFO] vx la: %f\n", vx);
+	//DebugOut(L"[INFO] vy la: %f\n", vy);
+	DebugOut(L"[INFO] x thực sự %f\n", x);
 }
 
 void CMario::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
+	DebugOut(L"[INFO] khong chamk yy\n");
 }
 
 void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
@@ -69,11 +76,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	
 	if (e->ny != 0 && e->obj->IsBlocking()) // hàm ảo: nếu vật thể đó là block
 	{
+		vy_store = vy;
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
 	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
+	if (e->nx > 0  && e->obj->IsBlocking()) //<0 là từ bên trái di chuyển qua phải  //e->nx !=0 
 	{
 		vx = 0;
 	}
@@ -104,9 +112,17 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	
 	if (e->ny > 0)
 	{
+		/*DebugOut(L"[INFO] co vo va cham chieu duoi len ko?\n");
+		float x_, y_;
+		GetPosition(x_, y_);*/
+
+		jump_down_to_up = true;
 		vy = vy_store;
-		y += y_store*2;
-		DebugOut(L"[INFO] vy store là: %f\n", vy);
+		//y += y_store*2;
+
+		//SetPosition(x_, y+400);
+		//vy = vy_store;
+		
 	}
 	
 }
@@ -150,9 +166,14 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 }
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
-{
+{/*
 	e->obj->Delete();
-	coin++;
+	coin++;*/
+	//DebugOut(L"[INFO] mario cham gach?\n");
+	//DebugOut(L"[INFO] x trước %f\n",x);
+	//SetPosition(x+300, y);
+	//DebugOut(L"[INFO] x sau %f\n", x);
+	
 }
 
 void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
