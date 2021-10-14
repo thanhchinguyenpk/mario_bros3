@@ -153,6 +153,8 @@ class CMario : public CGameObject
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoompas(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
+	
 
 	int GetAniIdBig();
 	int GetAniIdSmall();

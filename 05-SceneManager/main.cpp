@@ -39,6 +39,7 @@
 #include "MarioBullet.h"
 #include "Koompas.h"
 #include "ParaGoompa.h"
+#include "FlatForm.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -65,6 +66,8 @@
 #define TEXTURE_PATH_TAIL TEXTURES_DIR "\\MARIO_TAIL_SPIN.png"
 #define TEXTURE_PATH_ENEMY_1 TEXTURES_DIR "\\enemy.png"
 #define TEXTURE_PATH_CONPHUMLUA TEXTURES_DIR "\\CONPHUNLUA.png"
+#define TEXTURE_PATH_DEBRIS TEXTURES_DIR "\\misc_1.png"
+
 
 CGame *game;
 CMario *mario;
@@ -98,6 +101,8 @@ void LoadAssetsMario()
 	LPTEXTURE texMarioTail = textures->Get(40);
 	LPTEXTURE texEnemy = textures->Get(50);
 	LPTEXTURE texConPhunLua = textures->Get(109);
+	LPTEXTURE texDebris = textures->Get(112);
+	
 
 
 	// IDLE
@@ -202,7 +207,16 @@ void LoadAssetsMario()
 
 	sprites->Add(ID_SPRITE_PARA_GOOMPA_WALKING, 104, 70, 104 + 16, 70 + 16, texConPhunLua);
 
+	sprites->Add(ID_SPRITE_PARA_GOOMPA_WALKING, 104, 70, 104 + 16, 70 + 16, texConPhunLua);
 
+	sprites->Add(ID_SPRITE_DEBRIS_BRICK, 458, 119, 458 + 10, 119 + 10, texDebris);
+	sprites->Add(ID_SPRITE_DEBRIS_BRICK+1, 470, 119, 470 + 10, 119 + 10, texDebris);
+
+	/*# debris
+		40074	458	119	10	10	112
+		40075	470	119	10	10	112
+		40076	78	0	33	39	103
+		40077	114	0	39	39	103*/
 
 
 	//red goomba
@@ -444,6 +458,10 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_PARA_GOOMPA_WALKING);
 	animations->Add(ID_ANI_PARA_GOOMBA_WALKING, ani);
 	
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_DEBRIS_BRICK);
+	ani->Add(ID_SPRITE_DEBRIS_BRICK+1);
+	animations->Add(ID_ANI_DEBRIS_BRICK, ani);
 	
 	
 	
@@ -535,6 +553,8 @@ void LoadResources()
 	textures->Add(40, TEXTURE_PATH_TAIL);
 	textures->Add(50, TEXTURE_PATH_ENEMY_1);
 	textures->Add(109, TEXTURE_PATH_CONPHUMLUA);
+	textures->Add(112, TEXTURE_PATH_DEBRIS);
+	
 	
 	
 
@@ -581,8 +601,8 @@ void Reload()
 	// Main ground
 	//for (int i = 0; i < NUM_BRICKS; i++)
 	//{
-		CBrick* b = new CBrick(0 * BRICK_WIDTH * 1.0f, 500+700+48);
-		objects.push_back(b);
+		/*CBrick* b = new CBrick(0 * BRICK_WIDTH * 1.0f, 500+700+48);
+		objects.push_back(b);*/
 	//}
 
 
@@ -640,11 +660,11 @@ void Reload()
 
 	// COINS 
 
-	for (int i = -5; i < 10; i++)
-	{
-		CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2) +200, GROUND_Y - 96.0f+1150);
-		objects.push_back(c);
-	}
+	//for (int i = -5; i < 10; i++)
+	//{
+	//	CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2) +200, GROUND_Y - 96.0f+1150);
+	//	objects.push_back(c);
+	//}
 
 	CBrick* c = new CBrick(300, 1100);
 	objects.push_back(c);
@@ -656,9 +676,11 @@ void Reload()
 	objects.push_back(bullet);*/
 
 
-	ParaGoompa* p = new ParaGoompa(500, 800, mario);
-	objects.push_back(p);
+	/*ParaGoompa* p = new ParaGoompa(500, 800, mario);
+	objects.push_back(p);*/
 
+	FlatForm* f = new FlatForm(500, 1250, 2000, 5);
+	objects.push_back(f);
 }
 
 bool IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
