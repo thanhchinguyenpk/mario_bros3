@@ -1,4 +1,4 @@
-#include "Brick.h"
+﻿#include "Brick.h"
 #include "debug.h"
 
 void CBrick::Render()
@@ -37,7 +37,7 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		DebugOut(L"[INFO]update hihi %d\n", vec_debris.size());
 		
 	}
-	DebugOut(L"[INFO]v� trong update brick khum? %d\n", vec_debris.size());
+	DebugOut(L"[INFO]vô trong update brick khum? %d\n", vec_debris.size());
 }
 
 void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
@@ -57,23 +57,27 @@ void CBrick::SetState(int state)
 		//MARIO_STATE_FLY
 	case BRICK_BLINK_STATE_IS_HIT:
 		
-		BrickDebris* debrick_brick = NULL;
+		//BrickDebris* debrick_brick = NULL;
 
 
-		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, 1, 1.5);
-		vec_debris.push_back(debrick_brick);
+		//debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, 1, 1.5); // trên phải cùng
+		//vec_debris.push_back(debrick_brick);
 
 
-		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, 1, 1);
-		vec_debris.push_back(debrick_brick);
+		//debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, 1, 1);//dưới phải cùng
+		//vec_debris.push_back(debrick_brick);
+		//
 
-
-		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, -1, 1);
-		vec_debris.push_back(debrick_brick);
-
-		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, -1, 1.5);
-		vec_debris.push_back(debrick_brick);
+		//debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, -1, 1);//dưới phải cùng
+		//vec_debris.push_back(debrick_brick);
+		//
+		//debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, -1, 1.5);
+		//vec_debris.push_back(debrick_brick);
 		
+		break;
+
+	case BRICK_BLINK_STATE_COIN:
+		is_block = false;
 		break;
 	}
 

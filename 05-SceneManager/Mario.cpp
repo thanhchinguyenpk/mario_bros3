@@ -12,6 +12,7 @@
 #include "MarioBullet.h"
 #include "Brick.h"
 #include "FlatForm.h"
+#include "PButton.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -97,8 +98,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoompas(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
-	else if(dynamic_cast<FlatForm*>(e->obj))
+	else if (dynamic_cast<FlatForm*>(e->obj))
 		OnCollisionWithFlatForm(e);
+	else if (dynamic_cast<PButton*>(e->obj))
+		OnCollisionWithPButton(e);
 
 	if (holding_something != NULL)
 	{
@@ -122,11 +125,32 @@ void CMario::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 	}*/
 
 }
+void CMario::OnCollisionWithPButton(LPCOLLISIONEVENT e)
+{
+	if (e->ny < 0)
+	{
+		DebugOut(L"dam len nut P rui \n");
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+		dynamic_cast<PButton*>(e->obj)->SetState(100);
+	}
+}
 void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
 	//e->obj->Delete();
-	dynamic_cast<CBrick*>(e->obj)->is_hit = true;
-	dynamic_cast<CBrick*>(e->obj)->SetState(100);
+	if (dynamic_cast<CBrick*>(e->obj)->is_block == false)
+	{
+		dynamic_cast<CBrick*>(e->obj)->Delete();
+	}
+	else
+	{
+		if (e->ny > 0)
+		{
+			dynamic_cast<CBrick*>(e->obj)->is_hit = true;
+			dynamic_cast<CBrick*>(e->obj)->SetState(100);
+		}
+	}
+	
+	
 	
 	
 }

@@ -84,6 +84,9 @@
     <ClCompile Include="BrickDebris.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -159,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BrickDebris.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

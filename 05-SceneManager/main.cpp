@@ -40,6 +40,7 @@
 #include "Koompas.h"
 #include "ParaGoompa.h"
 #include "FlatForm.h"
+#include "PButton.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -74,6 +75,8 @@ CMario *mario;
 Map* map;
 
 list<LPGAMEOBJECT> objects;
+
+vector<LPGAMEOBJECT> list_bricklink;
 
 CSampleKeyHandler * keyHandler; 
 
@@ -660,14 +663,14 @@ void Reload()
 
 	// COINS 
 
-	for (int i = -5; i < 10; i++)
+	/*for (int i = -5; i < 10; i++)
 	{
 		CCoin* c = new CCoin(COIN_X + i * (COIN_WIDTH * 2) +200, GROUND_Y - 96.0f+1150);
 		objects.push_back(c);
-	}
+	}*/
 
-	CBrick* c = new CBrick(300, 1100);
-	objects.push_back(c);
+	CBrick* c = new CBrick(300, 1170);
+	list_bricklink.push_back(c);
 
 	/*Koompas* m = new Koompas(400,800,mario);
 	objects.push_back(m);*/
@@ -681,12 +684,18 @@ void Reload()
 
 	FlatForm* f = new FlatForm(500, 1250, 2000, 5);
 	objects.push_back(f);
+
+	PButton* p_button = new PButton(370, 1170);
+	objects.push_back(p_button);
+	
 }
 
 bool IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
 
 void PurgeDeletedObjects()
 {
+
+
 	list<LPGAMEOBJECT>::iterator it;
 	for (it = objects.begin(); it != objects.end(); it++)
 	{
@@ -710,16 +719,26 @@ void Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+
+	
 	vector<LPGAMEOBJECT> coObjects;
 	list<LPGAMEOBJECT>::iterator i;
 	for (i = objects.begin(); i != objects.end(); ++i)
 	{
 		coObjects.push_back(*i);
 	}
+	for (int i = 0; i < list_bricklink.size(); i++)
+	{
+		coObjects.push_back(list_bricklink[i]);
+	}
 
 	for (i = objects.begin(); i != objects.end(); ++i)
 	{
 		(*i)->Update(dt,&coObjects);
+	}
+	for (int i = 0; i < list_bricklink.size(); i++)
+	{
+		list_bricklink[i]->Update(dt, &coObjects);
 	}
 
 	PurgeDeletedObjects();
@@ -763,6 +782,10 @@ void Render()
 	for (i = objects.begin(); i != objects.end(); ++i)
 	{
 		(*i)->Render();
+	}
+	for (int i = 0; i < list_bricklink.size(); i++)
+	{
+		list_bricklink[i]->Render();
 	}
 
 	spriteHandler->End();

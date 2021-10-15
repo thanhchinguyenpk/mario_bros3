@@ -160,6 +160,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioBullet.cpp" />
     <ClCompile Include="ParaGoompa.cpp" />
+    <ClCompile Include="PButton.cpp" />
     <ClCompile Include="Platform.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioBullet.h" />
     <ClInclude Include="ParaGoompa.h" />
+    <ClInclude Include="PButton.h" />
     <ClInclude Include="Platform.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Sprite.h" />
