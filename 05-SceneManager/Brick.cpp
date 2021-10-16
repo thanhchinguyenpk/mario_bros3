@@ -78,6 +78,7 @@ void CBrick::SetState(int state)
 
 	case BRICK_BLINK_STATE_COIN:
 		is_block = false;
+		
 		break;
 	}
 
