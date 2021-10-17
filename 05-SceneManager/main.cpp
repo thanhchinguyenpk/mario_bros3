@@ -40,7 +40,7 @@
 #include "Koompas.h"
 #include "ParaGoompa.h"
 #include "FlatForm.h"
-#include "PButton.h"
+#include "PButton.h" 
 
 #include "SampleKeyEventHandler.h"
 
@@ -68,6 +68,7 @@
 #define TEXTURE_PATH_ENEMY_1 TEXTURES_DIR "\\enemy.png"
 #define TEXTURE_PATH_CONPHUMLUA TEXTURES_DIR "\\CONPHUNLUA.png"
 #define TEXTURE_PATH_DEBRIS TEXTURES_DIR "\\misc_1.png"
+#define TEXTURE_PATH_PBUTTON TEXTURES_DIR "\\misc_2.png"
 
 
 CGame *game;
@@ -105,6 +106,8 @@ void LoadAssetsMario()
 	LPTEXTURE texEnemy = textures->Get(50);
 	LPTEXTURE texConPhunLua = textures->Get(109);
 	LPTEXTURE texDebris = textures->Get(112);
+	LPTEXTURE texPButton = textures->Get(113);
+	
 	
 
 
@@ -214,6 +217,23 @@ void LoadAssetsMario()
 
 	sprites->Add(ID_SPRITE_DEBRIS_BRICK, 458, 119, 458 + 10, 119 + 10, texDebris);
 	sprites->Add(ID_SPRITE_DEBRIS_BRICK+1, 470, 119, 470 + 10, 119 + 10, texDebris);
+
+	sprites->Add(ID_SPRITE_PBUTTON, 156, 144, 156 + 16, 144 + 16, texPButton);
+	sprites->Add(ID_SPRITE_PBUTTON+1, 178, 144, 178 + 16, 144 + 16, texPButton);
+	sprites->Add(ID_SPRITE_PBUTTON+2, 200, 144, 200 + 16, 144 + 16, texPButton);
+
+	sprites->Add(ID_SPRITE_COIN_STAND_STILL, 334, 100, 334 + 14, 100 + 16, texPButton);
+
+	
+
+	//# STATIC COIN
+	//	40060	334	100	14	16	10
+
+	/*# button p
+		40082	156	144	16	16	10
+		40083	178	144	16	16	10
+		40084	200	144	16	16	10*/
+
 
 	/*# debris
 		40074	458	119	10	10	112
@@ -466,6 +486,19 @@ void LoadAssetsMario()
 	ani->Add(ID_SPRITE_DEBRIS_BRICK+1);
 	animations->Add(ID_ANI_DEBRIS_BRICK, ani);
 	
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_PBUTTON);
+	ani->Add(ID_SPRITE_PBUTTON + 1);
+	animations->Add(ID_ANI_PBUTTON, ani);
+
+	ani = new CAnimation(100);
+	ani->Add(ID_SPRITE_PBUTTON + 2);
+	animations->Add(ID_ANI_PBUTTON_IS_HIT, ani);
+	
+	ani = new CAnimation(100);
+	//ani->Add(ID_SPRITE_PBUTTON);
+	ani->Add(ID_SPRITE_COIN_STAND_STILL);
+	animations->Add(ID_ANI_COIN_STAND_STILL, ani);
 	
 	
 }
@@ -557,6 +590,7 @@ void LoadResources()
 	textures->Add(50, TEXTURE_PATH_ENEMY_1);
 	textures->Add(109, TEXTURE_PATH_CONPHUMLUA);
 	textures->Add(112, TEXTURE_PATH_DEBRIS);
+	textures->Add(113, TEXTURE_PATH_PBUTTON);
 	
 	
 	
@@ -709,6 +743,19 @@ void PurgeDeletedObjects()
 	objects.erase(
 		std::remove_if(objects.begin(), objects.end(), IsGameObjectDeleted),
 		objects.end());
+
+	for (int i = 0; i < list_bricklink.size(); i++)
+	{
+		if (list_bricklink[i]->IsDeleted())
+		{
+			delete list_bricklink[i];
+			list_bricklink[i] = nullptr;
+
+			list_bricklink.erase(list_bricklink.begin() + i);
+		}
+	}
+
+	
 }
 
 /*

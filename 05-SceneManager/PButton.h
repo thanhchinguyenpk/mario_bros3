@@ -13,6 +13,9 @@
 
 #define PBUTTON_STATE_IS_HIT 100
 
+#define ID_ANI_PBUTTON 10010
+#define ID_ANI_PBUTTON_IS_HIT 10011
+
 class PButton : public CGameObject {
 public:
 	PButton(float x, float y) : CGameObject(x, y) {}
