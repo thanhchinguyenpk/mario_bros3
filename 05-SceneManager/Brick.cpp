@@ -5,6 +5,7 @@ void CBrick::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	
+	int ani = ID_ANI_BRICK;
 
 	if (state == BRICK_BLINK_STATE_IS_HIT)
 		//animations->Get(ID_ANI_DEBRIS_BRICK)->Render(x, y);
@@ -15,8 +16,10 @@ void CBrick::Render()
 		}
 		return;
 	}
+	if (state==BRICK_BLINK_STATE_COIN)
+		ani = ID_ANI_COIN_STAND_STILL;
 		
-		animations->Get(ID_ANI_COIN_STAND_STILL)->Render(x, y);
+		animations->Get(ani)->Render(x, y);
 
 	 DebugOut(L"[INFO] state cua brick %d\n",state);
 
@@ -25,10 +28,10 @@ void CBrick::Render()
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*for (int i = 0; i < vec_debris.size(); i++)
+	for (int i = 0; i < vec_debris.size(); i++)
 	{
 		vec_debris[i]->Update(dt);
-	}*/
+	}
 
 
 	for (LPGAMEOBJECT debris : vec_debris)
@@ -52,34 +55,37 @@ void CBrick::GetBoundingBox(float &l, float &t, float &r, float &b)
 
 void CBrick::SetState(int state)
 {
+	BrickDebris* debrick_brick = NULL;
+
 	switch (state)
 	{
 		//MARIO_STATE_FLY
 	case BRICK_BLINK_STATE_IS_HIT:
+
+		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, 1, 1.5); // trên phải cùng
+		vec_debris.push_back(debrick_brick);
+
+
+		debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, 1, 1);//dưới phải cùng
+		vec_debris.push_back(debrick_brick);
 		
-		//BrickDebris* debrick_brick = NULL;
 
-
-		//debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, 1, 1.5); // trên phải cùng
-		//vec_debris.push_back(debrick_brick);
-
-
-		//debrick_brick = new BrickDebris(x + DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, 1, 1);//dưới phải cùng
-		//vec_debris.push_back(debrick_brick);
-		//
-
-		//debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, -1, 1);//dưới phải cùng
-		//vec_debris.push_back(debrick_brick);
-		//
-		//debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, -1, 1.5);
-		//vec_debris.push_back(debrick_brick);
+		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y + DEBRIS_DISTANCE, -1, 1);//dưới phải cùng
+		vec_debris.push_back(debrick_brick);
+		
+		debrick_brick = new BrickDebris(x - DEBRIS_DISTANCE, y - DEBRIS_DISTANCE, -1, 1.5);
+		vec_debris.push_back(debrick_brick);
 		
 		break;
 
 	case BRICK_BLINK_STATE_COIN:
 		is_block = false;
-		
 		break;
+
+	case BRICK_BLINK_STATE_BRICK:
+		is_block = true;
+		break;
+		
 	}
 
 	CGameObject::SetState(state);

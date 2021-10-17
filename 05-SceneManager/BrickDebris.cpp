@@ -14,8 +14,8 @@ void BrickDebris::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//CGameObject::Update(dt);
 	DebugOut(L"[INFO]vô trong debirck update ko\n");
 	vy += DEBRIS_BRICK_GRAVITY * dt;
-	//x += vx * dt;
-	//y += vy * dt;
+	x += vx * dt;
+	y += vy * dt;
 }
 
 void BrickDebris::Render()

@@ -18,6 +18,7 @@
 
 #define BRICK_BLINK_STATE_IS_HIT 100
 #define BRICK_BLINK_STATE_COIN 200
+#define BRICK_BLINK_STATE_BRICK 300
 
 class CBrick : public CGameObject {
 public:
@@ -26,7 +27,7 @@ public:
 
 	
 	bool is_hit = false;
-	CBrick(float x, float y) : CGameObject(x, y) {  }//SetState(BRICK_BLINK_STATE_COIN);
+	CBrick(float x, float y) : CGameObject(x, y) {   }//SetState(BRICK_BLINK_STATE_COIN);
 	 void Render();
 	 void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	 void GetBoundingBox(float& l, float& t, float& r, float& b);
