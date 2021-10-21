@@ -29,7 +29,7 @@ goomba.txt
 #Flatform
 6	0	620
 #para goomba
-7	500	420
+#7	500	420
 #Portal 
 50	200	160	216	180	1
 

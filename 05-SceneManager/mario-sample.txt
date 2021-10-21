@@ -16,6 +16,7 @@ height	240
 0	textures\mario.png
 10	textures\enemies.png
 20	textures\misc.png
+
 30	textures\mario(2).png
 40	textures\fire_ball.png
 50	textures\enemy.png

@@ -18,11 +18,13 @@ protected:
 	// A play scene has to have player, right? 
 	LPGAMEOBJECT player;
 	TextAndNumber temp;
-	GameTime game_time;
+	GameTime* game_time ;
 
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_SPRITES(string line);
+	void _ParseSection_SPRITES_PLUS(string line);
+
 	void _ParseSection_ANIMATIONS(string line);
 
 	void _ParseSection_ASSETS(string line);
@@ -33,7 +35,7 @@ protected:
 public: 
 	CPlayScene(int id, LPCWSTR filePath);
 
-	virtual void Load();
+	virtual void Load(); //load file scene 02, 01
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();

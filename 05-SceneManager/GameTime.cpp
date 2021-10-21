@@ -1,5 +1,13 @@
 #include "GameTime.h"
 
+GameTime* GameTime::__instance = NULL;
+
+GameTime* GameTime::GetInstance()
+{
+	if (__instance == NULL) __instance = new GameTime();
+	return __instance;
+}
+
 void GameTime::Update(DWORD dt)
 {
 	if (currentTotalTime + dt > ONE_SECOND_UNIT)
