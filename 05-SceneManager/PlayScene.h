@@ -8,6 +8,7 @@
 #include "Goomba.h"
 #include "TextAndNumber.h"
 #include "GameTime.h"
+#include "ParaGoompa.h"
 //#include "Koopas.h"
 
 

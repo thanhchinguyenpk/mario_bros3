@@ -3,6 +3,7 @@
 mario.txt
 coin.txt
 cloud.txt
+goomba.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -11,6 +12,10 @@ cloud.txt
 
 # MARIO
 0	20	10
+
+
+# gooma ba
+2	80	10
 
 #COIN
 4	100	120
@@ -22,7 +27,9 @@ cloud.txt
 #Platform
 #5	0	180	16	15	32	51000	52000	53000
 #Flatform
-6	0	220
+6	0	620
+#para goomba
+7	500	420
 #Portal 
 50	200	160	216	180	1
 

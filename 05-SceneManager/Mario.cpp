@@ -1,4 +1,4 @@
-#include <algorithm>
+﻿#include <algorithm>
 #include "debug.h"
 
 #include "Mario.h"
@@ -9,6 +9,7 @@
 #include "Portal.h"
 
 #include "Collision.h"
+#include "ParaGoompa.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -54,8 +55,29 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<ParaGoompa*>(e->obj))
+		OnCollisionWithParaGoomba(e);
 }
 
+void CMario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
+{
+	ParaGoompa* paragoomba = dynamic_cast<ParaGoompa*>(e->obj);
+	if (e->ny < 0) // phương va chạm hướng lên
+	{
+		//score += 100;
+		if (paragoomba->GetState() == PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING)
+		{
+			paragoomba->SetState(PARA_GOOMBA_STATE_DIE);
+			//paragoomba->used = true;
+			DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+		}
+		else
+			paragoomba->SetState(PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING);
+
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+
+	}
+}
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
@@ -239,7 +261,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 	
 	DebugOutTitle(L"Coins: %d", coin);
 }
