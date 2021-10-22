@@ -234,6 +234,8 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 
 void CPlayScene::Load()
 {
+	
+	
 	//temp = new TextAndNumber();
 	game_time = new GameTime();
 
@@ -268,6 +270,9 @@ void CPlayScene::Load()
 	f.close();
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
+
+	map = new Map();
+	map->LoadTileSet();
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -299,7 +304,7 @@ void CPlayScene::Update(DWORD dt)
 
 	if (cx < 0) cx = 0;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(cx,700/*cy*/);
 
 	PurgeDeletedObjects();
 
@@ -310,6 +315,8 @@ void CPlayScene::Update(DWORD dt)
 
 void CPlayScene::Render()
 {
+	map->Draw();
+
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 

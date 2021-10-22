@@ -15,7 +15,11 @@ void TextAndNumber::Render(float posX, float posY, string str)
 
 
 		//textSpr = CSprites::GetInstance()->Get(str[i]-'a'+ 200010);
-		textSpr->Draw(100 + i *25, 100);
+		float x, y;
+		CGame::GetInstance()->GetCamPos(x, y);
+
+
+		textSpr->Draw(x+100 + i *25,y+ 100);
 	}
 	
 }
