@@ -20,7 +20,8 @@ protected:
 
 	Map* map;
 
-	LPGAMEOBJECT player;
+	//LPGAMEOBJECT player;
+	CMario* player;
 	TextAndNumber temp;
 	GameTime* game_time ;
 
@@ -37,6 +38,8 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 	
 public: 
+
+	void DropItem(int itemType, float x, float y);
 	CPlayScene(int id, LPCWSTR filePath);
 
 	virtual void Load(); //load file scene 02, 01
