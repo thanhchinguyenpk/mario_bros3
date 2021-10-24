@@ -1,4 +1,4 @@
-#include "Collision.h"
+﻿#include "Collision.h"
 #include "GameObject.h"
 
 #include "debug.h"
@@ -226,7 +226,7 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 
 	coEvents.clear();
 
-	if (objSrc->IsCollidable())
+	if (objSrc->IsCollidable()) // chính nó là vật thể va chạm? nếu không sẽ update(rơi xúng) virtual int IsCollidable() { return 1; };
 	{
 		Scan(objSrc, dt, coObjects, coEvents);
 	}
@@ -238,7 +238,9 @@ void CCollision::Process(LPGAMEOBJECT objSrc, DWORD dt, vector<LPGAMEOBJECT>* co
 	}
 	else
 	{
-		Filter(objSrc, coEvents, colX, colY);
+		Filter(objSrc, coEvents, colX, colY); // lọc ra những cái là: int IsBlocking() { return 0; }
+		//nghĩa là coin, mushroom sẽ bị bỏ ra
+		//mặc định trên hàm của gameobject đã có rồi
 
 		float x, y, vx, vy, dx, dy;
 		objSrc->GetPosition(x, y);

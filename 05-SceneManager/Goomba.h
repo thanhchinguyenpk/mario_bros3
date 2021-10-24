@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "GameObject.h"
 #include "Mario.h"
 
@@ -41,8 +41,8 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 0; }
+	virtual int IsCollidable() { return 1; }; //hàm cha trả về 0
+	virtual int IsBlocking() { return 0; } // hàm cha trả về 1
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
