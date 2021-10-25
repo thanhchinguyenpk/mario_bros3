@@ -34,7 +34,7 @@ goomba.txt
 #mushroom
 9	600	910
 #super leaf
-10	700	910
+10	300	1110
 #Portal 
 #50	200	160	216	180	1
 
