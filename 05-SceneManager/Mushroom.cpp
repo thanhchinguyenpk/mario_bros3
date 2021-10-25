@@ -18,8 +18,13 @@ void Mushroom::Render()
 
 void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += 0.0002 * dt;
-	//vx += ax * dt;
+
+	if(enable_gravity==true)
+		vy += 0.0002 * dt;
+
+	
+	
+		
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -34,8 +39,21 @@ void Mushroom::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void Mushroom::OnNoCollision(DWORD dt)
 {
-	x += vx * dt;
-	y += vy * dt;
+	if (state == MUSHROOM_STATE_GOING_UP)
+	{
+		y += vy * dt;
+		if (y <= pos_y_brick - MUSHROOM_DISTANCE_MOVE_UP)
+		{
+			SetState(MUSHROOM_STATE_MOVING_RIGHT);
+		}
+
+	}
+
+	if (state == MUSHROOM_STATE_MOVING_RIGHT)
+	{
+		x += vx * dt;
+		y += vy * dt;
+	}
 }
 
 void Mushroom::SetState(int state)
@@ -43,10 +61,22 @@ void Mushroom::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
+	case MUSHROOM_STATE_GOING_UP:
+		vx = 0;
+		vy = -0.1f;
+		break;
 
-	case MUSHROOM_STATE_WALKING:
-		vx = -0.02;
+	case MUSHROOM_STATE_MOVING_LEFT:
+		vx = -MUSHROOM_MOVING_SPEED;
+		vy = 0;
+		enable_gravity = true;
 		//vx = 0;
+		break;
+	case MUSHROOM_STATE_MOVING_RIGHT:
+		vx = MUSHROOM_MOVING_SPEED;
+		vy = 0;
+		enable_gravity = true;
+		//vy = 0.5;
 		break;
 	}
 }

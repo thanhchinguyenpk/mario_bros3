@@ -26,6 +26,7 @@ protected:
 	GameTime* game_time ;
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> itemsMarioCanEat;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_SPRITES_PLUS(string line);

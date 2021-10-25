@@ -16,7 +16,7 @@ goomba.txt
 
 
 # gooma ba
-2	80	600
+2	180	600
 
 #COIN
 #4	100	120
@@ -30,11 +30,12 @@ goomba.txt
 #para goomba
 #7	500	420
 #brick coin
-8	300	1110
+8	300	1110	1
+#8	350	1110	0
 #mushroom
-9	600	910
+#9	300	1110
 #super leaf
-10	300	1110
+#10	200	1100
 #Portal 
 #50	200	160	216	180	1
 
