@@ -14,6 +14,8 @@
 #include "Mushroom.h"
 #include "SuperLeaf.h"
 
+#include "Koompas.h"
+
 #include "SampleKeyEventHandler.h"
 
 using namespace std;
@@ -190,6 +192,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case 9: obj = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
+	case 11: obj = new Koompas(x, y); break;
 
 		
 	default:

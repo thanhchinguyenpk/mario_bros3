@@ -36,6 +36,9 @@ goomba.txt
 #9	300	1110
 #super leaf
 #10	200	1100
+
+#super leaf
+11	400	1100
 #Portal 
 #50	200	160	216	180	1
 
