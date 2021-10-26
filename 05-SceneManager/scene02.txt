@@ -30,8 +30,8 @@ goomba.txt
 #para goomba
 #7	500	420
 #brick coin
-8	300	1110	1
-#8	350	1110	0
+8	300	1210	1
+8	600	1210	0
 #mushroom
 #9	300	1110
 #super leaf

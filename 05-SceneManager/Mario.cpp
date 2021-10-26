@@ -5,6 +5,7 @@
 #include "Game.h"
 
 #include "Goomba.h"
+#include "Koompas.h"
 #include "Coin.h"
 #include "Portal.h"
 
@@ -56,6 +57,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<Koompas*>(e->obj))
+		OnCollisionWithKoompas(e);
 	else if (dynamic_cast<CCoin*>(e->obj))
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
@@ -70,6 +73,28 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithSuperLeaf(e);
 }
 
+
+void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
+{
+	Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
+
+	if (e->ny < 0)
+	{
+		if ((koompas->GetState() == GOOMBA_STATE_INDENT_IN))
+		{
+			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+		}
+		else
+		{
+			koompas->SetState(GOOMBA_STATE_INDENT_IN);
+		}
+
+		koompas->UpdatePositionVertiacally();
+	
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+	}
+
+}
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
