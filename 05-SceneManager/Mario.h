@@ -129,6 +129,10 @@
 class CMario : public CGameObject
 {
 public:
+
+	float vy_store = 0;
+	bool jump_down_to_up = false;
+
 	int GetLevel() { return level; }
 	ULONGLONG change_ani = GetTickCount64();
 	BOOLEAN isSitting;
@@ -152,6 +156,8 @@ public:
 
 	void OnCollisionWithMushroom(LPCOLLISIONEVENT e);
 	void OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e);
+
+	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
 	
 
 	int GetAniIdBig();

@@ -26,7 +26,8 @@ goomba.txt
 #Platform
 #5	0	180	16	15	32	51000	52000	53000
 #Flatform
-6	0	1230
+6	0	1230	2000	5
+6	300	1050	200	5
 #para goomba
 #7	500	420
 #brick coin
@@ -37,8 +38,8 @@ goomba.txt
 #super leaf
 #10	200	1100
 
-#super leaf
-11	400	1100
+#koompas
+11	300	900
 #Portal 
 #50	200	160	216	180	1
 

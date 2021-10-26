@@ -56,6 +56,20 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = -vx;
 	}
 
+	if (dynamic_cast<FlatForm*>(e->obj))
+		OnCollisionWithFlatForm(e);
+
+
+}
+
+void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
+{
+	FlatForm* flatform = dynamic_cast<FlatForm*>(e->obj);
+
+	if (this->x > flatform->GetX() + flatform->width/2 && state == CONCO_STATE_WALKING_LEFT)
+		vx = -abs(vx);
+	else if (this->x < flatform->GetX() - flatform->width / 2 && state == CONCO_STATE_WALKING_LEFT)
+		vx = abs(vx);
 
 }
 

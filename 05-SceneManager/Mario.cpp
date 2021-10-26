@@ -19,6 +19,10 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
+
+	vy_store = vy; // nhảy từ dưới lên được
+
+
 	vy += ay * dt;
 	vx += ax * dt;
 
@@ -34,6 +38,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	isOnPlatform = false;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
+
+	if (jump_down_to_up == true)
+	{
+		SetPosition(x, y-1);
+		jump_down_to_up = false;
+		//DebugOut(L"[INFO] vo day khoooooooooooooooooooooooooong \n" );
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -71,8 +83,20 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<SuperLeaf*>(e->obj))
 		OnCollisionWithSuperLeaf(e);
+	else if (dynamic_cast<FlatForm*>(e->obj))
+		OnCollisionWithFlatForm(e);
 }
 
+void CMario::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
+{
+
+	if (e->ny > 0)
+	{
+		jump_down_to_up = true;
+		vy = vy_store;
+	}
+
+}
 
 void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 {
@@ -80,7 +104,8 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 
 	if (e->ny < 0)
 	{
-		if ((koompas->GetState() == GOOMBA_STATE_INDENT_IN))
+		if (koompas->GetState() == GOOMBA_STATE_INDENT_IN|| koompas->GetState() == CONCO_STATE_INDENT_OUT ||
+			koompas->GetState() == CONCO_STATE_SHELL_MOVING)
 		{
 			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
 		}
