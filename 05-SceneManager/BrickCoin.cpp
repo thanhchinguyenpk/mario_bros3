@@ -9,10 +9,10 @@ void BrickCoin::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	
 
-	animations->Get(idAni)->Render(x, y);
+	//animations->Get(idAni)->Render(x, y);
 
-	/*for(int i=0;i<9;i++)
-	 animations->Get(716+i)->Render(x+i*50, y);*/
+	for(int i=0;i<8;i++)
+	 animations->Get(725+i)->Render(x+i*50, y);
 	
 	RenderBoundingBox();
 }

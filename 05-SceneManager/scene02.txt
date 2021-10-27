@@ -32,7 +32,7 @@ goomba.txt
 #7	500	420
 #brick coin
 8	300	1210	1
-8	600	1210	0
+#8	600	1210	0
 #mushroom
 #9	300	1110
 #super leaf
