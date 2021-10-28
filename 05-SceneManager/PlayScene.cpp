@@ -205,8 +205,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case 12: obj = new Pine(x, y); break;
 	case 13:
 	{
-		int direction= (int)atof(tokens[3].c_str());
-		obj = new PlantBullet(x, y, direction); break;
+		//int direction= (int)atof(tokens[3].c_str());
+		obj = new PlantBullet(x, y); break;
 	}
 	case 14: obj = new VenusFireTrap(x, y,player); break;
 		
