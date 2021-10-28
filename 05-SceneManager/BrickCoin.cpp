@@ -11,8 +11,8 @@ void BrickCoin::Render()
 
 	animations->Get(idAni)->Render(x, y);
 
-	//for(int i=0;i<3;i++)
-	// animations->Get(740+i)->Render(x+i*100, y);
+	//for(int i=0;i<8;i++)
+	// animations->Get(825+i)->Render(x+i*50, y);
 	
 	RenderBoundingBox();
 }

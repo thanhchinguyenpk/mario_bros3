@@ -15,6 +15,7 @@
 #include "SuperLeaf.h"
 #include "Pine.h"
 #include "PlantBullet.h"
+#include "VenusFireTrap.h"
 
 #include "Koompas.h"
 
@@ -207,6 +208,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int direction= (int)atof(tokens[3].c_str());
 		obj = new PlantBullet(x, y, direction); break;
 	}
+	case 14: obj = new VenusFireTrap(x, y,player); break;
 		
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
