@@ -13,6 +13,8 @@
 #include "BrickCoin.h"
 #include "Mushroom.h"
 #include "SuperLeaf.h"
+#include "Pine.h"
+#include "PlantBullet.h"
 
 #include "Koompas.h"
 
@@ -196,10 +198,15 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int has_item = (int)atof(tokens[3].c_str());
 		obj = new BrickCoin(x, y, has_item); break;
 	}
-	case 9: obj = new Mushroom(x, y); break;
+	case 9: obj  = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
 	case 11: obj = new Koompas(x, y); break;
-
+	case 12: obj = new Pine(x, y); break;
+	case 13:
+	{
+		int direction= (int)atof(tokens[3].c_str());
+		obj = new PlantBullet(x, y, direction); break;
+	}
 		
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
