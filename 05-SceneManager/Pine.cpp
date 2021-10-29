@@ -36,6 +36,16 @@ void Pine::GetBoundingBox(float& l, float& t, float& r, float& b)
 	}
 }
 
+Pine::Pine(float x, float y, int type)
+{
+	if(type==1)
+		SetState(PINE_STATE_TALL);
+	else if(type==2)
+		SetState(PINE_STATE_SHORT);
+	else if (type == 3)
+		SetState(PINE_STATE_BLACK);
+}
+
 void Pine::SetState(int state)
 {
 	CGameObject::SetState(state);

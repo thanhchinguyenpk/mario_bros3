@@ -33,6 +33,6 @@ protected:
 
 public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	Pine(float x, float y) { SetState(PINE_STATE_TALL); };
+	Pine(float x, float y, int type );
 	virtual void SetState(int state);
 };

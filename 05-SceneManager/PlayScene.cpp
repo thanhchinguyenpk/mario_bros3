@@ -202,7 +202,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case 9: obj  = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
 	case 11: obj = new Koompas(x, y); break;
-	case 12: obj = new Pine(x, y); break;
+	case 12:
+	{ 
+		int type = (int)atof(tokens[3].c_str());
+		obj = new Pine(x, y, type); break;
+	}
 	case 13:
 	{
 		//int direction= (int)atof(tokens[3].c_str());
