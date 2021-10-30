@@ -10,6 +10,7 @@
 #include "GameTime.h"
 #include "ParaGoompa.h"
 #include "Map.h"
+#include "PiranhaPlant.h"
 //#include "Koopas.h"
 
 

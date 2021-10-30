@@ -210,10 +210,19 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case 13:
 	{
 		//int direction= (int)atof(tokens[3].c_str());
-		obj = new PlantBullet(x, y); break;
+		//obj = new PlantBullet(x, y,p); break;
 	}
-	case 14: obj = new VenusFireTrap(x, y,player); break;
-		
+	case 14: 
+	{
+		int type = (int)atof(tokens[3].c_str());
+		obj = new VenusFireTrap(x, y, player, type); break;
+	}
+	case 15:
+	{
+		//int type = (int)atof(tokens[3].c_str());
+		obj = new PiranhaPlant(x, y, player); break;
+	}
+	
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;

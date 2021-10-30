@@ -54,7 +54,10 @@ goomba.txt
 #13	600	900	4
 
 #venus fire trap
-14	400	1150
+14	400	1150	1
+#14	400	1150	2
+#piranha plant
+15	700	1175
 #Portal 
 #50	200	160	216	180	1
 
