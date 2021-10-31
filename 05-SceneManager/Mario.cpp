@@ -107,14 +107,15 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		if (koompas->GetState() == GOOMBA_STATE_INDENT_IN|| koompas->GetState() == CONCO_STATE_INDENT_OUT ||
 			koompas->GetState() == CONCO_STATE_SHELL_MOVING)
 		{
+
 			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
 		}
 		else
 		{
 			koompas->SetState(GOOMBA_STATE_INDENT_IN);
 		}
-
 		koompas->UpdatePositionVertiacally();
+		
 	
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
@@ -123,7 +124,7 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	coin++;
+	//coin++;
 
 }
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
@@ -157,7 +158,7 @@ void CMario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
 		{
 			paragoomba->SetState(PARA_GOOMBA_STATE_DIE);
 			//paragoomba->used = true;
-			DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+			//DebugOut(L"[ERROR-------------para die?----------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
 		}
 		else
 			paragoomba->SetState(PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING);
