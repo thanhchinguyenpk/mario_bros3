@@ -46,6 +46,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		jump_down_to_up = false;
 		//DebugOut(L"[INFO] vo day khoooooooooooooooooooooooooong \n" );
 	}
+
+
+	if (is_kick==true && GetTickCount64() - kick_start >=200  && kick_start)
+	{
+		
+		kick_start = 0;
+		is_kick = false;
+	
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -119,6 +128,20 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
+	else
+	{
+		if (nx != 0)
+		{
+			if (koompas->GetState() == GOOMBA_STATE_INDENT_IN || koompas->GetState() == CONCO_STATE_INDENT_OUT ||
+				koompas->GetState() == CONCO_STATE_SHELL_MOVING)
+			{
+				if(GetState() == MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT)
+					koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+			}
+			this->SetState(MARIO_STATE_KICK);
+		}
+	}
+	
 
 }
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
@@ -228,7 +251,7 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 int CMario::GetAniIdSmall()
 {
 	int aniId = -1;
-	if (!isOnPlatform)
+	if (!isOnPlatform)//==false
 	{
 		if (abs(ax) == MARIO_ACCEL_RUN_X)
 		{
@@ -279,6 +302,9 @@ int CMario::GetAniIdSmall()
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
+
+	if (is_kick == true)
+		aniId = 439;
 
 	return aniId;
 }
@@ -341,6 +367,9 @@ int CMario::GetAniIdBig()
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
+
+	if (is_kick == true)
+		aniId = 440;
 
 	return aniId;
 }
@@ -450,6 +479,13 @@ void CMario::SetState(int state)
 		vx = 0;
 		ax = 0;
 		break;
+
+	case MARIO_STATE_KICK:
+		kick_start = GetTickCount64();
+		is_kick = true;
+		break;
+
+		
 	}
 
 	CGameObject::SetState(state);

@@ -85,7 +85,7 @@ protected:
 	virtual void Render();
 
 	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 0; };
+	virtual int IsBlocking() { return 1; };
 
 	virtual void OnNoCollision(DWORD dt);
 

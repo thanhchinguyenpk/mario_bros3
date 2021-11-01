@@ -41,6 +41,8 @@
 
 #define MARIO_STATE_FLY		820
 
+#define MARIO_STATE_KICK		900
+
 #pragma region ANIMATION_ID
 
 #define ID_ANI_MARIO_IDLE_RIGHT 502
@@ -129,6 +131,9 @@
 class CMario : public CGameObject
 {
 public:
+
+	ULONGLONG kick_start = 0;
+	bool is_kick = false;
 
 	float vy_store = 0;
 	bool jump_down_to_up = false;
