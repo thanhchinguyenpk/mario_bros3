@@ -4,14 +4,14 @@
 #include "Mario.h"
 
 //extern  CMario* mario;
-Koompas::Koompas(float x, float y) :CGameObject(x, y)
+Koompas::Koompas(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
 {
 	this->ax = 0;
 	//this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 	SetState(CONCO_STATE_WALKING_LEFT);
 
-	//player = mario;
+	player = mario;
 }
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -221,7 +221,8 @@ void Koompas::SetState(int state)
 		//ay = 0;
 		break;
 	case GOOMBA_STATE_SHELL_RUNNING:
-		vx = 0.02;
+		vx = player->GetX() > x ? -0.02 : 0.02;
+		//vx = 0.02;
 		//vy = 0;
 		break;
 	case CONCO_STATE_WAS_BROUGHT:

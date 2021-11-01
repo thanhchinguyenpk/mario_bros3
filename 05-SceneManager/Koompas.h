@@ -77,7 +77,7 @@ protected:
 
 	float ax=0;
 	float ay=0;
-	CMario* player;
+	LPGAMEOBJECT player;
 	ULONGLONG die_start;
 
 
@@ -95,6 +95,6 @@ protected:
 
 public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	Koompas(float x, float y);
+	Koompas(float x, float y, LPGAMEOBJECT mario);
 	virtual void SetState(int state);
 };
