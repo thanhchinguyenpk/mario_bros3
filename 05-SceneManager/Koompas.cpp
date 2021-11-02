@@ -1,6 +1,6 @@
 ﻿#include "Koompas.h"
 
-//#include "Goomba.h"
+#include "Goomba.h"
 #include "Mario.h"
 
 //extern  CMario* mario;
@@ -25,12 +25,12 @@ void Koompas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		right = left + GOOMBA_BBOX_WIDTH_INDENT_IN;
 		bottom = top + GOOMBA_BBOX_HEIGHT_INDENT_IN;
 	}
-	else
+	else 
 	{
-		left = x - GOOMBA_BBOX_WIDTH / 2;
-		top = y - GOOMBA_BBOX_HEIGHT / 2;
-		right = left + GOOMBA_BBOX_WIDTH;
-		bottom = top + GOOMBA_BBOX_HEIGHT;
+		left = x - KOOMPAS_BBOX_WIDTH / 2;
+		top = y - KOOMPAS_BBOX_HEIGHT / 2;
+		right = left + KOOMPAS_BBOX_WIDTH;
+		bottom = top + KOOMPAS_BBOX_HEIGHT;
 	}
 }
 
@@ -45,7 +45,7 @@ void Koompas::OnNoCollision(DWORD dt)
 void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<Koompas*>(e->obj)) return;
+	//if (dynamic_cast<Koompas*>(e->obj)) return;
 
 	if (e->ny != 0)
 	{
@@ -53,23 +53,87 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)
 	{
-		vx = -vx;
+		if (!dynamic_cast<Koompas*>(e->obj))
+			vx = -vx;
 	}
 
-	if (dynamic_cast<FlatForm*>(e->obj))
+
+	if (dynamic_cast<Koompas*>(e->obj))
+		OnCollisionWithKoompas(e);
+	//else if (dynamic_cast<CGoomba*>(e->obj))
+		//OnCollisionWithGoomba(e);
+	else if (dynamic_cast<FlatForm*>(e->obj))
 		OnCollisionWithFlatForm(e);
+	 
 
 
+}
+
+
+
+void Koompas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	
+
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+	
+	if (this->GetState() == GOOMBA_STATE_SHELL_RUNNING)
+	{
+
+	/*	if (goomba->GetX() < this->GetX())
+		{
+			goomba->is_minus_vx = true;
+		}*/
+		
+	}
+	goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+	DebugOut(L"[INFO] vô 2 con và cham ko?\n");
+
+}
+
+void Koompas::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
+{
+	Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
+
+	/*if (koompas->GetState() == GOOMBA_STATE_SHELL_RUNNING)
+	{
+
+		if ( this->GetX() < koompas->GetX() )
+		{
+			is_minus_vx = true;
+			DebugOut(L"[INFO] vô bị shoot ko?\n");
+		}
+
+		this->SetState(CONCO_STATE_WAS_SHOOTED);
+	}*/
+
+	if (this->GetState() == GOOMBA_STATE_SHELL_RUNNING)
+	{
+
+		if (koompas->GetX()<this->GetX()  )
+		{
+			koompas->is_minus_vx = true;
+		}
+		koompas->SetState(CONCO_STATE_WAS_SHOOTED);
+	}
+
+	
 }
 
 void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 {
 	FlatForm* flatform = dynamic_cast<FlatForm*>(e->obj);
 
-	if (this->x > flatform->GetX() + flatform->width/2 && state == CONCO_STATE_WALKING_LEFT)
+	if (this->x > flatform->GetX() + flatform->width / 2 && state == CONCO_STATE_WALKING_LEFT)
+	{
 		vx = -abs(vx);
+		DebugOut(L"[INFO] alo chi em tui?\n");
+	}
 	else if (this->x < flatform->GetX() - flatform->width / 2 && state == CONCO_STATE_WALKING_LEFT)
+	{
 		vx = abs(vx);
+		DebugOut(L"[INFO] alo chi em tui?\n");
+	}
 
 }
 
@@ -93,7 +157,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt, coObjects);// ủa đê chi
 	float no_thing;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -185,6 +249,11 @@ void Koompas::Render()
 		{
 			aniId = CONCO_ANI_GREEN_INDENT_OUT;
 		}
+		else if (state == CONCO_STATE_WAS_SHOOTED)
+		{
+			aniId = 542; //ani was shoot
+		}
+		
 
 	}
 
@@ -221,7 +290,7 @@ void Koompas::SetState(int state)
 		//ay = 0;
 		break;
 	case GOOMBA_STATE_SHELL_RUNNING:
-		vx = player->GetX() > x ? -0.02 : 0.02;
+		vx = player->GetX() > x ? -0.4 : 0.4;
 		//vx = 0.02;
 		//vy = 0;
 		break;
@@ -233,6 +302,13 @@ void Koompas::SetState(int state)
 	case CONCO_STATE_INDENT_OUT:
 
 		break;
+	case CONCO_STATE_WAS_SHOOTED:
+		vy = -0.6;
+		vx=is_minus_vx?-0.1:0.1;
+		//vx = 0.09;
+		is_colliable = 0;
+		break;
+		
 
 		
 		

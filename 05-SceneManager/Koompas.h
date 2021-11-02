@@ -10,8 +10,8 @@
 #define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_WALKING_SPEED 0.02f
 
-#define GOOMBA_BBOX_WIDTH 16*3
-#define GOOMBA_BBOX_HEIGHT 27*3
+#define KOOMPAS_BBOX_WIDTH 16*3
+#define KOOMPAS_BBOX_HEIGHT 27*3
 
 #define GOOMBA_BBOX_WIDTH_INDENT_IN 16*3
 #define GOOMBA_BBOX_HEIGHT_INDENT_IN 16*3
@@ -34,6 +34,7 @@
 #define CONCO_STATE_INDENT_OUT		1000
 #define CONCO_STATE_SHELL_MOVING		1100
 #define CONCO_STATE_RED_FLY_Y		1200
+//#define CONCO_STATE_RED_FLY_Y		1300
 
 #define ID_ANI_GOOMBA_WALKING 5000
 #define ID_ANI_GOOMBA_DIE 5001
@@ -71,8 +72,10 @@
 
 class Koompas : public CGameObject
 {
-protected:
+public:
 
+	bool is_minus_vx = false;
+	bool is_colliable = 1;
 	ULONGLONG time_to_indent_out;
 
 	float ax=0;
@@ -84,7 +87,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return is_colliable; };
 	virtual int IsBlocking() { return 1; };
 
 	virtual void OnNoCollision(DWORD dt);
@@ -92,8 +95,10 @@ protected:
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoompas(LPCOLLISIONEVENT e);
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 
-public:
+
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	Koompas(float x, float y, LPGAMEOBJECT mario);
 	virtual void SetState(int state);

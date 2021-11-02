@@ -111,6 +111,9 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 {
 	Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
 
+//	koompas->SetState(CONCO_STATE_WAS_SHOOTED);
+
+	
 	if (e->ny < 0)
 	{
 		if (koompas->GetState() == GOOMBA_STATE_INDENT_IN|| koompas->GetState() == CONCO_STATE_INDENT_OUT ||
@@ -194,7 +197,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-	goomba->SetState(GOOMBA_STATE_DIE);
+	goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
 	vy = -MARIO_JUMP_DEFLECT_SPEED;
 
 
@@ -397,7 +400,7 @@ void CMario::Render()
 	//for(int i=0;i<8;i++)
 		//animations->Get(539 +i)->Render(x +i*60, y);
 
-	animations->Get(551)->Render(x, y);
+	animations->Get(aniId)->Render(x, y);
 
 	RenderBoundingBox();
 	

@@ -21,6 +21,7 @@
 #define GOOMBA_STATE_WALKING_RIGHT		700
 #define GOOMBA_STATE_WALKING_LEFT		800
 #define GOOMBA_STATE_WALKING_WITHOUT_SWING		900
+#define GOOMBA_STATE_WAS_SHOOTED			1000
 
 
 #define ID_ANI_GOOMBA_WALKING 5000
@@ -28,9 +29,11 @@
 
 class CGoomba : public CGameObject
 {
-protected:
 
-	
+public:
+
+	bool is_minus_vx = false;
+	bool is_colliable = 1;
 
 	float ax;				
 	float ay; 
@@ -41,13 +44,13 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; }; //hàm cha trả về 0
+	virtual int IsCollidable() { return is_colliable; }; //hàm cha trả về 0
 	virtual int IsBlocking() { return 0; } // hàm cha trả về 1
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	
 
-public: 	
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	CGoomba(float x, float y, LPGAMEOBJECT mario);
 	virtual void SetState(int state);
