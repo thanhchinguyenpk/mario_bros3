@@ -394,10 +394,10 @@ void CMario::Render()
 		DebugOut(L"lin da xin chào cả nhà ố là la %d\n", count);
 	}*/
 	
-	for(int i=0;i<8;i++)
-		animations->Get(516 +i)->Render(x +i*60, y);
+	//for(int i=0;i<8;i++)
+		//animations->Get(539 +i)->Render(x +i*60, y);
 
-	//animations->Get(aniId)->Render(x, y);
+	animations->Get(551)->Render(x, y);
 
 	RenderBoundingBox();
 	
