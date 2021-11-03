@@ -31,4 +31,5 @@ void CPlatform::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - this->cellHeight / 2;
 	r = l + this->cellWidth * this->length - cellWidth_div_2;
 	b = t + this->cellHeight;
+
 }
