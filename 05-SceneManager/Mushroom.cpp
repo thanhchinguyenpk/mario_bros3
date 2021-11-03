@@ -3,7 +3,7 @@ void Mushroom::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	
-	animations->Get(724)->Render(x, y);
+	animations->Get(7004)->Render(x, y);
 
 	//animations->Get(720)->Render(x+50, y);
 	//animations->Get(722)->Render(x+100, y);

@@ -15,8 +15,8 @@
 #define BRICK_COIN_STATE_BOUCING 	300
 
 
-#define ID_ANI_BRICK_QUESION 702
-#define ID_ANI_BRICK_QUESION_IS_HIT 720
+#define ID_ANI_BRICK_QUESION 7000
+#define ID_ANI_BRICK_QUESION_IS_HIT 7001
 
 
 class BrickCoin : public CGameObject {

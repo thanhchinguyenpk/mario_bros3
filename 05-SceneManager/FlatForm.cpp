@@ -14,7 +14,7 @@ void FlatForm::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - height / 2;
 	r = l + width;
 	b = t + height;*/
-	float dodoi = 24;
+	
 
 	l = x- dodoi;
 	t = y- dodoi;

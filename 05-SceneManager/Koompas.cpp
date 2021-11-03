@@ -46,7 +46,7 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
 	//if (dynamic_cast<Koompas*>(e->obj)) return;
-
+	if (dynamic_cast<CMario*>(e->obj)) return;
 	if (e->ny != 0)
 	{
 		vy = 0;
@@ -124,12 +124,12 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 {
 	FlatForm* flatform = dynamic_cast<FlatForm*>(e->obj);
 
-	if (this->x > flatform->GetX() + flatform->width / 2 && state == CONCO_STATE_WALKING_LEFT)
+	if (this->x > flatform->GetX() + flatform->width- flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
 	{
 		vx = -abs(vx);
 		DebugOut(L"[INFO] alo chi em tui?\n");
 	}
-	else if (this->x < flatform->GetX() - flatform->width / 2 && state == CONCO_STATE_WALKING_LEFT)
+	else if (this->x < flatform->GetX() - flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
 	{
 		vx = abs(vx);
 		DebugOut(L"[INFO] alo chi em tui?\n");

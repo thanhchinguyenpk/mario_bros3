@@ -383,7 +383,7 @@ void CPlayScene::Update(DWORD dt)
 
 
 	game_time->Update(dt);
-	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
+//	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
 }
 
 void CPlayScene::Render()

@@ -17,7 +17,7 @@
 
 #include "SuperLeaf.h"
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	vy_store = vy; // nhảy từ dưới lên được
@@ -26,8 +26,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	vy += ay * dt;
 	vx += ax * dt;
 
-	if (abs(vx) > abs(maxVx)) vx = maxVx;
+	if (abs(vx) > abs(maxVx))
+	{
+		vx = maxVx;
+		DebugOut(L"[INFO] vo day ko?\n");
+	}
 
+
+	DebugOut(L"[INFO]maxVx la: %f\n", maxVx);
 	// reset untouchable timer if untouchable time has passed
 	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
 	{
@@ -133,18 +139,31 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	}
 	else
 	{
-		if (nx != 0)
+		if (e->nx != 0)
 		{
 			if (koompas->GetState() == GOOMBA_STATE_INDENT_IN || koompas->GetState() == CONCO_STATE_INDENT_OUT ||
 				koompas->GetState() == CONCO_STATE_SHELL_MOVING)
 			{
-				if(GetState() == MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT)
+				if (GetState() == MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT)
+				{
+					this->SetState(MARIO_STATE_KICK);
 					koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+				}
 			}
-			this->SetState(MARIO_STATE_KICK);
+			else
+				CollideWithEnemy();
+
 		}
+		else
+			CollideWithEnemy(); // truowngf hop nhay tu tren xuong cham marrio
 	}
 	
+	/*if (koompas->GetState() == GOOMBA_STATE_SHELL_RUNNING ||
+		koompas->GetState() == CONCO_STATE_WALKING_LEFT || 
+		koompas->GetState() == CONCO_STATE_WALKING_LEFT)
+	{
+		
+	}*/
 
 }
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
@@ -192,13 +211,18 @@ void CMario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 
 	}
+	else
+	{
+		CollideWithEnemy();
+	}
 }
+
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 
-	goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
-	vy = -MARIO_JUMP_DEFLECT_SPEED;
+	//goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+	//vy = -MARIO_JUMP_DEFLECT_SPEED;
 
 
 
@@ -214,22 +238,25 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 	else // hit by Goomba
 	{
-		if (untouchable == 0)
-		{
+		//if (untouchable == 0)
+		//{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				if (level > MARIO_LEVEL_SMALL)
+			/*	if (level > MARIO_LEVEL_SMALL)
 				{
 					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
+					
 				}
 				else
 				{
-					DebugOut(L">>> Mario DIE >>> \n");
+					
 					SetState(MARIO_STATE_DIE);
-				}
+				}*/
+
+				CollideWithEnemy();
+				
 			}
-		}
+		//}
 	}
 
 	
@@ -248,6 +275,25 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+void CMario::CollideWithEnemy()
+{
+	if (untouchable == 0)
+	{
+		if (level > MARIO_LEVEL_BIG)
+		{
+			level = MARIO_LEVEL_BIG;
+			StartUntouchable();
+		}
+		else if (level > MARIO_LEVEL_SMALL)
+		{
+			level = MARIO_LEVEL_SMALL;
+			StartUntouchable();
+		}
+
+		else
+			SetState(MARIO_STATE_DIE);
+	}
+}
 //
 // Get animation ID for small Mario
 //
@@ -311,8 +357,6 @@ int CMario::GetAniIdSmall()
 
 	return aniId;
 }
-
-
 //
 // Get animdation ID for big Mario
 //
@@ -321,7 +365,7 @@ int CMario::GetAniIdBig()
 	int aniId = -1;
 	if (!isOnPlatform)
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_JUMP_RUN_RIGHT;
@@ -353,19 +397,24 @@ int CMario::GetAniIdBig()
 			else if (vx > 0)
 			{
 				if (ax < 0)
-					aniId = ID_ANI_MARIO_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
+					aniId = ID_ANI_MARIO_BRACE_LEFT;
+				/*else if (ax == MARIO_ACCEL_RUN_X)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
 				else if (ax == MARIO_ACCEL_WALK_X)
+					aniId = ID_ANI_MARIO_WALKING_RIGHT;
+					*/
+				else if (vx == MARIO_RUNNING_SPEED)
+					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
+				else 
 					aniId = ID_ANI_MARIO_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
 				if (ax > 0)
-					aniId = ID_ANI_MARIO_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
+					aniId =  ID_ANI_MARIO_BRACE_RIGHT;
+				else if (vx == -MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
+				else
 					aniId = ID_ANI_MARIO_WALKING_LEFT;
 			}
 
@@ -417,25 +466,28 @@ void CMario::SetState(int state)
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_RUNNING_SPEED;
-		ax = MARIO_ACCEL_RUN_X;
+		//ax = MARIO_ACCEL_RUN_X;
+		ax = MARIO_ACCEL_WALK_X;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_RUNNING_SPEED;
-		ax = -MARIO_ACCEL_RUN_X;
+		ax = -MARIO_ACCEL_WALK_X;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
 		maxVx = MARIO_WALKING_SPEED;
 		ax = MARIO_ACCEL_WALK_X;
+		//ax = 0;
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
 		maxVx = -MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
+		//ax = 0;
 		nx = -1;
 		break;
 	case MARIO_STATE_JUMP:
@@ -445,7 +497,11 @@ void CMario::SetState(int state)
 			if (abs(this->vx) == MARIO_RUNNING_SPEED)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			else
+			{
 				vy = -MARIO_JUMP_SPEED_Y;
+				vx = nx==1?0.3:-0.3;
+			}
+		
 		}
 		break;
 
