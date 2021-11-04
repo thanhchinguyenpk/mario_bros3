@@ -440,13 +440,81 @@ int CMario::GetAniIdBig()
 
 int CMario::GetAniIdTail()
 {
-	int aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
-		return aniId;
+	int aniId = -1;
+	if (isSitting)
+	{
+		if (nx > 0)
+			aniId = MARIO_ANI_TAIL_SITDOWN_RIGHT;
+		else
+			aniId = MARIO_ANI_TAIL_SITDOWN_RIGHT+TO_BECOME_LEFT;
+	}
+	else
+		if (vx == 0)
+		{
+			if (nx > 0) aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
+			else aniId = MARIO_ANI_TAIL_IDLE_RIGHT+TO_BECOME_LEFT;
+		}
+		else if (vx > 0)
+		{
+			// chỗ này lần milestone1
+			if (ax < 0)
+				aniId = MARIO_ANI_TAIL_SKID_LEFT;
+			else if (vx == MARIO_RUNNING_SPEED)
+				aniId = MARIO_ANI_TAIL_RUN_RIGHT;
+			else
+				aniId = MARIO_ANI_TAIL_WALKING_RIGHT;
+		}
+		else // vx < 0
+		{
+			if (ax > 0)
+				aniId = MARIO_ANI_TAIL_SKID_LEFT + TO_BECOME_LEFT;
+			else if (vx == -MARIO_RUNNING_SPEED)
+				aniId = MARIO_ANI_TAIL_RUN_RIGHT + TO_BECOME_LEFT;
+			else
+				aniId = MARIO_ANI_TAIL_WALKING_RIGHT + TO_BECOME_LEFT;
+		}
+
+	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
+	return aniId;
 }
 
 int CMario::GetAniIdFire()
 {
-	int aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
+	int aniId = -1;
+	if (isSitting)
+	{
+		if (nx > 0)
+			aniId = MARIO_ANI_ORANGE_SITDOWN_RIGHT;
+		else
+			aniId = MARIO_ANI_ORANGE_SITDOWN_RIGHT  + TO_BECOME_LEFT;
+	}
+	else
+		if (vx == 0)
+		{
+			if (nx > 0) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
+			else aniId = MARIO_ANI_ORANGE_IDLE_RIGHT  +  TO_BECOME_LEFT;
+		}
+		else if (vx > 0)
+		{
+			// chỗ này lần milestone1
+			if (ax < 0)
+				aniId = MARIO_ANI_ORANGE_SKID_LEFT;
+			else if (vx == MARIO_RUNNING_SPEED)
+				aniId = MARIO_ANI_ORANGE_RUN_RIGHT;
+			else
+				aniId = MARIO_ANI_ORANGE_WALKING_RIGHT;
+		}
+		else // vx < 0
+		{
+			if (ax > 0)
+				aniId = MARIO_ANI_ORANGE_SKID_LEFT+ TO_BECOME_LEFT;
+			else if (vx == -MARIO_RUNNING_SPEED)
+				aniId = MARIO_ANI_ORANGE_RUN_RIGHT+TO_BECOME_LEFT;
+			else
+				aniId = MARIO_ANI_ORANGE_WALKING_RIGHT + TO_BECOME_LEFT;
+		}
+
+	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
 }
 
@@ -581,7 +649,7 @@ void CMario::SetState(int state)
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if (level==MARIO_LEVEL_BIG|| level == MARIO_LEVEL_BIG_ORANGE)
 	{
 		if (isSitting)
 		{
@@ -598,6 +666,30 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
 		}
 	}
+	else if (level == MARIO_LEVEL_BIG_TAIL)
+	{ /*#define MARIO_BIG_TAIL_BBOX_WIDTH  21*3
+#define MARIO_BIG_TAIL_BBOX_HEIGHT 28*3
+
+#define MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH  22*3
+#define MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT 19*3*/
+
+
+		if (isSitting)
+		{
+			left = x - MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH / 2;
+			top = y - MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT / 2;
+			right = left + MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH;
+			bottom = top + MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT;
+		}
+		else
+		{
+			left = x - MARIO_BIG_TAIL_BBOX_WIDTH / 2;
+			top = y - MARIO_BIG_TAIL_BBOX_HEIGHT / 2;
+			right = left + MARIO_BIG_TAIL_BBOX_WIDTH;
+			bottom = top + MARIO_BIG_TAIL_BBOX_HEIGHT;
+		}
+
+	}
 	else
 	{
 		left = x - MARIO_SMALL_BBOX_WIDTH/2;
@@ -610,7 +702,7 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 void CMario::SetLevel(int l)
 {
 	// Adjust position to avoid falling off platform
-	if (this->level == MARIO_LEVEL_SMALL)
+	if (this->level == MARIO_LEVEL_SMALL|| level == MARIO_LEVEL_BIG_TAIL|| level == MARIO_LEVEL_BIG_ORANGE)
 	{
 		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
