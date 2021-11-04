@@ -251,7 +251,7 @@ void Koompas::Render()
 		}
 		else if (state == CONCO_STATE_WAS_SHOOTED)
 		{
-			aniId = 542; //ani was shoot
+			aniId = 5402; //ani was shoot
 		}
 		
 

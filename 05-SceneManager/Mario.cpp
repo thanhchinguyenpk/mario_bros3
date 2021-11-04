@@ -302,7 +302,7 @@ int CMario::GetAniIdSmall()
 	int aniId = -1;
 	if (!isOnPlatform)//==false
 	{
-		if (abs(ax) == MARIO_ACCEL_RUN_X)
+		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
 			if (nx >= 0)
 				aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -333,27 +333,38 @@ int CMario::GetAniIdSmall()
 			}
 			else if (vx > 0)
 			{
+				/*if (ax < 0)
+					aniId = ID_ANI_MARIO_BRACE_LEFT;
+				else if (vx == MARIO_RUNNING_SPEED)
+					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
+				else 
+					aniId = ID_ANI_MARIO_WALKING_RIGHT;*/
 				if (ax < 0)
 					aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-				else if (ax == MARIO_ACCEL_RUN_X)
+				else if (vx == MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
+				else 
 					aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 			}
 			else // vx < 0
 			{
 				if (ax > 0)
 					aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
-				else if (ax == -MARIO_ACCEL_RUN_X)
+				else if (vx == -MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-				else if (ax == -MARIO_ACCEL_WALK_X)
+				else 
 					aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
 
 	if (is_kick == true)
-		aniId = 439;
+	{
+		if (nx == 1)
+			aniId = 439;
+		else
+			aniId = 539;
+	}
 
 	return aniId;
 }
@@ -396,13 +407,9 @@ int CMario::GetAniIdBig()
 			}
 			else if (vx > 0)
 			{
+				// chỗ này lần milestone1
 				if (ax < 0)
 					aniId = ID_ANI_MARIO_BRACE_LEFT;
-				/*else if (ax == MARIO_ACCEL_RUN_X)
-					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-				else if (ax == MARIO_ACCEL_WALK_X)
-					aniId = ID_ANI_MARIO_WALKING_RIGHT;
-					*/
 				else if (vx == MARIO_RUNNING_SPEED)
 					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
 				else 
@@ -421,8 +428,25 @@ int CMario::GetAniIdBig()
 	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
 
 	if (is_kick == true)
-		aniId = 440;
+	{
+		if(nx==1)
+			aniId = 440;
+		else
+			aniId = 540;
+	}
 
+	return aniId;
+}
+
+int CMario::GetAniIdTail()
+{
+	int aniId = MARIO_ANI_TAIL_IDLE_RIGHT;
+		return aniId;
+}
+
+int CMario::GetAniIdFire()
+{
+	int aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
 }
 
@@ -433,10 +457,15 @@ void CMario::Render()
 
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
-	else if (level == MARIO_LEVEL_BIG)
-		aniId = GetAniIdBig();
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
+	else if (level == MARIO_LEVEL_BIG)
+		aniId = GetAniIdBig();
+	else if (level == MARIO_LEVEL_BIG_TAIL)
+		aniId = GetAniIdTail();
+	else if (level == MARIO_LEVEL_BIG_ORANGE)
+		aniId = GetAniIdFire();
+	
 
 	/*int count = 402;
 	GameTime* game_time = GameTime::GetInstance();
