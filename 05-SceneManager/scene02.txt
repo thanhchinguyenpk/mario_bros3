@@ -12,7 +12,7 @@ goomba.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	1200	700
+0	2200	700
 
 
 
@@ -101,8 +101,14 @@ goomba.txt
 
 
 # goomba
-2	380	600
+#2	860	600
 2	1587	1185
+
+
+2	2344	600
+2	2390	600
+2	2430	600
+2	2470	600
 
 #COIN
 #4	100	120
@@ -120,6 +126,10 @@ goomba.txt
 
 8	696	936	0
 8	744	936	1
+
+8	1968	1152	1
+8	2112	1068	0
+
 #mushroom
 #9	300	1110
 #super leaf

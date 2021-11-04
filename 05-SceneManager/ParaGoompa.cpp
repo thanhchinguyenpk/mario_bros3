@@ -12,7 +12,7 @@ ParaGoompa::ParaGoompa(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
 	this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 	//SetState(PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING);
-	vx = -0.02; // set ban đầu để nó qua trái
+	vx = -PARAGOOMBA_WALKING_SPEED ; // set ban đầu để nó qua trái
 
 	player = mario;
 }
@@ -223,18 +223,18 @@ void ParaGoompa::SetState(int state)
 		break;
 	case PARA_GOOMBA_STATE_WALKING_LEFT:
 		walking_start = GetTickCount64();
-		vx = -0.02;
+		vx = -PARAGOOMBA_WALKING_SPEED;
 		break;
 	case PARA_GOOMBA_STATE_WALKING_RIGHT:
 		walking_start = GetTickCount64();
-		vx = 0.02;
+		vx = PARAGOOMBA_WALKING_SPEED;
 		break;
 		
 	case PARA_GOOMBA_STATE_JUMP_SHORT_1:
 		vy = -0.25 * 1.5;
 		break;
 	case PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING:
-		vx = -0.02;
+		vx = -PARAGOOMBA_WALKING_SPEED;
 		break;
 	case PARA_GOOMBA_STATE_JUMP_SHORT_3:
 		break;

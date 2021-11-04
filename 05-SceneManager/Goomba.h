@@ -3,7 +3,8 @@
 #include "Mario.h"
 
 #define GOOMBA_GRAVITY 0.002f
-#define GOOMBA_WALKING_SPEED 0.05f
+//#define GOOMBA_WALKING_SPEED 0.05f
+#define GOOMBA_WALKING_SPEED 0.01f
 
 
 #define GOOMBA_BBOX_WIDTH 16*3
@@ -44,7 +45,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return is_colliable; }; //hàm cha trả về 0
+	virtual int IsCollidable() { return is_colliable; }; //hàm cha trả về 0, nếu trả về ko, rơi khỏi thế giới
 	virtual int IsBlocking() { return 0; } // hàm cha trả về 1
 	virtual void OnNoCollision(DWORD dt);
 

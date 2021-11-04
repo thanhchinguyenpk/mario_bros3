@@ -8,7 +8,8 @@
 #include "FlatForm.h"
 
 #define GOOMBA_GRAVITY 0.002f
-#define GOOMBA_WALKING_SPEED 0.02f
+#define KOOMPAS_WALKING_SPEED 0.06f
+//#define KOOMPAS_WALKING_SPEED 0.1f
 
 #define KOOMPAS_BBOX_WIDTH 16*3
 #define KOOMPAS_BBOX_HEIGHT 27*3
@@ -73,6 +74,7 @@
 class Koompas : public CGameObject
 {
 public:
+	bool is_blocking = 0;
 
 	bool is_minus_vx = false;
 	bool is_colliable = 1;
@@ -88,7 +90,8 @@ public:
 	virtual void Render();
 
 	virtual int IsCollidable() { return is_colliable; };
-	virtual int IsBlocking() { return 1; };
+//	virtual int IsBlocking() { return 1; };
+	virtual int IsBlocking() {return is_blocking ; };
 
 	virtual void OnNoCollision(DWORD dt);
 

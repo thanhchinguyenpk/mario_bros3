@@ -1,6 +1,7 @@
 ﻿#include "Goomba.h"
 #include "Mario.h"
 #include "Koompas.h"
+#include "ParaGoompa.h"
 //extern  CMario* mario;
 CGoomba::CGoomba(float x, float y, LPGAMEOBJECT mario):CGameObject(x, y)
 {
@@ -40,6 +41,7 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return; 
 	if (dynamic_cast<CGoomba*>(e->obj)) return; 
+	if (dynamic_cast<ParaGoompa*>(e->obj)) return;
 	if (dynamic_cast<CMario*>(e->obj)) return;
 
 	if (dynamic_cast<Koompas*>(e->obj))
@@ -138,7 +140,7 @@ void CGoomba::SetState(int state)
 			ay = 0; 
 			break;
 		case GOOMBA_STATE_WALKING: 
-			vx = -GOOMBA_WALKING_SPEED;
+			vx =GOOMBA_WALKING_SPEED;
 			//vx = 0;
 			break;
 

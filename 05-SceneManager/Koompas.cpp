@@ -278,11 +278,11 @@ void Koompas::SetState(int state)
 		ay = 0;
 		break;
 	case CONCO_STATE_WALKING_LEFT:
-		vx = -GOOMBA_WALKING_SPEED;
+		vx = -KOOMPAS_WALKING_SPEED;
 		//vx = 0;
 		break;
 	case GOOMBA_STATE_INDENT_IN:
-		//vx = -GOOMBA_WALKING_SPEED;
+		//vx = -KOOMPAS_WALKING_SPEED;
 		vx = 0;
 		vy = 0; 
 		time_to_indent_out = GetTickCount64();
@@ -291,6 +291,7 @@ void Koompas::SetState(int state)
 		break;
 	case GOOMBA_STATE_SHELL_RUNNING:
 		vx = player->GetX() > x ? -0.4 : 0.4;
+		is_blocking = 1;
 		//vx = 0.02;
 		//vy = 0;
 		break;
