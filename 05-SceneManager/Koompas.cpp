@@ -9,8 +9,10 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
 	this->ax = 0;
 	//this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
-	SetState(CONCO_STATE_WALKING_LEFT);
 
+	//SetState(CONCO_STATE_FLY_LEFT);
+	SetState(CONCO_STATE_WALKING_LEFT);
+	
 	player = mario;
 }
 
@@ -49,7 +51,9 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (dynamic_cast<CMario*>(e->obj)) return;
 	if (e->ny != 0)
 	{
-		vy = 0;
+		if (state == CONCO_STATE_FLY_LEFT)
+			vy = -KOOMPAS_FLYING_SPEED_Y;
+		else vy = 0;
 	}
 	else if (e->nx != 0)
 	{
@@ -107,16 +111,23 @@ void Koompas::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		this->SetState(CONCO_STATE_WAS_SHOOTED);
 	}*/
 
-	if (this->GetState() == GOOMBA_STATE_SHELL_RUNNING)
+	if (koompas->state == GOOMBA_STATE_SHELL_RUNNING)
 	{
 
-		if (koompas->GetX()<this->GetX()  )
+		if ( koompas->GetX()>this->GetX()  )
 		{
-			koompas->is_minus_vx = true;
+			DebugOut(L"[INFO] heloo? %d\n", koompas->state);
+				//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
+				this->is_minus_vx = true;
 		}
-		koompas->SetState(CONCO_STATE_WAS_SHOOTED);
+		//koompas->SetState(CONCO_STATE_WAS_SHOOTED);
+			SetState(CONCO_STATE_WAS_SHOOTED);
+
+		
 	}
 
+	
+	//koompas->SetState(CONCO_STATE_WAS_SHOOTED);
 	
 }
 
@@ -139,6 +150,8 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	//DebugOut(L"[INFO] heloo? %d \n",state);
+
 	//DebugOut(L"[INFO] state koompas %d \n",state);
 	if (state == CONCO_STATE_WAS_BROUGHT)
 	{
@@ -253,6 +266,13 @@ void Koompas::Render()
 		{
 			aniId = 5402; //ani was shoot
 		}
+		else if (state == CONCO_STATE_FLY_LEFT)
+		{
+			if (vx > 0)
+				aniId =  CONCO_ANI_GREEN_FLY_RIGHT;
+			else
+				aniId = CONCO_ANI_GREEN_FLY_LEFT;
+		}
 		
 
 	}
@@ -309,8 +329,11 @@ void Koompas::SetState(int state)
 		//vx = 0.09;
 		is_colliable = 0;
 		break;
-		
 
+	case CONCO_STATE_FLY_LEFT:
+		vx = -KOOMPAS_WALKING_SPEED;
+		break;
+		
 		
 		
 	}
