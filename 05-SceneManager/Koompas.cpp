@@ -4,15 +4,16 @@
 #include "Mario.h"
 
 //extern  CMario* mario;
-Koompas::Koompas(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
+Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koompas_state) :CGameObject(x, y)
 {
 	this->ax = 0;
 	//this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
 
+	type = koompas_type;
 	//SetState(CONCO_STATE_FLY_LEFT);
-	SetState(CONCO_STATE_WALKING_LEFT);
-	
+	//SetState(koompas_state);
+	SetState(koompas_state);
 	player = mario;
 }
 
@@ -51,7 +52,7 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (dynamic_cast<CMario*>(e->obj)) return;
 	if (e->ny != 0)
 	{
-		if (state == CONCO_STATE_FLY_LEFT)
+		if (state == CONCO_STATE_FLY_LEFT|| state == CONCO_STATE_FLY_RIGHT)
 			vy = -KOOMPAS_FLYING_SPEED_Y;
 		else vy = 0;
 	}
@@ -64,8 +65,8 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (dynamic_cast<Koompas*>(e->obj))
 		OnCollisionWithKoompas(e);
-	//else if (dynamic_cast<CGoomba*>(e->obj))
-		//OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<FlatForm*>(e->obj))
 		OnCollisionWithFlatForm(e);
 	 
@@ -81,7 +82,7 @@ void Koompas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	
-	if (this->GetState() == GOOMBA_STATE_SHELL_RUNNING)
+	if (state == GOOMBA_STATE_SHELL_RUNNING)
 	{
 
 	/*	if (goomba->GetX() < this->GetX())
@@ -133,6 +134,9 @@ void Koompas::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 
 void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 {
+	if (type != KOOMPAS_RED)
+		return;
+
 	FlatForm* flatform = dynamic_cast<FlatForm*>(e->obj);
 
 	if (this->x > flatform->GetX() + flatform->width- flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
@@ -228,18 +232,14 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void Koompas::Render()
 {
 	int aniId = CONCO_ANI_GREEN_WALKING_LEFT;
+
 	if (state == CONCO_STATE_DIE)
 	{
 		aniId = ID_ANI_GOOMBA_DIE;
-	}
-	//else if (state == GOOMBA_STATE_INDENT_IN||state==400 || state == CONCO_STATE_WAS_BROUGHT)// á
-	//{
-	//	aniId = ID_ANI_KOOMPAS_INDENT_IN;
-	//}
-	else
+	} else
 	{
 		
-		if (state == CONCO_STATE_WALKING_LEFT)
+		if (state == CONCO_STATE_WALKING_LEFT|| state == CONCO_STATE_WALKING_RIGHT)
 		{
 			if (vx > 0)
 				aniId = CONCO_ANI_GREEN_WALKING_RIGHT;
@@ -264,9 +264,9 @@ void Koompas::Render()
 		}
 		else if (state == CONCO_STATE_WAS_SHOOTED)
 		{
-			aniId = 5402; //ani was shoot
+			aniId = CONCO_ANI_GREEN_WAS_SHOOTED; //ani was shoot
 		}
-		else if (state == CONCO_STATE_FLY_LEFT)
+		else if (state == CONCO_STATE_FLY_LEFT|| state == CONCO_STATE_FLY_RIGHT)
 		{
 			if (vx > 0)
 				aniId =  CONCO_ANI_GREEN_FLY_RIGHT;
@@ -276,6 +276,9 @@ void Koompas::Render()
 		
 
 	}
+
+	if (type == KOOMPAS_RED)
+		aniId -= 8;
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 
@@ -299,6 +302,10 @@ void Koompas::SetState(int state)
 		break;
 	case CONCO_STATE_WALKING_LEFT:
 		vx = -KOOMPAS_WALKING_SPEED;
+		//vx = 0;
+		break;
+	case CONCO_STATE_WALKING_RIGHT:
+		vx = KOOMPAS_WALKING_SPEED;
 		//vx = 0;
 		break;
 	case GOOMBA_STATE_INDENT_IN:
@@ -333,7 +340,9 @@ void Koompas::SetState(int state)
 	case CONCO_STATE_FLY_LEFT:
 		vx = -KOOMPAS_WALKING_SPEED;
 		break;
-		
+	case CONCO_STATE_FLY_RIGHT:
+		vx = KOOMPAS_WALKING_SPEED;
+		break;
 		
 		
 	}

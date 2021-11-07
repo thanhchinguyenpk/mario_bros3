@@ -126,6 +126,10 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		{
 			koompas->SetState(CONCO_STATE_WALKING_LEFT);
 		}
+		else if (koompas->GetState() == CONCO_STATE_FLY_RIGHT)
+		{
+			koompas->SetState(CONCO_STATE_WALKING_RIGHT);
+		}
 		else if (koompas->GetState() == GOOMBA_STATE_INDENT_IN|| koompas->GetState() == CONCO_STATE_INDENT_OUT ||
 			koompas->GetState() == CONCO_STATE_SHELL_MOVING)
 		{

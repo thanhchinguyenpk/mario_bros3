@@ -54,6 +54,7 @@
 #define CONCO_ANI_RED_WALKING_RIGHT	     713
 #define CONCO_ANI_RED_SHELL_MOVING		 714
 #define CONCO_ANI_RED_INDENT_OUT		 715
+#define CONCO_ANI_RED_WAS_SHOOTED 5402
 
 //=========================================
 
@@ -66,14 +67,20 @@
 #define CONCO_ANI_GREEN_WALKING_RIGHT	     721
 #define CONCO_ANI_GREEN_SHELL_MOVING		 722
 #define CONCO_ANI_GREEN_INDENT_OUT		 723
+#define CONCO_ANI_GREEN_WAS_SHOOTED 5410
 
 
+
+#define KOOMPAS_GREEN		 0
+#define KOOMPAS_RED		 1
 
 
 
 class Koompas : public CGameObject
 {
 public:
+	int type = KOOMPAS_GREEN;
+
 	bool is_blocking = 0;
 
 	bool is_minus_vx = false;
@@ -103,6 +110,6 @@ public:
 
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	Koompas(float x, float y, LPGAMEOBJECT mario);
+	Koompas(float x, float y, LPGAMEOBJECT mario, int koompas_type, int koompas_state);
 	virtual void SetState(int state);
 };

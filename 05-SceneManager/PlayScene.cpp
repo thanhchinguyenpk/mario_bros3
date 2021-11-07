@@ -201,7 +201,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case 9: obj  = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
-	case 11: obj = new Koompas(x, y,player); break;
+	case 11:
+	{ 
+		int type = (int)atof(tokens[3].c_str());
+		int state = (int)atof(tokens[4].c_str());
+
+		obj = new Koompas(x, y, player,type, state); break; 
+	}
 	case 12:
 	{ 
 		int type = (int)atof(tokens[3].c_str());
