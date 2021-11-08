@@ -587,8 +587,8 @@ void CMario::Render()
 		DebugOut(L"lin da xin chào cả nhà ố là la %d\n", count);
 	}*/
 	
-	//for(int i=0;i<8;i++)
-		//animations->Get(539 +i)->Render(x +i*60, y);
+	//for(int i=0;i<1;i++)
+		//animations->Get(777 +i)->Render(x +i*40, y);
 
 	animations->Get(aniId)->Render(x, y);
 
