@@ -22,6 +22,12 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (is_auto)
+	{
+		x += 0.3 * dt;
+		return;
+	}
+
 
 	vy_store = vy; // nhảy từ dưới lên được
 
@@ -142,6 +148,8 @@ void CMario::OnCollisionWithBrickBlink(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 {
+	if (is_hit_bonus == true)
+		is_auto = true;
 
 	if (e->ny > 0)
 	{
@@ -617,6 +625,18 @@ void CMario::Render()
 		aniId = GetAniIdFire();
 	
 
+	if (is_auto == true)
+	{
+		if (level == MARIO_LEVEL_SMALL)
+			aniId = MARIO_ANI_SMALL_WALKING_RIGHT;
+		else if (level == MARIO_LEVEL_BIG)
+			aniId = MARIO_ANI_BIG_WALKING_RIGHT;
+		else if (level == MARIO_LEVEL_BIG_TAIL)
+			aniId = MARIO_ANI_TAIL_WALKING_RIGHT;
+		else if (level == MARIO_LEVEL_BIG_ORANGE)
+			aniId = MARIO_ANI_ORANGE_WALKING_RIGHT;
+		nx = 1;
+	}
 	/*int count = 402;
 	GameTime* game_time = GameTime::GetInstance();
 

@@ -7,10 +7,12 @@ void BrickCoin::Render()
 {
 	int idAni = ID_ANI_BRICK_QUESION;
 	if (state == BRICK_COIN_STATE_DA_DAP)
+	{
 		idAni = ID_ANI_BRICK_QUESION_IS_HIT;
+	}
 	CAnimations* animations = CAnimations::GetInstance();
 	
-	if (has_item == BRICKCOIN_CONTAINS_PBUTTON)
+	if (has_item == BRICKCOIN_CONTAINS_PBUTTON && state != BRICK_COIN_STATE_DA_DAP)
 		idAni = ID_ANI_BRICKBLINK;
 
 	animations->Get(idAni)->Render(x, y);

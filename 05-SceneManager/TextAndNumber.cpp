@@ -15,11 +15,11 @@ void TextAndNumber::Render(float posX, float posY, string str)
 
 
 		//textSpr = CSprites::GetInstance()->Get(str[i]-'a'+ 200010);
-		float x, y;
-		CGame::GetInstance()->GetCamPos(x, y);
+		//float x, y;
+		//CGame::GetInstance()->GetCamPos(x, y);
 
 
-		textSpr->Draw(x+100 + i *25,y+ 100);
+		textSpr->Draw(posX + i * 24, posY );
 	}
 	
 }
@@ -29,4 +29,12 @@ string TextAndNumber::FillZeroString(string str, int MaxStringLenght)
 	while (str.size() < MaxStringLenght)
 		str = "0" + str;
 	return str;
+}
+
+TextAndNumber::TextAndNumber()
+{
+}
+
+TextAndNumber::~TextAndNumber()
+{
 }
