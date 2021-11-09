@@ -16,7 +16,8 @@
 
 class CPlayScene: public CScene
 {
-protected: 
+//protected: 
+public:
 	// A play scene has to have player, right? 
 
 	Map* map;
@@ -26,6 +27,7 @@ protected:
 	TextAndNumber temp;
 	GameTime* game_time ;
 
+	vector<LPGAMEOBJECT> list_bricklink;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> itemsMarioCanEat;
 
@@ -39,7 +41,7 @@ protected:
 
 	void LoadAssets(LPCWSTR assetFile);
 	
-public: 
+//public: 
 
 	void DropItem(int itemType, float x, float y);
 	CPlayScene(int id, LPCWSTR filePath);
