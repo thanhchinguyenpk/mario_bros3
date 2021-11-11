@@ -199,6 +199,11 @@
 #define MARIO_ANI_TAIL_STAND_HOLD   445
 #define MARIO_ANI_ORANGE_STAND_HOLD 446
 
+#define MARIO_ANI_SMALL_GO_DOWN		447
+#define MARIO_ANI_BIG_GO_DOWN		448
+#define MARIO_ANI_TAIL_GO_DOWN		449
+#define MARIO_ANI_ORANGE_GO_DOWN	450
+
 #define TO_BECOME_LEFT 100
 #pragma endregion
 
@@ -211,6 +216,11 @@
 class CMario : public CGameObject
 {
 public:
+
+	ULONGLONG time_to_go_down =0;
+	bool is_set_position = false;
+	bool go_down = false;
+	 
 	bool is_hit_bonus = false;
 	bool is_auto = false;
 
@@ -236,6 +246,7 @@ public:
 	BOOLEAN isOnPlatform;
 	int coin; 
 
+	void OnCollisionWithPine(LPCOLLISIONEVENT e);
 	void OnCollisionWithPButton(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickBlink(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
