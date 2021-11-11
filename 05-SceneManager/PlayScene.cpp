@@ -349,7 +349,7 @@ void CPlayScene::Load()
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 
-	map = new Map();
+	map = new Map(L"textures\\map_thanh.txt", L"textures\\Final1.png", 176, 41 ,  29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
 	map->LoadTileSet();
 }
 

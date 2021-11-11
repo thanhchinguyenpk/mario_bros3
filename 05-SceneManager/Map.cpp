@@ -6,8 +6,17 @@
 #include "Textures.h"
 #include "Game.h"
 
-Map::Map()
+Map::Map(LPCWSTR maptext, LPCWSTR tileset, int width_map,int height_map,
+	int number_tile_set_width, int number_tile_set_height)
 {
+	this->mapTextFilePath = maptext;
+	this->tileSetFilePath = tileset;
+
+	this->width_map = width_map;
+	this->height_map = height_map;
+
+	this->number_tile_set_width = number_tile_set_width;
+	this->number_tile_set_height = number_tile_set_height;
 }
 
 Map::~Map()
@@ -19,7 +28,7 @@ void Map::LoadTileSet()
 	//DebugOut(L"day nefff: %d", a);
 	int a, b;
 	ifstream f;
-	f.open(mapFilePath);
+	f.open(mapTextFilePath);
 
 	for (int i = 0; i < height_map; i++)
 	{
@@ -39,7 +48,7 @@ void Map::LoadTileSet()
 	CTextures* textures = CTextures::GetInstance();
 
 
-	textures->Add(100, L"textures\\Final1.png");
+	textures->Add(100, tileSetFilePath);// L"textures\\Final1.png"
 
 	int id = 0;
 	CSprites* sprites = CSprites::GetInstance();
@@ -49,9 +58,9 @@ void Map::LoadTileSet()
 
 
 
-	for (int i = 0; i < 30; i++)
+	for (int i = 0; i < number_tile_set_height; i++)
 	{
-		for (int j = 0; j < 29; j++)
+		for (int j = 0; j < number_tile_set_width; j++)
 		{
 			sprites->Add(id++, j * width_tileset, i * height_tileset,
 				j * width_tileset + width_tileset, i * height_tileset + height_tileset, titleset);
