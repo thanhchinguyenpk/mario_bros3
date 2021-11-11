@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
+#include "MapScene.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -456,8 +457,12 @@ void CGame::_ParseSection_SCENES(string line)
 	if (tokens.size() < 2) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
-
-	LPSCENE scene = new CPlayScene(id, path); // bữa thầy nói cần handle chỗ này nêu muốn sence khác
+	
+	LPSCENE scene = NULL;
+	if (id == 1 || id == 2|| id == 0)
+		 scene = new CPlayScene(id, path); // bữa thầy nói cần handle chỗ này nêu muốn sence khác
+	else if (id == 3)
+		 scene = new MapScene(id, path);
 	scenes[id] = scene;
 }
 

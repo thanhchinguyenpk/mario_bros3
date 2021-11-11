@@ -2,7 +2,7 @@
 #include <fstream>
 #include "AssetIDs.h"
 
-#include "PlayScene.h"
+#include "MapScene.h"
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
@@ -26,7 +26,7 @@
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, LPCWSTR filePath):
+MapScene::MapScene(int id, LPCWSTR filePath) :
 	CScene(id, filePath)
 {
 	player = NULL;
@@ -45,7 +45,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 
 #define MAX_SCENE_LINE 1024
 
-void CPlayScene::_ParseSection_SPRITES(string line)
+void MapScene::_ParseSection_SPRITES(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -62,13 +62,13 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 	if (tex == NULL)
 	{
 		DebugOut(L"[ERROR] Texture ID %d not found!\n", texID);
-		return; 
+		return;
 	}
 
 	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
 }
 
-void CPlayScene::_ParseSection_SPRITES_PLUS(string line)
+void MapScene::_ParseSection_SPRITES_PLUS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -95,18 +95,18 @@ void CPlayScene::_ParseSection_SPRITES_PLUS(string line)
 	CSprites::GetInstance()->Add(ID, l, t, r, b, tex);
 }
 
-void CPlayScene::_ParseSection_ASSETS(string line)
+void MapScene::_ParseSection_ASSETS(string line)
 {
 	vector<string> tokens = split(line);
 
 	if (tokens.size() < 1) return;
 
 	wstring path = ToWSTR(tokens[0]);
-	
+
 	LoadAssets(path.c_str());
 }
 
-void CPlayScene::_ParseSection_ANIMATIONS(string line)
+void MapScene::_ParseSection_ANIMATIONS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -120,7 +120,7 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
-		int frame_time = atoi(tokens[i+1].c_str());
+		int frame_time = atoi(tokens[i + 1].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
 
@@ -128,9 +128,9 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 }
 
 /*
-	Parse a line in section [OBJECTS] 
+	Parse a line in section [OBJECTS]
 */
-void CPlayScene::_ParseSection_OBJECTS(string line)
+void MapScene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -141,25 +141,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	float x = (float)atof(tokens[1].c_str());
 	float y = (float)atof(tokens[2].c_str());
 
-	CGameObject *obj = NULL;
+	CGameObject* obj = NULL;
 
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
+		if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x,y); 
-		player = (CMario*)obj;  
+		obj = new CMario(x, y);
+		player = (CMario*)obj;
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y,player); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, player); break;
+	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	
+
 
 	case OBJECT_TYPE_PLATFORM:
 	{
@@ -194,25 +194,25 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		float width = (float)atof(tokens[3].c_str());
 		float height = (float)atof(tokens[4].c_str());
 		obj = new FlatForm(x, y, width, height);
-		break; 
+		break;
 	}
-	case 7: obj = new ParaGoompa(x, y,player); break;
+	case 7: obj = new ParaGoompa(x, y, player); break;
 	case 8:
 	{
 		int has_item = (int)atof(tokens[3].c_str());
 		obj = new BrickCoin(x, y, has_item); break;
 	}
-	case 9: obj  = new Mushroom(x, y); break;
+	case 9: obj = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
 	case 11:
-	{ 
+	{
 		int type = (int)atof(tokens[3].c_str());
 		int state = (int)atof(tokens[4].c_str());
 
-		obj = new Koompas(x, y, player,type, state); break; 
+		obj = new Koompas(x, y, player, type, state); break;
 	}
 	case 12:
-	{ 
+	{
 		int type = (int)atof(tokens[3].c_str());
 		obj = new Pine(x, y, type); break;
 	}
@@ -221,7 +221,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		//int direction= (int)atof(tokens[3].c_str());
 		//obj = new PlantBullet(x, y,p); break;
 	}
-	case 14: 
+	case 14:
 	{
 		int type = (int)atof(tokens[3].c_str());
 		obj = new VenusFireTrap(x, y, player, type); break;
@@ -244,7 +244,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		//obj = new BrickDebris(x, y, -1, 1.5); break;
 
 		obj = new PButton(x, y); break;
-		
+
 	}
 	case 18:
 	{
@@ -252,7 +252,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new RandomBonus(x, y, mario); break;
 
 	}
-	
+
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
@@ -262,16 +262,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	obj->SetPosition(x, y);
 
 
-	if (dynamic_cast<BrickBlink*>(obj))
-	{
-		list_bricklink.push_back(obj);
+	//if (dynamic_cast<BrickBlink*>(obj))
+	//{
+		//list_bricklink.push_back(obj);
 		//DebugOut(L"[ERR]mấy viên? object type: %d\n", object_type);
-	}
-	else
-		objects.push_back(obj);
+	//}
+	//else
+
+	objects.push_back(obj);
 }
 
-void CPlayScene::LoadAssets(LPCWSTR assetFile)
+void MapScene::LoadAssets(LPCWSTR assetFile)
 {
 	DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
 
@@ -301,7 +302,7 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 		case ASSETS_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
 		case ASSETS_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
 		case ASSETS_SECTION_SPRITES_PLUS: _ParseSection_SPRITES_PLUS(line); break;// chưa
-			
+
 		}
 	}
 
@@ -310,12 +311,12 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
 }
 
-void CPlayScene::Load()
+void MapScene::Load()
 {
-	
-	
+
+
 	//temp = new TextAndNumber();
-	game_time = new GameTime();
+	//game_time = new GameTime();
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
@@ -323,7 +324,7 @@ void CPlayScene::Load()
 	f.open(sceneFilePath);
 
 	// current resource section flag
-	int section = SCENE_SECTION_UNKNOWN;					
+	int section = SCENE_SECTION_UNKNOWN;
 
 	char str[MAX_SCENE_LINE];
 	while (f.getline(str, MAX_SCENE_LINE))
@@ -333,15 +334,15 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
-		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
+		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
 		// data section
 		//
 		switch (section)
-		{ 
-			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
-			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+		{
+		case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
+		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		}
 	}
 
@@ -353,7 +354,7 @@ void CPlayScene::Load()
 	map->LoadTileSet();
 }
 
-void CPlayScene::Update(DWORD dt)
+void MapScene::Update(DWORD dt)
 {
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
@@ -363,14 +364,14 @@ void CPlayScene::Update(DWORD dt)
 	{
 		coObjects.push_back(objects[i]);
 	}
-	for (int i = 0; i < itemsMarioCanEat.size(); i++)
+	/*for (int i = 0; i < itemsMarioCanEat.size(); i++)
 	{
 		coObjects.push_back(itemsMarioCanEat[i]);
 	}
 	for (int i = 0; i < list_bricklink.size(); i++)
 	{
 		coObjects.push_back(list_bricklink[i]);
-	}
+	}*/
 
 
 
@@ -378,7 +379,7 @@ void CPlayScene::Update(DWORD dt)
 	{
 		objects[i]->Update(dt, &coObjects);
 
-		if (dynamic_cast<BrickCoin*>(objects[i]))
+		/*if (dynamic_cast<BrickCoin*>(objects[i]))
 		{
 			BrickCoin* brick = dynamic_cast<BrickCoin*>(objects[i]);
 			if (brick->is_hit == true && brick->dropped == false && brick->has_item == BRICKCOIN_CONTAINS_EATABLE_ITEM)
@@ -400,33 +401,34 @@ void CPlayScene::Update(DWORD dt)
 				}
 				brick->dropped = true;
 			}
-		}
+		}*/
 	}
 
-	for (int i = 0; i < itemsMarioCanEat.size(); i++)
+	/*for (int i = 0; i < itemsMarioCanEat.size(); i++)
 	{
 		itemsMarioCanEat[i]->Update(dt, &coObjects);
 	}
 	for (int i = 0; i < list_bricklink.size(); i++)
 	{
 		list_bricklink[i]->Update(dt, &coObjects);
-	}
+	}*/
+
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return; 
+	if (player == NULL) return;
 
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
-	CGame *game = CGame::GetInstance();
+	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
-	if (cx > 8448 - 760) cx = 8448 - 760-10;
+	if (cx > 8448 - 760) cx = 8448 - 760 - 10;
 	//CGame::GetInstance()->SetCamPos(cx, 700);
 
-	if(player->GetY()>1368)
+	if (player->GetY() > 1368)
 		CGame::GetInstance()->SetCamPos(cx, 1365);
 	else
 		CGame::GetInstance()->SetCamPos(cx, 700);
@@ -434,36 +436,36 @@ void CPlayScene::Update(DWORD dt)
 	PurgeDeletedObjects();
 
 
-	game_time->Update(dt);
-//	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
+	//game_time->Update(dt);
+	//	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
 }
 
-void CPlayScene::Render()
+void MapScene::Render()
 {
 	map->Draw();
 
 
-	for (int i = 0; i < itemsMarioCanEat.size(); i++)
+	/*for (int i = 0; i < itemsMarioCanEat.size(); i++)
 	{
 		itemsMarioCanEat[i]->Render();
-	}
+	}*/
 
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 
-	for (int i = 0; i < list_bricklink.size(); i++)
+	/*for (int i = 0; i < list_bricklink.size(); i++)
 	{
 		list_bricklink[i]->Render();
 	}
 
-	temp.Render(100,800, temp.FillZeroString(to_string(15 - game_time->gameTime), 5));
-	
+	temp.Render(100, 800, temp.FillZeroString(to_string(15 - game_time->gameTime), 5));
+	*/
 }
 
 /*
 *	Clear all objects from this scene
 */
-void CPlayScene::Clear()
+void MapScene::Clear()
 {
 	vector<LPGAMEOBJECT>::iterator it;
 	for (it = objects.begin(); it != objects.end(); it++)
@@ -476,58 +478,27 @@ void CPlayScene::Clear()
 /*
 	Unload scene
 
-	TODO: Beside objects, we need to clean up sprites, animations and textures as well 
+	TODO: Beside objects, we need to clean up sprites, animations and textures as well
 
 */
-void CPlayScene::Unload()
+void MapScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
-	for (int i = 0; i < itemsMarioCanEat.size(); i++)
-		delete itemsMarioCanEat[i];
-
-	for (int i = 0; i < list_bricklink.size(); i++)
-		delete list_bricklink[i];
-
+	
+	
 	objects.clear();
-	itemsMarioCanEat.clear();
-	list_bricklink.clear();
+	
 
 	player = NULL;
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);
 }
 
-void CPlayScene::DropItem(int itemType, float x, float y)
-{
-	switch (itemType)
-	{
-	case 4:
-	{
-		/*if (player->GetLevel() == MARIO_LEVEL_SMALL)
-		{
-			Mushroom* mushroom = new Mushroom(x, y);
-			if (player->y < 567)
-				mushroom->is_read_mushroom = false;
-			itemsMarioCanEat.push_back(mushroom);
-		}
-		else if (player->GetLevel() == MARIO_LEVEL_BIG || player->GetLevel() == MARIO_LEVEL_BIG_TAIL || player->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
-		{
+bool MapScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
 
-			SuperLeaf* superleaf = new SuperLeaf(x, y);
-			itemsMarioCanEat.push_back(superleaf);
-		}
-		break;*/
-	}
-	
-
-	}
-}
-
-bool CPlayScene::IsGameObjectDeleted(const LPGAMEOBJECT& o) { return o == NULL; }
-
-void CPlayScene::PurgeDeletedObjects()
+void MapScene::PurgeDeletedObjects()
 {
 	vector<LPGAMEOBJECT>::iterator it;
 	for (it = objects.begin(); it != objects.end(); it++)
@@ -540,36 +511,13 @@ void CPlayScene::PurgeDeletedObjects()
 		}
 	}
 
-	for (size_t i = 0; i < itemsMarioCanEat.size(); i++)
-	{
-		if (itemsMarioCanEat[i]->IsDeleted() == true)
-		{
-			/*if (dynamic_cast<CoinEffect*>(itemsMarioCanEat[i]))
-			{
 
-			}*/
-			delete itemsMarioCanEat[i];
-			itemsMarioCanEat[i] = nullptr;
-			//DebugOut(L"hihihi, delete roi ne\n");
-			itemsMarioCanEat.erase(itemsMarioCanEat.begin() + i);
-		}
-	}
-
-	for (int i = 0; i < list_bricklink.size(); i++)
-	{
-		if (list_bricklink[i]->IsDeleted())
-		{
-			delete list_bricklink[i];
-			list_bricklink[i] = nullptr;
-
-			list_bricklink.erase(list_bricklink.begin() + i);
-		}
-	}
+	
 
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
 	objects.erase(
-		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
+		std::remove_if(objects.begin(), objects.end(), MapScene::IsGameObjectDeleted),
 		objects.end());
 
 
