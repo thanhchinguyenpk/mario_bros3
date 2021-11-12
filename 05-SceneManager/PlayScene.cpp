@@ -456,7 +456,7 @@ void CPlayScene::Render()
 		list_bricklink[i]->Render();
 	}
 
-	temp.Render(100,800, temp.FillZeroString(to_string(15 - game_time->gameTime), 5));
+	//temp.Render(100,800, temp.FillZeroString(to_string(15 - game_time->gameTime), 5));
 	
 }
 

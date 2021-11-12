@@ -3,6 +3,10 @@
 #include "Koompas.h"
 #include "ParaGoompa.h"
 //extern  CMario* mario;
+
+#define GOOMBA_VY_WHEN_WAS_SHOOT 0.6
+#define GOOMBA_VX_WHEN_WAS_SHOOT 0.1
+
 CGoomba::CGoomba(float x, float y, LPGAMEOBJECT mario):CGameObject(x, y)
 {
 	this->ax = 0;
@@ -121,7 +125,7 @@ void CGoomba::Render()
 		aniId = ID_ANI_GOOMBA_DIE;
 	}else if (state == GOOMBA_STATE_WAS_SHOOTED)
 	{
-		aniId = 5400;
+		aniId = ID_ANI_GOOMBA_WAS_SHOOTED;
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x,y);
@@ -148,8 +152,8 @@ void CGoomba::SetState(int state)
 			break;
 
 		case GOOMBA_STATE_WAS_SHOOTED:
-			vy = -0.6;
-			vx = is_minus_vx ? 0.1 : -0.1;
+			vy = -GOOMBA_VY_WHEN_WAS_SHOOT;
+			vx = is_minus_vx ? GOOMBA_VX_WHEN_WAS_SHOOT : -GOOMBA_VX_WHEN_WAS_SHOOT;
 			//vx = 0.09;
 			is_colliable = 0;
 			break;
