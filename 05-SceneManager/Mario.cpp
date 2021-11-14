@@ -16,6 +16,7 @@
 #include "Mushroom.h"
 #include "PButton.h"
 #include "Pine.h"
+#include "MapScene.h"
 
 #include "BrickBlink.h"
 
@@ -23,6 +24,29 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (is_moving_in_world_map == true)
+	{
+		CGame* game_temp = CGame::GetInstance();
+		MapScene* map_scene = (MapScene*)game_temp->GetCurrentScene();
+
+		if (x >= map_scene->current_portal->x && vx > 0 || x <= map_scene->current_portal->x && vx < 0)
+		{// thêm vx để biết được hướng đi của mario, nếu ko có vx nó sẽ qua cái hoặc số 2
+			this->SetPosition(map_scene->current_portal->x, map_scene->current_portal->y);
+			vx = 0;
+		}
+		else
+			x += vx * dt;
+		
+		if (y <= map_scene->current_portal->y && vy < 0 || y >= map_scene->current_portal->y && vy > 0)
+		{
+			this->SetPosition(map_scene->current_portal->x, map_scene->current_portal->y);
+			vy = 0;
+		}
+		else
+			y += vy * dt;
+
+		return;
+	}
 
 	if (is_set_position == true)
 	{
@@ -714,6 +738,20 @@ void CMario::Render()
 		else if (level == MARIO_LEVEL_BIG_ORANGE)
 			aniId = MARIO_ANI_ORANGE_GO_DOWN;
 		nx = 1;
+	}
+
+	if (is_moving_in_world_map)
+	{
+		if (level == MARIO_LEVEL_SMALL)
+			aniId = MARIO_ANI_SMALL_IN_MAP;
+		else if (level == MARIO_LEVEL_BIG)
+			aniId = MARIO_ANI_BIG_IN_MAP;
+		else if (level == MARIO_LEVEL_BIG_TAIL)
+			aniId = MARIO_ANI_TAIL_IN_MAP;
+		else if (level == MARIO_LEVEL_BIG_ORANGE)
+			aniId = MARIO_ANI_ORANGE_IN_MAP;
+		nx = 1;
+
 	}
 	/*int count = 402;
 	GameTime* game_time = GameTime::GetInstance();

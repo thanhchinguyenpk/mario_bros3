@@ -160,6 +160,7 @@
     <ClCompile Include="Koompas.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="MapPortal.cpp" />
     <ClCompile Include="MapScene.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koompas.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="MapPortal.h" />
     <ClInclude Include="MapScene.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Mushroom.h" />

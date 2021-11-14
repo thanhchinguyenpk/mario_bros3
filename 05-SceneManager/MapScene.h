@@ -11,12 +11,15 @@
 #include "ParaGoompa.h"
 #include "Map.h"
 #include "PiranhaPlant.h"
+#include "MapPortal.h"
 
 class MapScene : public CScene
 {
 public:
 
-	
+	vector<LPGAMEOBJECT> map_portals;
+	MapPortal* current_portal;
+
 	Map* map;
 
 	CMario* player;
@@ -29,6 +32,8 @@ public:
 
 	void _ParseSection_ASSETS(string line);
 	void _ParseSection_OBJECTS(string line);
+
+	void _ParseSection_MAP_SELECTION(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 

@@ -204,6 +204,14 @@
 #define MARIO_ANI_TAIL_GO_DOWN		449
 #define MARIO_ANI_ORANGE_GO_DOWN	450
 
+
+
+#define MARIO_ANI_SMALL_IN_MAP			763
+#define MARIO_ANI_BIG_IN_MAP			764
+#define MARIO_ANI_TAIL_IN_MAP			765
+#define MARIO_ANI_ORANGE_IN_MAP			766
+
+
 #define TO_BECOME_LEFT 100
 #pragma endregion
 
@@ -216,6 +224,8 @@
 class CMario : public CGameObject
 {
 public:
+
+	bool is_moving_in_world_map = true;
 
 	ULONGLONG time_to_go_down =0;
 	bool is_set_position = false;

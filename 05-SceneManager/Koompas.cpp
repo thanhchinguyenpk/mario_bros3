@@ -177,10 +177,11 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetPosition(x+50, y-40);
 		//return;
 	}
+	*/
 	if (state != CONCO_STATE_WAS_BROUGHT)
 		vy += 0.002 * dt;
 
-	*/
+	
 	//vx += ax * dt;
 
 	if ((state == CONCO_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
