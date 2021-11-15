@@ -146,16 +146,20 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player!=NULL) 
+	{
+			if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
-		obj = new CMario(x,y); 
-		player = (CMario*)obj;  
+
+		int is_in_world_map = atoi(tokens[3].c_str());
+		obj = new CMario(x, y, is_in_world_map);
+		player = (CMario*)obj;
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
+	}
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y,player); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
@@ -350,6 +354,8 @@ void CPlayScene::Load()
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 
 	map = new Map(L"textures\\map_thanh.txt", L"textures\\Final1.png", 176, 41 ,  29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
+	//map = new Map(L"textures\\map_test.txt", L"textures\\Final1.png", 176, 41, 29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
+
 	map->LoadTileSet();
 }
 

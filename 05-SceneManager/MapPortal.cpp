@@ -25,7 +25,7 @@ void MapPortal::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void MapPortal::Render()
 {
-	int ani = 8;
+	int ani = 0;
 	switch (state) {
 	case STATE_START:
 		ani = ANI_START;

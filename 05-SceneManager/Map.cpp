@@ -48,13 +48,13 @@ void Map::LoadTileSet()
 	CTextures* textures = CTextures::GetInstance();
 
 
-	textures->Add(100, tileSetFilePath);// L"textures\\Final1.png"
+	textures->Add(ID_MAP_TILE_SET, tileSetFilePath);// L"textures\\Final1.png"
 
 	int id = 0;
 	CSprites* sprites = CSprites::GetInstance();
 
 
-	LPTEXTURE titleset = textures->Get(100);
+	LPTEXTURE titleset = textures->Get(ID_MAP_TILE_SET);
 
 
 
@@ -74,27 +74,26 @@ void Map::Draw()
 
 	CSprites* sprites = CSprites::GetInstance();
 
-	int w = 48;
-	int h = 48;
+	//int w = 48;
+	//int h = 48;
 
-	int  SCREEN_WIDTH = 760;
-	int  SCREEN_HEIGHT = 730;
+	
 
 	float cam_x = 0, cam_y = 0;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
 
-	int begin_row = cam_y / w + 1;//
-	int end_row = (cam_y + SCREEN_HEIGHT) / w - 1;//
+	int begin_row = cam_y / width_tileset + 1;//
+	int end_row = (cam_y + SCREEN_HEIGHT) / width_tileset - 1;//
 
-	if (begin_row < 0)
-		begin_row = 0;
+	if (begin_row < MIN_ROW)
+		begin_row = MIN_ROW;
 
 
-	int begin_column = cam_x / h  ; //cọng 1 để nó trồi lên 1 tiled, để quan sát
-	int end_column = (cam_x + SCREEN_WIDTH) / h +1;//
+	int begin_column = cam_x / height_tileset; //cọng 1 để nó trồi lên 1 tiled, để quan sát
+	int end_column = (cam_x + SCREEN_WIDTH) / height_tileset +1;//
 
-	if (begin_column < 0)
-		begin_column = 0;
+	if (begin_column < MIN_COLUMN)
+		begin_column = MIN_COLUMN;
 
 	//DebugOut(L"end row %d \n", end_row);
 	//DebugOut(L"end column %d \n", end_column);
@@ -106,7 +105,7 @@ void Map::Draw()
 	{
 		for (int j = begin_column; j < end_column; j++)
 		{
-			if (map[i][j] <= 0)
+			if (map[i][j] <= IS_NOT_COLOURED_TILE)
 				continue;
 
 			sprites->Get(map[i][j] - 1)->Draw(j * width_tileset, (i) * height_tileset);
