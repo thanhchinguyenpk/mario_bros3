@@ -44,6 +44,7 @@
 //5023	40033	100	40034	100
 //# die
 //5024	40035	100
+#define TIME_WALKING 2000
 
 class ParaGoompa : public CGameObject
 {

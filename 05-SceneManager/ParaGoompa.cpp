@@ -134,7 +134,7 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 			}
 				
 			
-			if (GetTickCount64() - walking_start > 2000 && walking_start)
+			if (GetTickCount64() - walking_start > TIME_WALKING && walking_start)
 			{
 				walking_start = 0;
 				count++;

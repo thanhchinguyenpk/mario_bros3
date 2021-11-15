@@ -3,7 +3,7 @@
 
 #include "Animation.h"
 #include "Animations.h"
-
+#include "TimerCustom.h"
 #include "debug.h"
 
 //#define MARIO_WALKING_SPEED		0.1f
@@ -224,6 +224,7 @@
 class CMario : public CGameObject
 {
 public:
+	TimerCustom* untouchtable_timer = new TimerCustom(2500);
 
 	bool is_moving_in_world_map;
 

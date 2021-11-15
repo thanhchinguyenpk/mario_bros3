@@ -143,6 +143,8 @@ goomba.txt
 # type: 0=xanh 1=đỏ
 # state: 100=walk_left 300=walk_right 600=fly_left 700=fly_right
 11	1761	1048	1	100
+#11	1629	800	1	100
+
 #11	900	900	1	600
 #11	2400	1048	0	600
 #11	3200	1048	0	600
