@@ -110,14 +110,15 @@ void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
-	/*case DIK_S:
-		if (map_scene->current_portal->is_portal) {
+	case DIK_S:
+		/*if (map_scene->current_portal->is_portal) {
 
 			game_temp->SwitchScene(4);
 			DebugOut(L"hé liu PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp----->  \n");
 
-		}
-		break;*/
+		}*/
+		CGame::GetInstance()->InitiateSwitchScene(2);
+		break;
 	case DIK_RIGHT:
 		if (map_scene->current_portal->r != CAN_NOT_WALK)
 		{

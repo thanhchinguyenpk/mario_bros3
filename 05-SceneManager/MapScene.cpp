@@ -24,6 +24,8 @@
 #include "MapPortal.h"
 #include "SampleKeyEventHandler.h"
 
+#include "VisibleObject.h"
+
 using namespace std;
 
 MapScene::MapScene(int id, LPCWSTR filePath) :
@@ -161,102 +163,21 @@ void MapScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	}
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y, player); break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case 5:
+	{ 
 
+		//float x = atof(tokens[1].c_str());
+		//float y = atof(tokens[2].c_str());
 
-	case OBJECT_TYPE_PLATFORM:
-	{
+		float w = atof(tokens[3].c_str());
+		float h = atof(tokens[4].c_str());
 
-		float cell_width = (float)atof(tokens[3].c_str());
-		float cell_height = (float)atof(tokens[4].c_str());
-		int length = atoi(tokens[5].c_str());
-		int sprite_begin = atoi(tokens[6].c_str());
-		int sprite_middle = atoi(tokens[7].c_str());
-		int sprite_end = atoi(tokens[8].c_str());
-
-		obj = new CPlatform(
-			x, y,
-			cell_width, cell_height, length,
-			sprite_begin, sprite_middle, sprite_end
-		);
-
-		break;
+		//int ani_set_id = atoi(tokens[5].c_str());
+		int state = atoi(tokens[5].c_str());
+		//int type = atoi(tokens[7].c_str());
+		obj = new VisibleObject(x, y, w, h, state); break;
 	}
 
-	case OBJECT_TYPE_PORTAL:
-	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
-		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
-	}
-	break;
-
-	case OBJECT_TYPE_FLATFORM_NEN:
-	{
-		float width = (float)atof(tokens[3].c_str());
-		float height = (float)atof(tokens[4].c_str());
-		obj = new FlatForm(x, y, width, height);
-		break;
-	}
-	case 7: obj = new ParaGoompa(x, y, player); break;
-	case 8:
-	{
-		int has_item = (int)atof(tokens[3].c_str());
-		obj = new BrickCoin(x, y, has_item); break;
-	}
-	case 9: obj = new Mushroom(x, y); break;
-	case 10: obj = new SuperLeaf(x, y); break;
-	case 11:
-	{
-		int type = (int)atof(tokens[3].c_str());
-		int state = (int)atof(tokens[4].c_str());
-
-		obj = new Koompas(x, y, player, type, state); break;
-	}
-	case 12:
-	{
-		int type = (int)atof(tokens[3].c_str());
-		obj = new Pine(x, y, type); break;
-	}
-	case 13:
-	{
-		//int direction= (int)atof(tokens[3].c_str());
-		//obj = new PlantBullet(x, y,p); break;
-	}
-	case 14:
-	{
-		int type = (int)atof(tokens[3].c_str());
-		obj = new VenusFireTrap(x, y, player, type); break;
-	}
-	case 15:
-	{
-		//int type = (int)atof(tokens[3].c_str());
-		obj = new PiranhaPlant(x, y, player); break;
-	}
-	case 16:
-	{
-		//int type = (int)atof(tokens[3].c_str());
-		//obj = new PiranhaPlant(x, y, player); break;
-		obj = new BrickBlink(x, y); break;
-	}
-	case 17:
-	{
-		//int type = (int)atof(tokens[3].c_str());
-		//obj = new PiranhaPlant(x, y, player); break;
-		//obj = new BrickDebris(x, y, -1, 1.5); break;
-
-		obj = new PButton(x, y); break;
-
-	}
-	case 18:
-	{
-		CMario* mario = dynamic_cast<CMario*>(player);
-		obj = new RandomBonus(x, y, mario); break;
-
-	}
 
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);

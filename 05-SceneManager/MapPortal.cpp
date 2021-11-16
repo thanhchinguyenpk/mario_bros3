@@ -25,7 +25,7 @@ void MapPortal::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void MapPortal::Render()
 {
-	int ani = 0;
+	int ani = ANI_START;
 	switch (state) {
 	case STATE_START:
 		ani = ANI_START;
@@ -53,10 +53,11 @@ void MapPortal::Render()
 		break;
 	case STATE_EMPTY:
 		ani = ANI_EMPTY;
+		return;
 		break;
 	}
 
-	//CAnimations::GetInstance()->Get(ani)->Render(x, y);
+	CAnimations::GetInstance()->Get(ani)->Render(x, y);
 
 
 	RenderBoundingBox();
