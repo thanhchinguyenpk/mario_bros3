@@ -11,9 +11,9 @@
 #define BRICK_COIN_BBOX_WIDTH 48
 #define BRICK_COIN_BBOX_HEIGHT 48
 
-#define BRICK_COIN_STATE_CHUA_DAP	100
+//#define BRICK_COIN_STATE_CHUA_DAP	100
 #define BRICK_COIN_STATE_DA_DAP 	200
-#define BRICK_COIN_STATE_BOUCING 	300
+#define BRICK_COIN_STATE_HORIZONTALLY_BOUCING 	300
 
 
 #define ID_ANI_BRICK_QUESION 7000
@@ -25,11 +25,13 @@
 
 class BrickCoin : public CGameObject {
 public:
+	float originalX = x;
+
 	int has_item = NORMAL_BRICKCOIN;
 
 	bool dropped = false;
 	bool is_hit = false;
-	bool flag = false;
+	//bool flag = false;
 	float originalY = y;
 	BrickCoin(float x, float y, int hasItem) : CGameObject(x, y) { has_item = hasItem; }
 	void Render();

@@ -2,6 +2,7 @@
 
 #include "Goomba.h"
 #include "Mario.h"
+#include "BrickCoin.h"
 
 #define KOOMPAS_VY_WAS_SHOOTED 0.6f
 #define KOOMPAS_VX_WAS_SHOOTED 0.1f
@@ -81,6 +82,19 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<FlatForm*>(e->obj))
 		OnCollisionWithFlatForm(e);
+	else if (dynamic_cast<BrickCoin*>(e->obj))
+	{
+		if (state == GOOMBA_STATE_SHELL_RUNNING)
+		{
+			BrickCoin* brick = dynamic_cast<BrickCoin*>(e->obj);
+			if (e->nx != 0)
+			{
+				if (brick->is_hit == false)
+					brick->SetState(BRICK_COIN_STATE_DA_DAP);
+			}
+		}
+		
+	}
 	 
 
 
