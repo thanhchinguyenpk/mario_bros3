@@ -19,8 +19,8 @@
 #define ID_MAP_TILE_SET 100
 class Map
 {
-	int width_tileset = WIDTH;
-	int height_tileset = HEIGHT;
+	int width_tile = WIDTH;
+	int height_tile = HEIGHT;
 
 	int number_tile_set_width;
 	int number_tile_set_height;

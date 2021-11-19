@@ -62,8 +62,8 @@ void Map::LoadTileSet()
 	{
 		for (int j = 0; j < number_tile_set_width; j++)
 		{
-			sprites->Add(id++, j * width_tileset, i * height_tileset,
-				j * width_tileset + width_tileset, i * height_tileset + height_tileset, titleset);
+			sprites->Add(id++, j * width_tile, i * height_tile,
+				j * width_tile + width_tile, i * height_tile + height_tile, titleset);
 		}
 	}
 }
@@ -82,15 +82,15 @@ void Map::Draw()
 	float cam_x = 0, cam_y = 0;
 	CGame::GetInstance()->GetCamPos(cam_x, cam_y);
 
-	int begin_row = cam_y / width_tileset + 1;//
-	int end_row = (cam_y + SCREEN_HEIGHT) / width_tileset - 1;//
+	int begin_row = cam_y / width_tile + 1;//
+	int end_row = (cam_y + SCREEN_HEIGHT) / width_tile - 1;//
 
 	if (begin_row < MIN_ROW)
 		begin_row = MIN_ROW;
 
 
-	int begin_column = cam_x / height_tileset; //cọng 1 để nó trồi lên 1 tiled, để quan sát
-	int end_column = (cam_x + SCREEN_WIDTH) / height_tileset +1;//
+	int begin_column = cam_x / height_tile; //cọng 1 để nó trồi lên 1 tiled, để quan sát
+	int end_column = (cam_x + SCREEN_WIDTH) / height_tile +1;//
 
 	if (begin_column < MIN_COLUMN)
 		begin_column = MIN_COLUMN;
@@ -108,7 +108,7 @@ void Map::Draw()
 			if (map[i][j] <= IS_NOT_COLOURED_TILE)
 				continue;
 
-			sprites->Get(map[i][j] - 1)->Draw(j * width_tileset, (i) * height_tileset);
+			sprites->Get(map[i][j] - 1)->Draw(j * width_tile, (i) * height_tile);
 		}
 
 	}

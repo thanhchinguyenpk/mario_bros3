@@ -16,6 +16,7 @@
 #define TIME_TO_INDENT_OUT		10000
 #define TIME_TO_WALKING_LEFT	12000
 
+#define KOOMPAS_AY 0.002
 
 Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koompas_state) :CGameObject(x, y)
 {
@@ -168,12 +169,12 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 	if (this->x > flatform->GetX() + flatform->width- flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
 	{
 		vx = -abs(vx);
-		DebugOut(L"[INFO] alo chi em tui?\n");
+		//DebugOut(L"[INFO] alo chi em tui?\n");
 	}
 	else if (this->x < flatform->GetX() - flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
 	{
 		vx = abs(vx);
-		DebugOut(L"[INFO] alo chi em tui?\n");
+		//DebugOut(L"[INFO] alo chi em tui?\n");
 	}
 
 }
@@ -193,7 +194,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	*/
 	if (state != CONCO_STATE_WAS_BROUGHT)
-		vy += 0.002 * dt;
+		vy += KOOMPAS_AY * dt;
 
 	
 	//vx += ax * dt;

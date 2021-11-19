@@ -21,6 +21,7 @@ class MapScene : public CScene
 public:
 
 	vector<LPGAMEOBJECT> map_portals;
+
 	MapPortal* current_portal;
 
 	Map* map;

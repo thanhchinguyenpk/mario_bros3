@@ -55,7 +55,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (this->GetY() < 900)
 			{
-				SetPosition(6750, 1659);
+				SetPosition(6350, 1500);
 				is_set_position = false;
 				time_to_go_down = 0;
 			}
@@ -189,7 +189,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
 
-	if (dynamic_cast<BrickBlink*>(e->obj))
+	if (dynamic_cast<Pine*>(e->obj))
 	{
 		this->go_down = true;
 		//SetPosition(200, 100);
