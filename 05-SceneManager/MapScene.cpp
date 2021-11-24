@@ -188,14 +188,10 @@ void MapScene::_ParseSection_OBJECTS(string line)
 	obj->SetPosition(x, y);
 
 
-	//if (dynamic_cast<BrickBlink*>(obj))
-	//{
-		//list_bricklink.push_back(obj);
-		//DebugOut(L"[ERR]mấy viên? object type: %d\n", object_type);
-	//}
-	//else
-
-	objects.push_back(obj);
+	/*if (dynamic_cast<VisibleObject*>(obj))
+		visible_object.push_back(obj);
+	else*/
+		objects.push_back(obj);
 }
 
 void MapScene::_ParseSection_MAP_SELECTION(string line)
@@ -321,9 +317,8 @@ void MapScene::Update(DWORD dt)
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 0; i < objects.size(); i++)
-	{
 		coObjects.push_back(objects[i]);
-	}
+
 	/*for (int i = 0; i < itemsMarioCanEat.size(); i++)
 	{
 		coObjects.push_back(itemsMarioCanEat[i]);
@@ -333,36 +328,13 @@ void MapScene::Update(DWORD dt)
 		coObjects.push_back(list_bricklink[i]);
 	}*/
 
-
+	
+	/*for (size_t i = 0; i < objects.size(); i++)
+			visible_object[i]->Update(dt, &coObjects);*/
 
 	for (size_t i = 0; i < objects.size(); i++)
-	{
 		objects[i]->Update(dt, &coObjects);
 
-		/*if (dynamic_cast<BrickCoin*>(objects[i]))
-		{
-			BrickCoin* brick = dynamic_cast<BrickCoin*>(objects[i]);
-			if (brick->is_hit == true && brick->dropped == false && brick->has_item == BRICKCOIN_CONTAINS_EATABLE_ITEM)
-			{
-				DebugOut(L"[INFO] ủa no la laoi noa %d\n", brick->has_item);
-
-				float x, y;
-				brick->GetPosition(x, y);
-
-				if (player->GetLevel() == MARIO_LEVEL_SMALL)
-				{
-					Mushroom* mushroom = new Mushroom(x, y);
-					itemsMarioCanEat.push_back(mushroom);
-				}
-				else if (player->GetLevel() == MARIO_LEVEL_BIG || player->GetLevel() == MARIO_LEVEL_BIG_TAIL || player->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
-				{
-					SuperLeaf* superleaf = new SuperLeaf(x, y);
-					itemsMarioCanEat.push_back(superleaf);
-				}
-				brick->dropped = true;
-			}
-		}*/
-	}
 
 	/*for (int i = 0; i < itemsMarioCanEat.size(); i++)
 	{
