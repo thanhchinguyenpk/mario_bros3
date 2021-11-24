@@ -164,6 +164,7 @@
     <ClCompile Include="MapPortal.cpp" />
     <ClCompile Include="MapScene.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="MarioBullet.cpp" />
     <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="ParaGoompa.cpp" />
     <ClCompile Include="PButton.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="MapPortal.h" />
     <ClInclude Include="MapScene.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="MarioBullet.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="ParaGoompa.h" />
     <ClInclude Include="PButton.h" />

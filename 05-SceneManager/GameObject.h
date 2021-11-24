@@ -31,6 +31,7 @@ public:
 	bool isDeleted; 
 
 //public:
+	int GetNX() { return nx; };
 	bool CheckOverLap(float l_a, float t_a, float r_a, float b_a, float l_b, float t_b, float r_b, float b_b) { return (l_a < r_b&& r_a > l_b && t_a < b_b&& b_a > t_b); }
 
 	void UpdatePositionVertiacally() { this->vx; this->y -= 1; }

@@ -138,6 +138,24 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		is_kick = false;
 	
 	}
+
+	for (int i = 0; i < listWeapons.size(); i++)
+		listWeapons[i]->Update(dt, coObjects);
+
+
+	if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start >= 200 && throw_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		throw_start = 0;
+
+	}
+	if (GetState() == MARIO_STATE_SPIN && GetTickCount64() - spin_start >= 300 && spin_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		spin_start = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -661,6 +679,9 @@ int CMario::GetAniIdTail()
 				aniId = MARIO_ANI_TAIL_WALKING_RIGHT + TO_BECOME_LEFT;
 		}
 
+	if (state == MARIO_STATE_SPIN)
+		aniId = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
+
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
 }
@@ -718,6 +739,12 @@ int CMario::GetAniIdFire()
 			else
 				aniId = MARIO_ANI_ORANGE_WALKING_RIGHT + TO_BECOME_LEFT;
 		}
+
+	if (state == MARIO_STATE_STAND_SHOOT)
+		if(nx==1)
+			aniId = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
+		else
+			aniId = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT + TO_BECOME_LEFT;
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
@@ -794,7 +821,9 @@ void CMario::Render()
 
 	RenderBoundingBox();
 	
-	
+
+	for (int i = 0; i < listWeapons.size(); i++)
+		listWeapons[i]->Render();
 }
 
 void CMario::SetState(int state)
@@ -885,10 +914,40 @@ void CMario::SetState(int state)
 		is_kick = true;
 		break;
 
+	case MARIO_STATE_STAND_SHOOT:
+		throw_start = GetTickCount64();
+		this->attack();
+		break;
+	case MARIO_STATE_SPIN:
+		spin_start = GetTickCount64();
+		break;
 		
 	}
 
 	CGameObject::SetState(state);
+}
+
+void CMario::attack()
+{
+	//if (listWeapons.size() == 2)
+	//	return;
+
+	MarioBullet* temp = new MarioBullet(this->x, this->y);
+
+	if (this->GetNX() > 0)
+	{
+		temp->SetState(MARIO_BULLET_STATE_WALKING_RIGHT);
+		temp->SetPosition(this->GetX() + 10 + 5, this->GetY());
+	}
+	else
+	{
+		temp->SetState(MARIO_BULLET_STATE_WALKING_LEFT);
+		temp->SetPosition(this->GetX() - 5, this->GetY());
+	}
+
+	listWeapons.push_back(temp);
+	DebugOut(L"[INFO] weapon: %d\n", listWeapons.size());
+
 }
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
@@ -911,12 +970,7 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 		}
 	}
 	else if (level == MARIO_LEVEL_BIG_TAIL)
-	{ /*#define MARIO_BIG_TAIL_BBOX_WIDTH  21*3
-#define MARIO_BIG_TAIL_BBOX_HEIGHT 28*3
-
-#define MARIO_BIG_TAIL_SITDOWN_BBOX_WIDTH  22*3
-#define MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT 19*3*/
-
+	{ 
 
 		if (isSitting)
 		{

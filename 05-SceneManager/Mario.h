@@ -5,6 +5,7 @@
 #include "Animations.h"
 #include "TimerCustom.h"
 #include "debug.h"
+#include "MarioBullet.h"
 
 //#define MARIO_WALKING_SPEED		0.1f
 #define MARIO_WALKING_SPEED		0.3f
@@ -224,6 +225,11 @@
 class CMario : public CGameObject
 {
 public:
+
+	DWORD spin_start = 0;
+	vector<LPGAMEOBJECT> listWeapons;
+	ULONGLONG throw_start = 0;
+
 	TimerCustom* untouchtable_timer = new TimerCustom(2500);
 
 	bool is_moving_in_world_map;
@@ -280,6 +286,8 @@ public:
 	int GetAniIdBig();
 	int GetAniIdTail();
 	int GetAniIdFire();
+
+	void attack();
 
 public:
 	CMario(float x, float y,bool is_in_world_map) : CGameObject(x, y)
