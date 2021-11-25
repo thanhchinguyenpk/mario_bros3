@@ -90,11 +90,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
+	if (state != MARIO_STATE_FLY_LANDING)
+		vy += ay * dt;
 
 	vy_store = vy; // nhảy từ dưới lên được
 
 
-	vy += ay * dt;
+	//vy += ay * dt;
 	vx += ax * dt;
 
 	if (abs(vx) > abs(maxVx))
@@ -153,6 +155,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		spin_start = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
+	if (GetState() == MARIO_STATE_FLY_LANDING && GetTickCount64() - fly_start >= 300 && fly_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		fly_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
 
@@ -680,7 +689,17 @@ int CMario::GetAniIdTail()
 		}
 
 	if (state == MARIO_STATE_SPIN)
-		aniId = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
+		if(nx==1)
+			aniId = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT;
+		else
+			aniId = MARIO_ANI_TAIL_SPIN_TAIL_RIGHT + TO_BECOME_LEFT;
+
+	if(state== MARIO_STATE_FLY_LANDING)
+		if(nx==1)
+			aniId = MARIO_ANI_ORANGE_FLY_DOWN;
+		else
+			aniId = MARIO_ANI_ORANGE_FLY_DOWN + TO_BECOME_LEFT;
+	
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
@@ -745,6 +764,8 @@ int CMario::GetAniIdFire()
 			aniId = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT;
 		else
 			aniId = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT + TO_BECOME_LEFT;
+
+	
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
@@ -920,6 +941,10 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_SPIN:
 		spin_start = GetTickCount64();
+		break;
+	case MARIO_STATE_FLY_LANDING:
+		fly_start = GetTickCount64();
+		vy = 0.02;
 		break;
 		
 	}

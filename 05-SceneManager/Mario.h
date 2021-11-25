@@ -40,7 +40,7 @@
 
 #define MARIO_STATE_SPIN		800
 
-#define MARIO_STATE_FLY		820
+#define MARIO_STATE_FLY_LANDING		820
 
 #define MARIO_STATE_KICK		900
 
@@ -205,7 +205,7 @@
 #define MARIO_ANI_TAIL_GO_DOWN		449
 #define MARIO_ANI_ORANGE_GO_DOWN	450
 
-
+#define MARIO_ANI_ORANGE_FLY_DOWN	451
 
 #define MARIO_ANI_SMALL_IN_MAP			763
 #define MARIO_ANI_BIG_IN_MAP			764
@@ -225,6 +225,9 @@
 class CMario : public CGameObject
 {
 public:
+
+	bool IsOnTheFlatForm() { return isOnPlatform; }
+	DWORD fly_start = 0;
 
 	DWORD spin_start = 0;
 	vector<LPGAMEOBJECT> listWeapons;
