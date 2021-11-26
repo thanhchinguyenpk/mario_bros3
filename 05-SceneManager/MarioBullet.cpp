@@ -1,5 +1,6 @@
 #include "MarioBullet.h"
-
+#include "Koompas.h"
+#include "Goomba.h"
 
 MarioBullet::MarioBullet(float x, float y) :CGameObject(x, y)
 {
@@ -47,6 +48,14 @@ void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		//vx = -vx;
+	}
+
+
+
+	if (dynamic_cast<CGoomba*>(e->obj))
+	{
+		DebugOut(L"[INFO] hiiiiiii %d\n");
+		dynamic_cast<CGoomba*>(e->obj)->SetState(GOOMBA_STATE_WAS_SHOOTED);
 	}
 }
 

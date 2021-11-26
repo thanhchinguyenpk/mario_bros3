@@ -46,7 +46,7 @@ public:
 	virtual void Render();
 
 	virtual int IsCollidable() { return is_colliable; }; //hàm cha trả về 0, nếu trả về ko, rơi khỏi thế giới
-	virtual int IsBlocking() { return 0; } // hàm cha trả về 1
+	virtual int IsBlocking() { return 1; } // hàm cha trả về 1
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
