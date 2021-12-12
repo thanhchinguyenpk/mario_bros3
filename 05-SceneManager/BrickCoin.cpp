@@ -51,6 +51,19 @@ void BrickCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	//DebugOut(L"[ERROR-------vy của viên gạch-----------------] DINPUT::GetDeviceData failed. Error: %f\n",y);
 
+	//if (player->GetState() == MARIO_STATE_SPIN)
+	//{
+		float l_a, t_a, r_a, b_a;
+		float l_b, t_b, r_b, b_b;
+		this->GetBoundingBox(l_a, t_a, r_a, b_a);
+		player->GetBoundingBox(l_b, t_b, r_b, b_b);
+
+		if (this->CheckOverLap(l_a, t_a, r_a, b_a, l_b, t_b, r_b, b_b))
+		{
+			DebugOut(L"[INFO] đã vô hàm checkoverlap cua brick coin \n");
+		}
+	//}
+
 }
 
 void BrickCoin::GetBoundingBox(float& l, float& t, float& r, float& b)

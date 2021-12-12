@@ -204,7 +204,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case 8:
 	{
 		int has_item = (int)atof(tokens[3].c_str());
-		obj = new BrickCoin(x, y, has_item); break;
+		obj = new BrickCoin(x, y, has_item, player); break;
 	}
 	case 9: obj  = new Mushroom(x, y); break;
 	case 10: obj = new SuperLeaf(x, y); break;
