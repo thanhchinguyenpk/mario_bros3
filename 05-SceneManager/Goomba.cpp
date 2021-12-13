@@ -83,7 +83,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects); // ủa chỗ này có cần khum?
+	CGameObject::Update(dt, coObjects); // ua
 	float no_thing;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -98,11 +98,12 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	}*/
 
 
-	float ml, mt, mr, mb;
+	/*float ml, mt, mr, mb;
 	float il, it, ir, ib;
 
 	this->GetBoundingBox(il, it, ir, ib);
 	player->GetBoundingBox(ml, mt, mr, mb);
+	*/
 	//DebugOut(L"[INFO] l của mario %f \n",ml);
 
 
@@ -114,6 +115,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
 		this->SetState(GOOMBA_STATE_DIE);*/
 	//}
+
+	this->CheckWetherBeingAttacked(player, GOOMBA_STATE_WAS_SHOOTED);
+
 }
 
 
@@ -153,7 +157,9 @@ void CGoomba::SetState(int state)
 
 		case GOOMBA_STATE_WAS_SHOOTED:
 			vy = -GOOMBA_VY_WHEN_WAS_SHOOT;
-			vx = is_minus_vx ? GOOMBA_VX_WHEN_WAS_SHOOT : -GOOMBA_VX_WHEN_WAS_SHOOT;
+			DebugOut(L"[INFO] cuc cu %d \n", DirectionWhenBeingAttack);
+			vx = DirectionWhenBeingAttack == -1 ? -GOOMBA_VX_WHEN_WAS_SHOOT : GOOMBA_VX_WHEN_WAS_SHOOT;
+			//vx = DirectionWhenBeingAttack == -1 ? -KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
 			//vx = 0.09;
 			is_colliable = 0;
 			break;

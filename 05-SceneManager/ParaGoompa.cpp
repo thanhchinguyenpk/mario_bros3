@@ -201,11 +201,11 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}*/
 
 
-	float ml, mt, mr, mb;
+	/*float ml, mt, mr, mb;
 	float il, it, ir, ib;
 
 	this->GetBoundingBox(il, it, ir, ib);
-	player->GetBoundingBox(ml, mt, mr, mb);
+	player->GetBoundingBox(ml, mt, mr, mb);*/
 	//DebugOut(L"[INFO] l của mario %f \n",ml);
 
 
@@ -217,6 +217,9 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
 		this->SetState(GOOMBA_STATE_DIE);*/
 	//}
+
+	this->CheckWetherBeingAttacked(player, PARA_GOOMBA_STATE_WAS_SHOOTED);
+
 }
 
 
@@ -281,7 +284,7 @@ void ParaGoompa::SetState(int state)
 
 	case PARA_GOOMBA_STATE_WAS_SHOOTED:
 		vy = -0.25 * 3.5;
-		vx = is_minus_vx ? 0.1 : -0.1;
+		vx = DirectionWhenBeingAttack==-1 ? -0.1 : 0.1;
 		is_colliable = 0;
 		break;
 		

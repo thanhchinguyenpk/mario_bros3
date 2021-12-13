@@ -258,6 +258,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	}*/
 
+
 	this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
 	// 
 	//this->CheckWetherBeingAttacked(player, -1000);
@@ -370,6 +371,7 @@ void Koompas::SetState(int state)
 		break;
 	case CONCO_STATE_WAS_SHOOTED:
 		vy = -KOOMPAS_VY_WAS_SHOOTED;
+		//DebugOut(L"[INFO] cuc cu %d \n", DirectionWhenBeingAttack);
 		vx = DirectionWhenBeingAttack ==-1 ?-KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
 		//vx = 0.09;
 		is_colliable = 0;

@@ -28,8 +28,8 @@ void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_s
 	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
 	{
 
-		DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala \n");
-		SetState(become_state);
+		
+		
 		//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
 
 		if (this->GetX() < obj_attack->GetX())
@@ -37,9 +37,14 @@ void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_s
 			//DebugOut(L"[INFO] heloo? %d\n", koompas->state);
 			//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
 			this->DirectionWhenBeingAttack = -1;
+			///DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala -1 \n");
 		}
 		else
+		{
 			this->DirectionWhenBeingAttack = 1;
+			//DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala 1 \n");
+		}
+		SetState(become_state);
 
 	}
 
