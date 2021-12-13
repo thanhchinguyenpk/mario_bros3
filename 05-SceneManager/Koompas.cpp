@@ -205,7 +205,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects);// ủa đê chi
+	CGameObject::Update(dt, coObjects);// sao
 	float no_thing;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -240,23 +240,30 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut(L"[INFO] state con co la: %d \n",state);
 
 
-	/*
-	float ml, mt, mr, mb;
+	
+	/*float ml, mt, mr, mb;
 	float il, it, ir, ib;
 
 	this->GetBoundingBox(il, it, ir, ib);
 	player->GetBoundingBox(ml, mt, mr, mb);
-	//DebugOut(L"[INFO] l của mario %f \n",ml);
+
 	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
 	{
 		//SetState(CONCO_STATE_WAS_SHOOTED);
 		//DebugOut(L"[INFO] bump, kill koompas  \n");
-		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
+		DebugOut(L"[INFO] đã vô hàm checkoverlap koompas \n");
+		SetState(CONCO_STATE_WAS_SHOOTED);
 		//this->SetState(GOOMBA_STATE_DIE);
-	}
+		//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
 
-	//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
-	*/
+	}*/
+
+	this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
+	// 
+	//this->CheckWetherBeingAttacked(player, -1000);
+
+
+	
 }
 
 
@@ -363,7 +370,7 @@ void Koompas::SetState(int state)
 		break;
 	case CONCO_STATE_WAS_SHOOTED:
 		vy = -KOOMPAS_VY_WAS_SHOOTED;
-		vx = is_minus_vx?-KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
+		vx = DirectionWhenBeingAttack ==-1 ?-KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
 		//vx = 0.09;
 		is_colliable = 0;
 		break;

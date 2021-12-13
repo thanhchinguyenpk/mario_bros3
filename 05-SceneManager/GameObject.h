@@ -18,6 +18,8 @@ class CGameObject
 public:
 //protected:
 
+	int DirectionWhenBeingAttack = 0;
+
 	float x; 
 	float y;
 
@@ -31,6 +33,7 @@ public:
 	bool isDeleted; 
 
 //public:
+	void CheckWetherBeingAttacked(CGameObject* obj_attack,int become_state);
 	int GetNX() { return nx; };
 	bool CheckOverLap(float l_a, float t_a, float r_a, float b_a, float l_b, float t_b, float r_b, float b_b) { return (l_a < r_b&& r_a > l_b && t_a < b_b&& b_a > t_b); }
 
@@ -56,7 +59,8 @@ public:
 	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
+	virtual void SetState(int state) { this->state = state; };
+	// if (state == -1000) this->vy = -2;
 
 	//
 	// Collision ON or OFF ? This can change depending on object's state. For example: die

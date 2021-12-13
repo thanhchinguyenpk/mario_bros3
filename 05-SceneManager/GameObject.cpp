@@ -1,4 +1,4 @@
-#include <d3dx9.h>
+﻿#include <d3dx9.h>
 #include <algorithm>
 
 
@@ -15,6 +15,34 @@ CGameObject::CGameObject()
 	nx = 1;	
 	state = -1;
 	isDeleted = false;
+}
+
+void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_state)
+{
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(il, it, ir, ib);
+	obj_attack->GetBoundingBox(ml, mt, mr, mb);
+
+	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
+	{
+
+		DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala \n");
+		SetState(become_state);
+		//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
+
+		if (this->GetX() < obj_attack->GetX())
+		{
+			//DebugOut(L"[INFO] heloo? %d\n", koompas->state);
+			//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
+			this->DirectionWhenBeingAttack = -1;
+		}
+		else
+			this->DirectionWhenBeingAttack = 1;
+
+	}
+
 }
 
 void CGameObject::RenderBoundingBox()

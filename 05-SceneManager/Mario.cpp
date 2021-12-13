@@ -102,11 +102,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (abs(vx) > abs(maxVx))
 	{
 		vx = maxVx;
-		DebugOut(L"[INFO] vo day ko?\n");
+		//DebugOut(L"[INFO] vo day ko?\n");
 	}
 
 
-	DebugOut(L"[INFO]maxVx la: %f\n", maxVx);
+	//DebugOut(L"[INFO]maxVx la: %f\n", maxVx);
 	// reset untouchable timer if untouchable time has passed
 	
 	/*if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
