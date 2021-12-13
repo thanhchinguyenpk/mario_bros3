@@ -17,6 +17,23 @@ CGameObject::CGameObject()
 	isDeleted = false;
 }
 
+void CGameObject::BeingAttackedByFireBallMario(CGameObject* obj_attack, int become_state)
+{
+
+	if (this->GetX() < obj_attack->GetX())
+	{
+	
+		this->DirectionWhenBeingAttack = -1;
+		///DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala -1 \n");
+	}
+	else
+	{
+		this->DirectionWhenBeingAttack = 1;
+		//DebugOut(L"[INFO] đã vô hàm checkoverlap ohlala 1 \n");
+	}
+	this->SetState(become_state);
+}
+
 void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_state)
 {
 	float ml, mt, mr, mb;

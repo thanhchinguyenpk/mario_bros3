@@ -81,7 +81,7 @@ class Koompas : public CGameObject
 public:
 	int type = KOOMPAS_GREEN;
 
-	bool is_blocking = 0;
+	bool is_blocking = 1;
 
 	bool is_minus_vx = false;
 	bool is_colliable = 1;

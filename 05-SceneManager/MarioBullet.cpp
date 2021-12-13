@@ -1,6 +1,7 @@
 #include "MarioBullet.h"
 #include "Koompas.h"
 #include "Goomba.h"
+#include "ParaGoompa.h"
 
 MarioBullet::MarioBullet(float x, float y) :CGameObject(x, y)
 {
@@ -54,8 +55,25 @@ void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (dynamic_cast<CGoomba*>(e->obj))
 	{
-		DebugOut(L"[INFO] hiiiiiii %d\n");
-		dynamic_cast<CGoomba*>(e->obj)->SetState(GOOMBA_STATE_WAS_SHOOTED);
+		//DebugOut(L"[INFO] hiiiiiii %d\n");
+		//this->BeingAttackedByFireBallMario(dynamic_cast<CGoomba*>(e->obj),GOOMBA_STATE_WAS_SHOOTED);
+		//BeingAttackedByFireBallMario
+		//dynamic_cast<CGoomba*>(e->obj)->SetState(GOOMBA_STATE_WAS_SHOOTED);
+		dynamic_cast<CGoomba*>(e->obj)->BeingAttackedByFireBallMario(this, GOOMBA_STATE_WAS_SHOOTED);
+	}
+	else if(dynamic_cast<Koompas*>(e->obj))
+	{
+		//DebugOut(L"[INFO] hiiiiiii %d\n");
+		//dynamic_cast<Koompas*>(e->obj)->SetState(CONCO_STATE_WAS_SHOOTED);
+		dynamic_cast<Koompas*>(e->obj)->BeingAttackedByFireBallMario(this, CONCO_STATE_WAS_SHOOTED);
+
+	}
+	else if (dynamic_cast<ParaGoompa*>(e->obj))
+	{
+		//DebugOut(L"[INFO] hiiiiiii %d\n");
+		//dynamic_cast<ParaGoompa*>(e->obj)->SetState(PARA_GOOMBA_STATE_WAS_SHOOTED);
+		dynamic_cast<ParaGoompa*>(e->obj)->BeingAttackedByFireBallMario(this, PARA_GOOMBA_STATE_WAS_SHOOTED);
+
 	}
 }
 
