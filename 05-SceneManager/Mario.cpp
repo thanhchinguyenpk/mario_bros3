@@ -90,8 +90,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	if (state != MARIO_STATE_FLY_LANDING)
+	if (state == MARIO_STATE_FLY_LANDING || state == MARIO_STATE_FLY_HIGH)
+		vy = vy;
+	else
 		vy += ay * dt;
+	//if (state != MARIO_STATE_FLY_HIGH)
+	//	vy += ay * dt;
 
 	vy_store = vy; // nhảy từ dưới lên được
 
@@ -162,6 +166,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		SetState(MARIO_STATE_IDLE);
 		fly_start = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
+	if (GetState() == MARIO_STATE_FLY_HIGH && GetTickCount64() - fly_high_start >= 300 && fly_high_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		fly_high_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
 
@@ -642,10 +653,7 @@ int CMario::GetAniIdTail()
 	{
 		if (abs(vx) == MARIO_RUNNING_SPEED)
 		{
-			if (nx >= 0)
-				aniId = MARIO_ANI_TAIL_FLY_HIGH;
-			else
-				aniId = MARIO_ANI_TAIL_FLY_HIGH +TO_BECOME_LEFT;
+			
 		}
 		else
 		{
@@ -699,6 +707,14 @@ int CMario::GetAniIdTail()
 			aniId = MARIO_ANI_ORANGE_FLY_DOWN;
 		else
 			aniId = MARIO_ANI_ORANGE_FLY_DOWN + TO_BECOME_LEFT;
+
+	if (state == MARIO_STATE_FLY_HIGH)
+	{
+		if (nx >= 0)
+			aniId = MARIO_ANI_TAIL_FLY_HIGH;
+		else
+			aniId = MARIO_ANI_TAIL_FLY_HIGH + TO_BECOME_LEFT;
+	}
 	
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
@@ -945,6 +961,10 @@ void CMario::SetState(int state)
 	case MARIO_STATE_FLY_LANDING:
 		fly_start = GetTickCount64();
 		vy = 0.02;
+		break;
+	case MARIO_STATE_FLY_HIGH:
+		fly_high_start = GetTickCount64();
+		vy = -0.3;
 		break;
 		
 	}

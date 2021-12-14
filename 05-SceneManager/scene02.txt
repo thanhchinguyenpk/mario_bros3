@@ -135,7 +135,7 @@ goomba.txt
 #7	2900	548 sẽ đi qua được chắn gạch chấm hỏi
 
 #con này nè
-7	2900	1148
+#7	2900	1148
 
 #brick coin
 #8	300	1210	1

@@ -41,6 +41,7 @@
 #define MARIO_STATE_SPIN		800
 
 #define MARIO_STATE_FLY_LANDING		820
+#define MARIO_STATE_FLY_HIGH		840
 
 #define MARIO_STATE_KICK		900
 
@@ -226,6 +227,7 @@ class CMario : public CGameObject
 {
 public:
 
+	DWORD fly_high_start = 0;
 	bool IsOnTheFlatForm() { return isOnPlatform; }
 	DWORD fly_start = 0;
 
