@@ -276,7 +276,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		objects.push_back(obj);
 
 
-	game_ui = new UI();
+	game_ui = new UI(player);
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -443,7 +443,7 @@ void CPlayScene::Update(DWORD dt)
 	else if(player->GetY()>1368)
 		CGame::GetInstance()->SetCamPos(cx, 1365);
 	else
-		CGame::GetInstance()->SetCamPos(cx, 700);
+		CGame::GetInstance()->SetCamPos(cx, 700  -24);
 
 	PurgeDeletedObjects();
 

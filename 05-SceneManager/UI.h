@@ -1,16 +1,19 @@
 #pragma once
 #include "TextAndNumber.h"
 #include "Game.h"
+#include "GameObject.h"
 
 class UI
 {
+	LPGAMEOBJECT player;
+
 	float posX = 100, posY = 800;
 
 	TextAndNumber text;
 
 public:
 
-	UI() {};
+	UI(LPGAMEOBJECT mario) { player = mario; };
 	~UI() {};
 
 	void Update() {};
