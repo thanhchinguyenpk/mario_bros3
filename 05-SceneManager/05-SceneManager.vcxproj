@@ -182,6 +182,7 @@
     <ClCompile Include="TextAndNumber.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TimerCustom.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VenusFireTrap.cpp" />
     <ClCompile Include="VisibleObject.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TimerCustom.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VenusFireTrap.h" />
     <ClInclude Include="VisibleObject.h" />

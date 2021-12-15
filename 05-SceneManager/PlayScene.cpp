@@ -21,6 +21,7 @@
 #include "PButton.h"
 #include "RandomBonus.h"
 #include "Koompas.h"
+#include "UI.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -273,6 +274,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	else
 		objects.push_back(obj);
+
+
+	game_ui = new UI();
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -468,6 +472,11 @@ void CPlayScene::Render()
 
 	//temp.Render(100,800, temp.FillZeroString(to_string(15 - game_time->gameTime), 5));
 	
+	game_time = GameTime::GetInstance();
+
+	//game_ui->Render(300 - game_time->GetTime(), player->number_brick_coin_hit, player->score, 4, 1);
+	game_ui->Render(300 - game_time->GetTime(), 5, 2000, 4, 1);
+
 }
 
 /*

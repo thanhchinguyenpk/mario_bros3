@@ -18,6 +18,7 @@ public:
 	DWORD currentTotalTime;
 
 	void Update(DWORD dt);
+	int GetTime() { return gameTime; }
 
 	GameTime();
 	~GameTime();

@@ -11,6 +11,8 @@
 #include "ParaGoompa.h"
 #include "Map.h"
 #include "PiranhaPlant.h"
+#include "UI.h"
+
 //#include "Koopas.h"
 
 
@@ -19,13 +21,15 @@ class CPlayScene: public CScene
 //protected: 
 public:
 	// A play scene has to have player, right? 
+	GameTime* game_time;
+	UI* game_ui;
 
 	Map* map;
 
 	//LPGAMEOBJECT player;
 	CMario* player;
 	TextAndNumber temp;
-	GameTime* game_time ;
+	//GameTime* game_time ;
 
 	vector<LPGAMEOBJECT> list_bricklink;
 	vector<LPGAMEOBJECT> objects;
