@@ -227,17 +227,6 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-	/*float l_a, t_a, r_a, b_a;
-	float l_b, t_b, r_b, b_b;
-	this->GetBoundingBox(l_a, t_a, r_a, b_a);
-	player->GetBoundingBox(l_b, t_b, r_b, b_b);
-
-	if (this->CheckOverLap(l_a, t_a, r_a, b_a, l_b, t_b, r_b, b_b))
-	{
-		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
-	}*/
-
-	//DebugOut(L"[INFO] state con co la: %d \n",state);
 
 
 	

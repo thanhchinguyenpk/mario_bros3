@@ -275,8 +275,7 @@ public:
 	void OnCollisionWithKoompas(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
 	void OnCollisionWithPortal(LPCOLLISIONEVENT e);
-	//void OnCollisionWithPortal(LPCOLLISIONEVENT e);
-
+	
 	void OnCollisionWithParaGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrickCoin(LPCOLLISIONEVENT e);
 
