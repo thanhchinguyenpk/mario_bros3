@@ -237,6 +237,24 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 
 
+	if (holding_something != NULL)
+	{
+		if (is_holding == true)
+		{
+			
+			if(nx==-1)
+				this->holding_something->SetPosition(this->x - 50, this->y);
+			else if(nx==1)
+				this->holding_something->SetPosition(this->x + 50, this->y);
+		}
+		else
+		{
+			Koompas* koompas = dynamic_cast<Koompas*>(holding_something);
+			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+			holding_something = NULL;
+		}
+	}
+
 }
 
 void CMario::OnCollisionWithPine(LPCOLLISIONEVENT e)
@@ -329,18 +347,32 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	{
 		if (e->nx != 0)
 		{
-			if (koompas->GetState() == GOOMBA_STATE_INDENT_IN || koompas->GetState() == CONCO_STATE_INDENT_OUT ||
-				koompas->GetState() == CONCO_STATE_SHELL_MOVING)
+			if (is_holding == false)
 			{
-				if (GetState() == MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT)
+				if (koompas->GetState() == GOOMBA_STATE_INDENT_IN || koompas->GetState() == CONCO_STATE_INDENT_OUT ||
+					koompas->GetState() == CONCO_STATE_SHELL_MOVING)
 				{
-					this->SetState(MARIO_STATE_KICK);
-					koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+					if (GetState() == MARIO_STATE_WALKING_RIGHT || GetState() == MARIO_STATE_WALKING_LEFT)
+					{
+						this->SetState(MARIO_STATE_KICK);
+						koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+					}
 				}
+				else
+					CollideWithEnemy();
 			}
 			else
-				CollideWithEnemy();
+			{
+					if (is_holding == true)
+					{
+						if (koompas->GetState() == GOOMBA_STATE_INDENT_IN)
+						{
+							holding_something = koompas;
+							koompas->SetState(CONCO_STATE_BEING_HOLDING);
+						}
+					}
 
+			}
 		}
 		else
 			CollideWithEnemy(); // truowngf hop nhay tu tren xuong cham marrio

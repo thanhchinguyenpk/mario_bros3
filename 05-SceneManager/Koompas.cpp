@@ -274,7 +274,7 @@ void Koompas::Render()
 			else
 				aniId = CONCO_ANI_GREEN_WALKING_LEFT;
 		}
-		else if (state == GOOMBA_STATE_INDENT_IN)
+		else if (state == GOOMBA_STATE_INDENT_IN|| state== CONCO_STATE_BEING_HOLDING)
 		{
 			aniId = CONCO_ANI_GREEN_THUT_VAO;
 		}
@@ -372,7 +372,9 @@ void Koompas::SetState(int state)
 	case CONCO_STATE_FLY_RIGHT:
 		vx = KOOMPAS_WALKING_SPEED;
 		break;
-		
+	case CONCO_STATE_BEING_HOLDING:
+		vx = 0;
+		vy = 0;
 		
 	}
 }

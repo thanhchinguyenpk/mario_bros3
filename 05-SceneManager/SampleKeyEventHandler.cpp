@@ -17,6 +17,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_Z:
+		mario->is_holding = true;
+		break;
 	case DIK_T:
 		
 		if(abs(mario->vx) == MARIO_RUNNING_SPEED|| mario->GetState()== MARIO_STATE_FLY_HIGH)
@@ -82,6 +85,9 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (KeyCode)
 	{
+	case DIK_Z:
+		mario->is_holding = false;
+		break;
 	case DIK_S:
 		if (mario->GetState() == MARIO_STATE_FLY_LANDING)
 			return;
