@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "Mario.h"
 #include "FlatForm.h"
+#include "VirtalBox.h"
 
 #define GOOMBA_GRAVITY 0.002f
 #define KOOMPAS_WALKING_SPEED 0.06f
@@ -80,6 +81,9 @@
 class Koompas : public CGameObject
 {
 public:
+
+	VirtalBox* virtalbox = NULL;
+
 	int type = KOOMPAS_GREEN;
 
 	bool is_blocking = 1;

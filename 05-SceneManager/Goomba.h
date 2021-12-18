@@ -33,6 +33,7 @@ class CGoomba : public CGameObject
 
 public:
 
+
 	bool is_minus_vx = false;
 	bool is_colliable = 1;
 

@@ -22,6 +22,7 @@
 #include "RandomBonus.h"
 #include "Koompas.h"
 #include "UI.h"
+#include "VirtalBox.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -255,6 +256,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new RandomBonus(x, y, mario); break;
+
+	}
+	case 19:
+	{
+		//CMario* mario = dynamic_cast<CMario*>(player);
+		obj = new VirtalBox(x, y); break;
 
 	}
 	

@@ -22,6 +22,7 @@
 #include "BrickBlink.h"
 
 #include "SuperLeaf.h"
+#include "VirtalBox.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -223,6 +224,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPButton(e);
 	else if (dynamic_cast<Pine*>(e->obj))
 		OnCollisionWithPine(e);
+	else if (dynamic_cast<VirtalBox*>(e->obj))
+		OnCollisionWithVirtalBox(e);
 
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
@@ -243,9 +246,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		{
 			
 			if(nx==-1)
-				this->holding_something->SetPosition(this->x - 50, this->y);
+				this->holding_something->SetPosition(this->x - 60, this->y);
 			else if(nx==1)
-				this->holding_something->SetPosition(this->x + 50, this->y);
+				this->holding_something->SetPosition(this->x + 60, this->y);
 		}
 		else
 		{
@@ -369,6 +372,8 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 						{
 							holding_something = koompas;
 							koompas->SetState(CONCO_STATE_BEING_HOLDING);
+							//CONCO_STATE_WAS_BROUGHT
+							
 						}
 					}
 
@@ -385,6 +390,13 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		
 	}*/
 
+}
+
+void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)
+{
+	//e->obj->Delete();
+	//coin++;
+	e->obj->vx = this->vx;
 }
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
@@ -641,27 +653,45 @@ int CMario::GetAniIdBig()
 		else
 			if (vx == 0)
 			{
-				if (nx > 0) aniId = ID_ANI_MARIO_IDLE_RIGHT;
-				else aniId = ID_ANI_MARIO_IDLE_LEFT;
+				if (holding_something == NULL)
+				{
+					if (nx > 0) aniId = ID_ANI_MARIO_IDLE_RIGHT;
+					else aniId = ID_ANI_MARIO_IDLE_LEFT;
+				}
+				else
+				{
+					if (nx > 0) aniId = MARIO_ANI_BIG_STAND_HOLD;
+					else  aniId = MARIO_ANI_BIG_STAND_HOLD +TO_BECOME_LEFT;
+				}
 			}
 			else if (vx > 0)
 			{
-				// chỗ này lần milestone1
-				if (ax < 0)
-					aniId = ID_ANI_MARIO_BRACE_LEFT;
-				else if (vx == MARIO_RUNNING_SPEED)
-					aniId = ID_ANI_MARIO_RUNNING_RIGHT;
-				else 
-					aniId = ID_ANI_MARIO_WALKING_RIGHT;
+				
+				if (holding_something == NULL)
+				{
+					if (ax < 0)
+						aniId = ID_ANI_MARIO_BRACE_LEFT;
+					else if (vx == MARIO_RUNNING_SPEED)
+						aniId = ID_ANI_MARIO_RUNNING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_WALKING_RIGHT;
+				}
+				else
+					aniId = MARIO_ANI_BRING_KOOMPASHELL_RIGHT;
 			}
 			else // vx < 0
 			{
-				if (ax > 0)
-					aniId =  ID_ANI_MARIO_BRACE_RIGHT;
-				else if (vx == -MARIO_RUNNING_SPEED)
-					aniId = ID_ANI_MARIO_RUNNING_LEFT;
+				if (holding_something == NULL)
+				{
+					if (ax > 0)
+						aniId = ID_ANI_MARIO_BRACE_RIGHT;
+					else if (vx == -MARIO_RUNNING_SPEED)
+						aniId = ID_ANI_MARIO_RUNNING_LEFT;
+					else
+						aniId = ID_ANI_MARIO_WALKING_LEFT;
+				}
 				else
-					aniId = ID_ANI_MARIO_WALKING_LEFT;
+					aniId = MARIO_ANI_BRING_KOOMPASHELL_RIGHT + TO_BECOME_LEFT;
 			}
 
 	if (aniId == -1) aniId = ID_ANI_MARIO_IDLE_RIGHT;
