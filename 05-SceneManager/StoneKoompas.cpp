@@ -31,6 +31,12 @@ void StoneKoompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vy += 0.002 * dt;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
+	if (state == STONE_KOOMPAS_STATE_DIE && GetTickCount64() - time_to_rescure > 5000)
+	{
+		SetPosition(this->x, this->y - 50);
+		this->SetState(STONE_KOOMPAS_STATE_WALKING_LEFT);
+	}
 }
 
 void StoneKoompas::Render()
@@ -94,6 +100,7 @@ void StoneKoompas::SetState(int state)
 		vx = 0;
 		vy = 0;
 		is_block = 0;
+		time_to_rescure = GetTickCount64();
 		//ay = 0;
 		break;
 	case STONE_KOOMPAS_STATE_WALKING_LEFT:

@@ -34,6 +34,7 @@
 class StoneKoompas : public CGameObject
 {
 public:
+	ULONGLONG time_to_rescure;
 	bool is_block = 1;
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
