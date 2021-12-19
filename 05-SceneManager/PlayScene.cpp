@@ -23,6 +23,7 @@
 #include "Koompas.h"
 #include "UI.h"
 #include "VirtalBox.h"
+#include "StoneKoompas.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -262,6 +263,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new VirtalBox(x, y); break;
+
+	}
+	case 20:
+	{
+		//CMario* mario = dynamic_cast<CMario*>(player);
+		obj = new StoneKoompas(x, y); break;
 
 	}
 	

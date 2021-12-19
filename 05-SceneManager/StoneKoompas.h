@@ -14,21 +14,33 @@
 #define GOOMBA_BBOX_WIDTH_INDENT_IN 16*3
 #define GOOMBA_BBOX_HEIGHT_INDENT_IN 16*3
 
+#define STONE_KOOMPAS_BBOX_WIDTH_DIE 23*3
+#define STONE_KOOMPAS_BBOX_HEIGHT_DIE 11*3
+
 #define GOOMBA_BBOX_HEIGHT_DIE 7
 
 #define GOOMBA_DIE_TIMEOUT 500
 
 
+#define STONE_KOOMPAS_STATE_DIE 100
+#define STONE_KOOMPAS_STATE_WALKING_LEFT 200
+#define STONE_KOOMPAS_STATE_WALKING_RIGHT 300
+
+
+#define  ANI_STONE_KOOMPAS_WALKING_LEFT 6000
+
+#define  ANI_STONE_KOOMPAS_WALKING_RIGHT 6010
+//stone koompas 
 class StoneKoompas : public CGameObject
 {
-
-
+public:
+	bool is_block = 1;
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	 void Render();
+	void Render();
 
 	int IsCollidable() { return 1; };
 	//	virtual int IsBlocking() { return 1; };
-	int IsBlocking() { return 1; };
+	int IsBlocking() { return is_block; };
 
 	void OnNoCollision(DWORD dt);
 
@@ -37,5 +49,6 @@ class StoneKoompas : public CGameObject
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	StoneKoompas(float x, float y);
+	void SetState(int state);
 };
 

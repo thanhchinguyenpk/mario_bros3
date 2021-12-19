@@ -23,6 +23,7 @@
 
 #include "SuperLeaf.h"
 #include "VirtalBox.h"
+#include "StoneKoompas.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -226,6 +227,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPine(e);
 	else if (dynamic_cast<VirtalBox*>(e->obj))
 		OnCollisionWithVirtalBox(e);
+	else if (dynamic_cast<StoneKoompas*>(e->obj))
+		OnCollisionWithStoneKoompas(e);
 
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
@@ -390,6 +393,18 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		
 	}*/
 
+}
+
+void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
+{
+	//e->obj->Delete();
+	//coin++;
+	if (e->ny < 0)
+	{
+		e->obj->SetState(STONE_KOOMPAS_STATE_DIE);
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+		DebugOut(L"stone koompas %d \n");
+	}
 }
 
 void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)

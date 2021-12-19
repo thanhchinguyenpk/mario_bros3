@@ -241,3 +241,5 @@ goomba.txt
 
 #virtal box
 19	2750	930
+#stone koompas
+20	2300	900

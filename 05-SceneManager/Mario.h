@@ -289,6 +289,8 @@ public:
 	void OnCollisionWithVirtalBox(LPCOLLISIONEVENT e);
 
 	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
+
+	void OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e);
 	
 
 	
