@@ -159,6 +159,7 @@
     <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Koompas.cpp" />
+    <ClCompile Include="LavaBall.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapPortal.cpp" />
@@ -209,6 +210,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Koompas.h" />
+    <ClInclude Include="LavaBall.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapPortal.h" />
     <ClInclude Include="MapScene.h" />

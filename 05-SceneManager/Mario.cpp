@@ -115,16 +115,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut(L"[INFO]maxVx la: %f\n", maxVx);
 	// reset untouchable timer if untouchable time has passed
 	
-	/*if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
-	}*/
+	}
 
-	if (untouchtable_timer->IsTimeUp())
+	/*if (untouchtable_timer->IsTimeUp())
 	{
 		untouchtable_timer->Reset();
-	}
+	}*/
 
 	isOnPlatform = false;
 
@@ -405,6 +405,8 @@ void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		DebugOut(L"stone koompas %d \n");
 	}
+	else
+		CollideWithEnemy();
 }
 
 void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)
@@ -524,7 +526,7 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 
 void CMario::CollideWithEnemy()
 {
-	/*if (untouchable == 0)
+	if (untouchable == 0)
 	{
 		if (level > MARIO_LEVEL_BIG)
 		{
@@ -539,10 +541,10 @@ void CMario::CollideWithEnemy()
 
 		else
 			SetState(MARIO_STATE_DIE);
-	}*/
+	}
 	//untouchtable_timer
 
-	if (untouchtable_timer->startTime == 0)
+	/*if (untouchtable_timer->startTime == 0)
 	{
 		if (level > MARIO_LEVEL_BIG)
 		{
@@ -558,7 +560,7 @@ void CMario::CollideWithEnemy()
 
 		else
 			SetState(MARIO_STATE_DIE);
-	}
+	}*/
 }
 //
 // Get animation ID for small Mario

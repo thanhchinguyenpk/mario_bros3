@@ -4,7 +4,7 @@
 void CircularMoving::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(777)->Render(x, y);
+	animations->Get(6070)->Render(x, y);
 
 	RenderBoundingBox();
 }

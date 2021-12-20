@@ -242,4 +242,10 @@ goomba.txt
 #virtal box
 19	2750	930
 #stone koompas
-20	2300	900
+20	2400	900
+
+#lava ball
+21 	2400	1000
+
+#circular moving
+22 	2500	800
