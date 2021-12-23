@@ -3,10 +3,11 @@
 #include "Goomba.h"
 #include "Mario.h"
 #include "BrickCoin.h"
+#include "BrickBlink.h"
 
 #define KOOMPAS_VY_WAS_SHOOTED 0.6f
 #define KOOMPAS_VX_WAS_SHOOTED 0.1f
-#define KOOMPAS_VX_SHELL_RUNNING 0.4f
+#define KOOMPAS_VX_SHELL_RUNNING 0.7f
 
 #define GAP_ANI_TO_RED 8
 
@@ -75,8 +76,8 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		if (!dynamic_cast<Koompas*>(e->obj))
-			//vx = -vx;
-		{
+			vx = -vx;
+		/* {
 			if (this->state == CONCO_STATE_WALKING_LEFT)
 			{
 				this->SetState(CONCO_STATE_WALKING_RIGHT);
@@ -88,6 +89,7 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 				//virtalbox->SetPosition(this->x - 50, y);
 			}
 		}
+		*/
 	}
 
 
@@ -98,24 +100,40 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<FlatForm*>(e->obj))
 		OnCollisionWithFlatForm(e);
 	else if (dynamic_cast<BrickCoin*>(e->obj))
-	{
-		if (state == GOOMBA_STATE_SHELL_RUNNING)
-		{
-			BrickCoin* brick = dynamic_cast<BrickCoin*>(e->obj);
-			if (e->nx != 0)
-			{
-				if (brick->is_hit == false)
-					brick->SetState(BRICK_COIN_STATE_DA_DAP);
-			}
-		}
-		
-	}
+		OnCollisionWithBrickCoin(e);
+	else if (dynamic_cast<BrickBlink*>(e->obj))
+		OnCollisionWithBrickBlink(e);
 	 
 
 
 }
 
 
+void Koompas::OnCollisionWithBrickBlink(LPCOLLISIONEVENT e)
+{
+	if (state == GOOMBA_STATE_SHELL_RUNNING)
+	{
+		BrickBlink* brick_blink = dynamic_cast<BrickBlink*>(e->obj);
+		if (e->nx != 0)
+		{
+			if (brick_blink->GetState() == BRICKBLINK_STATE_BRICK)
+				brick_blink->SetState(BRICKBLINK_STATE_IS_HIT);
+		}
+	}
+}
+
+void Koompas::OnCollisionWithBrickCoin(LPCOLLISIONEVENT e)
+{
+	if (state == GOOMBA_STATE_SHELL_RUNNING)
+	{
+		BrickCoin* brick = dynamic_cast<BrickCoin*>(e->obj);
+		if (e->nx != 0)
+		{
+			if (brick->is_hit == false)
+				brick->SetState(BRICK_COIN_STATE_DA_DAP);
+		}
+	}
+}
 
 void Koompas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {

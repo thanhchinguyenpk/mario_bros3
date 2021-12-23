@@ -20,10 +20,14 @@
 #include "TimerCustom.h"
 
 #include "BrickBlink.h"
+#include "PiranhaPlant.h"
+#include "VenusFireTrap.h"
+
 
 #include "SuperLeaf.h"
 #include "VirtalBox.h"
 #include "StoneKoompas.h"
+
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -55,7 +59,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (GetTickCount64() - time_to_go_down > 3000 )
 		{
-			if (this->GetY() < 900)
+			if (this->GetY() < 500)
 			{
 				SetPosition(6350, 1500);
 				is_set_position = false;
@@ -229,6 +233,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithVirtalBox(e);
 	else if (dynamic_cast<StoneKoompas*>(e->obj))
 		OnCollisionWithStoneKoompas(e);
+	else if (dynamic_cast<PiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<VenusFireTrap*>(e->obj))
+		OnCollisionWithVenusFireTrap(e);
 
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
@@ -261,6 +269,17 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		}
 	}
 
+}
+
+
+
+void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
+{
+	CollideWithEnemy();
+}
+void CMario::OnCollisionWithVenusFireTrap(LPCOLLISIONEVENT e)
+{
+	CollideWithEnemy();
 }
 
 void CMario::OnCollisionWithPine(LPCOLLISIONEVENT e)

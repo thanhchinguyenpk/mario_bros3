@@ -291,6 +291,9 @@ public:
 	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
 
 	void OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e);
+
+	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
+	void OnCollisionWithVenusFireTrap(LPCOLLISIONEVENT e);
 	
 
 	

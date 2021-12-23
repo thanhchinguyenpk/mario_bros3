@@ -15,8 +15,8 @@
 #define KOOMPAS_BBOX_WIDTH 16*3
 #define KOOMPAS_BBOX_HEIGHT 27*3
 
-#define GOOMBA_BBOX_WIDTH_INDENT_IN 16*3
-#define GOOMBA_BBOX_HEIGHT_INDENT_IN 16*3
+#define GOOMBA_BBOX_WIDTH_INDENT_IN 15*3
+#define GOOMBA_BBOX_HEIGHT_INDENT_IN 15*3
 
 #define GOOMBA_BBOX_HEIGHT_DIE 7
 
@@ -112,6 +112,9 @@ public:
 	void OnCollisionWithFlatForm(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoompas(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrickCoin(LPCOLLISIONEVENT e);
+
+	void OnCollisionWithBrickBlink(LPCOLLISIONEVENT e);
 
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);

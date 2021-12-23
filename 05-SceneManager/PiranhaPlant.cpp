@@ -14,8 +14,8 @@ PiranhaPlant::PiranhaPlant(float x, float y, LPGAMEOBJECT mario) :CGameObject(x,
 
 	player = mario;
 
-	min_y = y - VENUS_BBOX_HEIGHT+15;
-	max_y = y;
+	min_y = y - VENUS_BBOX_HEIGHT+7;
+	max_y = y+10;
 
 
 

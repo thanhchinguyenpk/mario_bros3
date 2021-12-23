@@ -33,10 +33,19 @@ VenusFireTrap::VenusFireTrap(float x, float y, LPGAMEOBJECT mario,int type) :CGa
 
 void VenusFireTrap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
+
 	left = x - VENUS_BBOX_WIDTH / 2;
 	top = y - VENUS_BBOX_HEIGHT / 2;
 	right = x + VENUS_BBOX_WIDTH / 2;
 	bottom = y + VENUS_BBOX_HEIGHT / 2;
+
+	if (type == GREEN)
+	{
+		left = x - VENUS_BBOX_WIDTH / 2;
+		top = y - GREEN_BBOX_HEIGHT / 2;
+		right = x + VENUS_BBOX_WIDTH / 2;
+		bottom = y + GREEN_BBOX_HEIGHT / 2;
+	}
 }
 
 
