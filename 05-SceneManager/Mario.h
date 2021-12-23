@@ -304,6 +304,8 @@ public:
 
 	void attack();
 
+	void CollideWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat);
+
 public:
 	CMario(float x, float y,bool is_in_world_map) : CGameObject(x, y)
 	{

@@ -287,7 +287,7 @@ void CMario::OnCollisionWithPine(LPCOLLISIONEVENT e)
 	if (e->ny > 0)
 	{
 
-		DebugOut(L"cucu oooooooooooooooo %d \n", this->go_down);
+		
 		is_set_position = true;
 		time_to_go_down = GetTickCount64();
 		//SetPosition(7000,500);
@@ -443,7 +443,10 @@ void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	SetLevel(MARIO_LEVEL_BIG);
+
+	
+	if(dynamic_cast<Mushroom*>(e->obj)->type==RED)
+		SetLevel(MARIO_LEVEL_BIG);
 	
 
 }
@@ -1091,6 +1094,47 @@ void CMario::attack()
 	listWeapons.push_back(temp);
 	DebugOut(L"[INFO] weapon: %d\n", listWeapons.size());
 
+}
+
+void CMario::CollideWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat)
+{
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(ml, mt, mr, mb);
+
+	for (UINT i = 0; i < itemsMarioCanEat->size(); i++)
+	{
+		LPGAMEOBJECT item = itemsMarioCanEat->at(i);
+
+		item->GetBoundingBox(il, it, ir, ib);
+
+		if (this->CheckOverLap(ml, mt, mr, mb, il, it, ir, ib))
+		{
+			if (dynamic_cast<Mushroom*>(item) && dynamic_cast<Mushroom*>(item)->type==RED)
+			{
+				//GREEN
+				//&& dynamic_cast<Mushroom*>(item)->is_read_mushroom == true
+				
+				//SetState(MARIO_STATE_TRANSFORM);
+				//score += 1000;
+				this->SetLevel(2);
+			}
+			else if (dynamic_cast<SuperLeaf*>(item))
+			{
+				//SetState(MARIO_STATE_APPEAR_TAIL);
+				//score += 1000;
+				this->SetLevel(3);
+			}
+			//else if (dynamic_cast<Coin*>(item))
+			//{
+				//score += 10;
+			//}
+
+			//item->used = true;
+			item->Delete();
+		}
+	}
 }
 
 void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)

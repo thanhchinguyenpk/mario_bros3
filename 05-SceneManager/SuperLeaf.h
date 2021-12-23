@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "debug.h"
 
 #define ID_ANI_COIN 11000
 
@@ -38,4 +39,6 @@ public:
 	int IsBlocking() { return 0; }
 
 	virtual void SetState(int state);
+
+	//~SuperLeaf() { DebugOut(L"da xoa la oooooooooooooooo  \n"); };
 };

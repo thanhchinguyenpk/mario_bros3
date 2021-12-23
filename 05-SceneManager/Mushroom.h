@@ -19,14 +19,20 @@
 
 #define  MUSHROOM_MOVING_SPEED	 0.1
 
+#define  MUSHROOM_RED	7004
+#define  MUSHROOM_GREEN	762
+
+#define RED	1
+#define GREEN 2
 
 class Mushroom : public CGameObject {
 
 public:
+	int type = RED;
 	float pos_y_brick = y;
 	bool enable_gravity = false;
 
-	Mushroom(float x, float y) : CGameObject(x, y) { SetState(MUSHROOM_STATE_GOING_UP); }//SetState(MUSHROOM_STATE_WALKING);
+	Mushroom(float x, float y,int type);//SetState(MUSHROOM_STATE_WALKING);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

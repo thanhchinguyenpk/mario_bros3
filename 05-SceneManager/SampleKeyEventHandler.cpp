@@ -17,6 +17,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_O:
+		mario->SetPosition(4281, 110);
+		break;
 	case DIK_Z:
 		mario->is_holding = true;
 		break;

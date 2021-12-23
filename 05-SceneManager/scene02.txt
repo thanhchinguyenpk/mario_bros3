@@ -13,7 +13,7 @@ goomba.txt
 
 # MARIO
 #0	6080	210	0
-0	5215	1130	0
+0	415	1130	0
 #5215
 #4	2500	1100
 
@@ -137,7 +137,7 @@ goomba.txt
 #con này nè
 #7	2900	1148
 
-#brick coin
+#brick coin		1 chứ item 	2 chứ pbutton 	3 chuwsnaams xanh
 #8	300	1210	1
 #8	600	1210	0
 
@@ -149,6 +149,17 @@ goomba.txt
 
 8	1968	1152	1
 8	2112	1064	0
+#trên cao
+8	4320	384	3
+#chồng đối xứng
+8	4413	1104	1
+
+#P button ( brick có chứa P button)
+#P button đúng
+8	6096	1104	2
+
+#nút cao hơn
+#8	6096	1004	2
 
 #mushroom
 #9	300	1110
@@ -232,12 +243,6 @@ goomba.txt
 
 
 
-#P button ( brick có chứa P button)
-#P button đúng
-8	6096	1104	2
-
-#nút cao hơn
-#8	6096	1004	2
 
 #17	6100	1104
 
