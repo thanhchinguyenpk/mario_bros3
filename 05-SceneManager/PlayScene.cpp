@@ -26,6 +26,7 @@
 #include "StoneKoompas.h"
 #include "LavaBall.h"
 #include "CircularMoving.h"
+#include "SpinyTurtle.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -284,6 +285,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new CircularMoving(x, y); break;
 
+	}
+	case 23:
+	{
+		obj = new SpinyTurtle(x, y, player); break;
 	}
 	
 	default:

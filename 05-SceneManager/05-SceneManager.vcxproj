@@ -177,6 +177,7 @@
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="RandomBonus.cpp" />
     <ClCompile Include="SampleKeyEventHandler.cpp" />
+    <ClCompile Include="SpinyTurtle.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Sprites.cpp" />
     <ClCompile Include="StoneKoompas.cpp" />
@@ -228,6 +229,7 @@
     <ClInclude Include="RandomBonus.h" />
     <ClInclude Include="SampleKeyEventHandler.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SpinyTurtle.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Sprites.h" />
     <ClInclude Include="StoneKoompas.h" />

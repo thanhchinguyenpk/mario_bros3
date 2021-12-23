@@ -13,7 +13,7 @@ goomba.txt
 
 # MARIO
 #0	7100	600	0
-0	2200	600	0
+0	2800	600	0
 
 #4	2500	1100
 
@@ -240,12 +240,15 @@ goomba.txt
 
 
 #virtal box
-19	2750	930
+#19	2750	930
 #stone koompas
-20	2400	900
+#20	2400	900
 
 #lava ball
 21 	2400	1000
 
 #circular moving
 22 	2500	800
+
+#spiny turtle
+23	3000	600
