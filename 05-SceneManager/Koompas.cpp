@@ -30,7 +30,7 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	SetState(koompas_state);
 	player = mario;
 	
-	virtalbox = new VirtalBox(x-50, y);
+	//virtalbox = new VirtalBox(x-50, y);
 }
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -80,12 +80,12 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 			if (this->state == CONCO_STATE_WALKING_LEFT)
 			{
 				this->SetState(CONCO_STATE_WALKING_RIGHT);
-				virtalbox->SetPosition(this->x + 50, y);
+				//virtalbox->SetPosition(this->x + 50, y);
 			}
 			else if (this->state == CONCO_STATE_WALKING_RIGHT)
 			{
 				this->SetState(CONCO_STATE_WALKING_LEFT);
-				virtalbox->SetPosition(this->x - 50, y);
+				//virtalbox->SetPosition(this->x - 50, y);
 			}
 		}
 	}
@@ -195,10 +195,10 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	virtalbox->vx = this->vx;
-	virtalbox->Update(dt, coObjects);
+	////virtalbox->vx = this->vx;
+	////virtalbox->Update(dt, coObjects);
 
-	if (abs(virtalbox->y - this->y) > 40 )
+	/*if (abs(virtalbox->y - this->y) > 40)
 	{
 		if (this->state == CONCO_STATE_WALKING_LEFT)
 		{
@@ -210,7 +210,8 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->SetState(CONCO_STATE_WALKING_LEFT);
 			virtalbox->SetPosition(this->x - 50, y);
 		}
-	}
+	}*/
+
 	//DebugOut(L"[INFO] heloo? %d \n",state);
 
 	//DebugOut(L"[INFO] state koompas %d \n",state);
@@ -276,8 +277,8 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	}*/
 
-
-	this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
+	if(player->GetState()== MARIO_STATE_SPIN)
+		this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
 	// 
 	//this->CheckWetherBeingAttacked(player, -1000);
 
@@ -288,7 +289,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Koompas::Render()
 {
-	virtalbox->Render();
+	//virtalbox->Render();
 	int aniId = CONCO_ANI_GREEN_WALKING_LEFT;
 
 	if (state == CONCO_STATE_DIE)

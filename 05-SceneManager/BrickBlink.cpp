@@ -8,6 +8,12 @@
 #define RIGHT_DIRECTION 1
 #define LEFT_DIRECTION -1
 
+BrickBlink::BrickBlink(float x, float y, CMario* mario) : CGameObject(x, y)
+{
+	 player = mario; 
+	 this->SetState(BRICKBLINK_STATE_BRICK);
+}
+
 void BrickBlink::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
@@ -47,7 +53,12 @@ void BrickBlink::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//DebugOut(L"[INFO]update hihi %d\n", vec_debris.size());
 
 	}
-	//DebugOut(L"[INFO]vô trong update brick khum? %d\n", vec_debris.size());
+	//DebugOut(L"[INFO]state ban dau cua brickblink----------------- %d\n", this->state);
+
+	if(state== BRICKBLINK_STATE_BRICK)
+		this->CheckWetherBeingAttacked(player, BRICKBLINK_STATE_IS_HIT);
+
+	//DebugOut(L"[INFO]debris: %d\n", vec_debris.size());
 }
 
 void BrickBlink::GetBoundingBox(float& l, float& t, float& r, float& b)

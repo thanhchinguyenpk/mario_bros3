@@ -17,7 +17,8 @@ void BrickDebris::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	x += vx * dt;
 	y += vy * dt;
 
-
+	//if (y > 1400)
+	//	delete this;
 }
 
 void BrickDebris::Render()
