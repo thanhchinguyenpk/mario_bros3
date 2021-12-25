@@ -37,7 +37,7 @@ void MarioBullet::OnNoCollision(DWORD dt)
 
 void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	if (!e->obj->IsBlocking()) return;
+	//if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<MarioBullet*>(e->obj)) return;
 
 	if (e->ny != 0)

@@ -47,19 +47,23 @@ void CGoomba::OnNoCollision(DWORD dt)
 void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return; 
-	if (dynamic_cast<CGoomba*>(e->obj)) return; 
+	//if (dynamic_cast<CGoomba*>(e->obj)) return; 
 	if (dynamic_cast<ParaGoompa*>(e->obj)) return;
 	if (dynamic_cast<CMario*>(e->obj)) return;
 
 	if (dynamic_cast<Koompas*>(e->obj))
 	{
-		Koompas* koopas = dynamic_cast<Koompas*>(e->obj);
+		Koompas* koompas = dynamic_cast<Koompas*>(e->obj);
 
-		if (koopas->GetX() > this->GetX())
+		
+		if (koompas->GetState() == GOOMBA_STATE_SHELL_RUNNING)
 		{
-			is_minus_vx = true;
+			if (koompas->GetX() > this->GetX())
+			{
+				is_minus_vx = true;
+			}
+			this->SetState(GOOMBA_STATE_WAS_SHOOTED);
 		}
-		this->SetState(GOOMBA_STATE_WAS_SHOOTED);
 	}
 
 	if (e->ny != 0 )
@@ -70,6 +74,19 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = -vx;
 	}
+
+	if (dynamic_cast<CGoomba*>(e->obj))
+	{
+		// nếu 2 con koompas và chạm nhau thì một con sẽ đổi hướng  chỗ e->nx != 0 và một con sẽ đổi hướng tại đây
+		dynamic_cast<CGoomba*>(e->obj)->vx = -vx;
+	}
+	//else if (dynamic_cast<ParaGoompa*>(e->obj))/
+	//{
+		//DebugOut(L"[INFO] hiiiiiii %d\n");
+		//dynamic_cast<ParaGoompa*>(e->obj)->SetState(PARA_GOOMBA_STATE_WAS_SHOOTED);
+		//dynamic_cast<ParaGoompa*>(e->obj)->BeingAttackedByFireBallMario(this, PARA_GOOMBA_STATE_WAS_SHOOTED);
+
+	//}
 }
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
@@ -151,17 +168,21 @@ void CGoomba::SetState(int state)
 			ay = 0; 
 			break;
 		case GOOMBA_STATE_WALKING: 
-			vx =GOOMBA_WALKING_SPEED;
+			vx =-GOOMBA_WALKING_SPEED;
 			//vx = 0;
 			break;
-
+		
 		case GOOMBA_STATE_WAS_SHOOTED:
 			vy = -GOOMBA_VY_WHEN_WAS_SHOOT;
-			DebugOut(L"[INFO] cuc cu %d \n", DirectionWhenBeingAttack);
+			//DebugOut(L"[INFO] cuc cu %d \n", DirectionWhenBeingAttack);
 			vx = DirectionWhenBeingAttack == -1 ? -GOOMBA_VX_WHEN_WAS_SHOOT : GOOMBA_VX_WHEN_WAS_SHOOT;
 			//vx = DirectionWhenBeingAttack == -1 ? -KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
 			//vx = 0.09;
 			is_colliable = 0;
+			break;
+		case GOOMBA_ADJUST_HEIGHT:
+			y -= 5;
+			DebugOut(L"[INFO]zo rui nka %d \n", DirectionWhenBeingAttack);
 			break;
 	}
 }

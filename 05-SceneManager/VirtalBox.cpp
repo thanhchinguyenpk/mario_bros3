@@ -1,4 +1,5 @@
 #include "VirtalBox.h"
+#include "Mario.h"
 
 
 void VirtalBox::Render()
@@ -24,10 +25,23 @@ void VirtalBox::OnNoCollision(DWORD dt)
 	x += vx * dt;
 	y += vy * dt;
 	//y += vy * dt;
-};
+}
+void VirtalBox::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case VIRTUAL_BOX_ADJUST_HEIGHT:
+		y -= GAP;
+		break;
+	}
+}
+;
 void VirtalBox::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	if (!e->obj->IsBlocking()) return;
+
+	//if (dynamic_cast<CMario*>(e->obj)) return;
 
 	if (e->ny != 0)
 	{
@@ -39,6 +53,15 @@ void VirtalBox::OnCollisionWith(LPCOLLISIONEVENT e)
 		vx = 0;
 		
 	}
+
+	/*if (dynamic_cast<CMario*>(e->obj))
+	{
+		if (e->ny > 0)
+		{
+			DebugOut(L"da dap len virtalbox %d \n");
+			this->SetState(VIRTUAL_BOX_ADJUST_HEIGHT);
+		}
+	}*/
 }
 
 void VirtalBox::GetBoundingBox(float& l, float& t, float& r, float& b)

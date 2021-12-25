@@ -4,10 +4,11 @@
 #include "Mario.h"
 #include "BrickCoin.h"
 #include "BrickBlink.h"
+#include "PlayScene.h"
 
 #define KOOMPAS_VY_WAS_SHOOTED 0.6f
 #define KOOMPAS_VX_WAS_SHOOTED 0.1f
-#define KOOMPAS_VX_SHELL_RUNNING 0.7f
+#define KOOMPAS_VX_SHELL_RUNNING  0.1//0.7f
 
 #define GAP_ANI_TO_RED 8
 
@@ -31,7 +32,10 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	SetState(koompas_state);
 	player = mario;
 	
-	//virtalbox = new VirtalBox(x-50, y);
+	virtalbox = new VirtalBox(x-50, y,mario);
+	CGame* game = CGame::GetInstance();
+	CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
+	scene->objects.push_back(virtalbox);
 }
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -67,6 +71,13 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (!e->obj->IsBlocking()) return;
 	//if (dynamic_cast<Koompas*>(e->obj)) return;
 	if (dynamic_cast<CMario*>(e->obj)) return;
+
+	/*if (state == GOOMBA_STATE_SHELL_RUNNING)
+	{
+		if (dynamic_cast<CGoomba*>(e->obj)) return;
+	}*/
+
+
 	if (e->ny != 0)
 	{
 		if (state == CONCO_STATE_FLY_LEFT|| state == CONCO_STATE_FLY_RIGHT)
@@ -75,21 +86,28 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)
 	{
-		if (!dynamic_cast<Koompas*>(e->obj))
-			vx = -vx;
+		
+			if (!dynamic_cast<Koompas*>(e->obj))
+				vx = -vx;
+
+			if (vx > 0)
+				virtalbox->SetPosition(this->x + 50, y - 2);
+			else
+				virtalbox->SetPosition(this->x - 50, y - 2);
+		
 		/* {
 			if (this->state == CONCO_STATE_WALKING_LEFT)
 			{
 				this->SetState(CONCO_STATE_WALKING_RIGHT);
-				//virtalbox->SetPosition(this->x + 50, y);
+				virtalbox->SetPosition(this->x + 50, y);
 			}
 			else if (this->state == CONCO_STATE_WALKING_RIGHT)
 			{
 				this->SetState(CONCO_STATE_WALKING_LEFT);
-				//virtalbox->SetPosition(this->x - 50, y);
+				virtalbox->SetPosition(this->x - 50, y);
 			}
-		}
-		*/
+		}*/
+		
 	}
 
 
@@ -141,17 +159,19 @@ void Koompas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	
-	if (state == GOOMBA_STATE_SHELL_RUNNING)
-	{
+	//if (state == GOOMBA_STATE_SHELL_RUNNING)
+	//{
 
 	/*	if (goomba->GetX() < this->GetX())
 		{
 			goomba->is_minus_vx = true;
 		}*/
+		//goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
+
 		
-	}
-	goomba->SetState(GOOMBA_STATE_WAS_SHOOTED);
-	DebugOut(L"[INFO] vô 2 con và cham ko?\n");
+	//}
+	// 
+	//DebugOut(L"[INFO] vô 2 con và cham ko?\n");
 
 }
 
@@ -213,10 +233,10 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	////virtalbox->vx = this->vx;
-	////virtalbox->Update(dt, coObjects);
+	virtalbox->vx = this->vx;
+	//virtalbox->Update(dt, coObjects);
 
-	/*if (abs(virtalbox->y - this->y) > 40)
+	if (abs(virtalbox->y - this->y) > 15)
 	{
 		if (this->state == CONCO_STATE_WALKING_LEFT)
 		{
@@ -228,7 +248,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->SetState(CONCO_STATE_WALKING_LEFT);
 			virtalbox->SetPosition(this->x - 50, y);
 		}
-	}*/
+	}
 
 	//DebugOut(L"[INFO] heloo? %d \n",state);
 

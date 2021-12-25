@@ -13,7 +13,7 @@ goomba.txt
 
 # MARIO
 #0	6080	210	0
-0	415	1130	0
+0	1815	1130	0
 #5215
 #4	2500	1100
 
@@ -121,8 +121,11 @@ goomba.txt
 2	1587	1185
 
 
-#2	2344	600
-#2	2390	600
+2	2244	600
+2	2090	600
+
+#test
+2	2790	600
 #2	2430	600
 #2	2470	600
 
@@ -135,7 +138,7 @@ goomba.txt
 #7	2900	548 sẽ đi qua được chắn gạch chấm hỏi
 
 #con này nè
-#7	2900	1148
+7	2900	1148
 
 #brick coin		1 chứ item 	2 chứ pbutton 	3 chuwsnaams xanh
 #8	300	1210	1
@@ -169,6 +172,7 @@ goomba.txt
 #koompas hai tham so cuoi là loại với state
 # type: 0=xanh 1=đỏ
 # state: 100=walk_left 300=walk_right 600=fly_left 700=fly_right
+#rùa đỏ color box
 11	1761	1048	1	100
 
 #11	2700	600	1	100
@@ -177,7 +181,8 @@ goomba.txt
 11	6000	600	1	100
 
 
-#11	1629	800	1	100
+#rùa đỏ test koompas
+11	2329	800	1	100
 
 #11	900	900	1	600
 #11	2400	1048	0	600
@@ -262,7 +267,9 @@ goomba.txt
 
 
 #virtal box
-#19	2750	930
+19	2750	930
+
+19	1500	1200
 #stone koompas
 #20	2400	900
 

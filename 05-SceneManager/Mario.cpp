@@ -422,7 +422,7 @@ void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
 	{
 		e->obj->SetState(STONE_KOOMPAS_STATE_DIE);
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
-		DebugOut(L"stone koompas %d \n");
+		//DebugOut(L"stone koompas %d \n");
 	}
 	else
 		CollideWithEnemy();
@@ -432,7 +432,13 @@ void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)
 {
 	//e->obj->Delete();
 	//coin++;
-	e->obj->vx = this->vx;
+	//e->obj->vx = this->vx;
+	//DebugOut(L"virtal box truoc %f \n", e->obj->y);
+	if (e->ny < 0)
+	{
+		e->obj->SetState(VIRTUAL_BOX_ADJUST_HEIGHT);
+	}
+	//DebugOut(L"virtal box sau %f \n", e->obj->y);
 }
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {

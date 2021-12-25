@@ -36,6 +36,7 @@ void CGameObject::BeingAttackedByFireBallMario(CGameObject* obj_attack, int beco
 
 void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_state)
 {
+	
 	float ml, mt, mr, mb;
 	float il, it, ir, ib;
 

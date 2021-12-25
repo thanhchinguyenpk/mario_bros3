@@ -73,43 +73,7 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		if (state == PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING)
 			return;
-		/*if ((GetState() == GOOMBA_STATE_WALKING_LEFT || GetState() == GOOMBA_STATE_WALKING_RIGHT)
-			&& GetTickCount64() - walking_start >= 2000 && walking_start)
-		{
-
-
-			SetState(GOOMBA_STATE_JUMP_SHORT_1);
-			walking_start = 0;
-
-		}
-		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_1)
-		{
-			vy = -0.25 * 1.5;
-			SetState(GOOMBA_STATE_JUMP_SHORT_2);
-		}
-		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_2)
-		{
-			vy = -0.25 * 1.5;
-			SetState(GOOMBA_STATE_JUMP_SHORT_3);
-		}
-		else if (GetState() == GOOMBA_STATE_JUMP_SHORT_3)
-		{
-			vy = -0.25 * 1.5;
-			SetState(GOOMBA_STATE_JUMP_HIGH);
-		}
-		else if (GetState() == GOOMBA_STATE_JUMP_HIGH)
-		{
-			vy = -0.25 * 2.5;
-			
-
-			float x_player, y_player;
-			player->GetPosition(x_player, y_player);
-			if(this->x> x_player)
-				SetState(GOOMBA_STATE_WALKING_LEFT);
-			else
-				SetState(GOOMBA_STATE_WALKING_RIGHT);
-
-		}*/
+		
 		
 		if (count % 5 == 0|| count % 5 == 1|| count % 5 == 2)
 		{
@@ -171,7 +135,13 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 		
 		
 	}
-	
+	else if(dynamic_cast<CGoomba*>(e->obj))
+	{
+		/*if (e->ny < 0)
+		{
+			dynamic_cast<CGoomba*>(e->obj)->SetState(GOOMBA_ADJUST_HEIGHT);
+		}*/
+	}
 }
 
 void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

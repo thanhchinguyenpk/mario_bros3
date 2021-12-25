@@ -265,7 +265,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case 19:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
-		obj = new VirtalBox(x, y); break;
+		obj = new VirtalBox(x, y, player); break;
 
 	}
 	case 20:
