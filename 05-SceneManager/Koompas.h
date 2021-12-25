@@ -94,7 +94,7 @@ public:
 
 	float ax=0;
 	float ay=0;
-	LPGAMEOBJECT player;
+	CMario* player;
 	ULONGLONG die_start;
 
 

@@ -154,6 +154,17 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (int i = 0; i < listWeapons.size(); i++)
 		listWeapons[i]->Update(dt, coObjects);
 
+	for (int i = 0; i < listWeapons.size(); i++)
+	{
+		if (listWeapons[i]->IsDeleted())
+		{
+			delete listWeapons[i];
+			listWeapons[i] = nullptr;
+			listWeapons.erase(listWeapons.begin() + i);
+			DebugOut(L"[INFO] xoa gach \n");
+		}
+	}
+
 
 	if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start >= 200 && throw_start)
 	{
@@ -181,7 +192,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		fly_high_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
-
+	
+	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= 1000)
+	{
+		CGame::GetInstance()->InitiateSwitchScene(3);
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -1051,6 +1066,7 @@ void CMario::SetState(int state)
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		vx = 0;
 		ax = 0;
+		time_to_switch_scene = GetTickCount64();
 		break;
 
 	case MARIO_STATE_KICK:
@@ -1081,8 +1097,8 @@ void CMario::SetState(int state)
 
 void CMario::attack()
 {
-	//if (listWeapons.size() == 2)
-	//	return;
+	if (listWeapons.size() == 2)
+		return;
 
 	MarioBullet* temp = new MarioBullet(this->x, this->y);
 

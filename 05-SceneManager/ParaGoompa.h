@@ -58,7 +58,8 @@ protected:
 
 	float ax;
 	float ay;
-	LPGAMEOBJECT player;
+	CMario* player;
+
 	ULONGLONG die_start;
 
 	ULONGLONG walking_start=0;

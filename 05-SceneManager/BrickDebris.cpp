@@ -19,6 +19,8 @@ void BrickDebris::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	//if (y > 1400)
 	//	delete this;
+
+	this->DeleteWhenOutOfCam();
 }
 
 void BrickDebris::Render()

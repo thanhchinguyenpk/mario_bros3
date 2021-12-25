@@ -226,6 +226,9 @@
 class CMario : public CGameObject
 {
 public:
+	//vector<LPGAMEOBJECT> listWeapons;
+
+	ULONGLONG time_to_switch_scene = 0;
 
 	bool is_holding = false;
 

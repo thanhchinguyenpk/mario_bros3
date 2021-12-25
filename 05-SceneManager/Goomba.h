@@ -40,7 +40,8 @@ public:
 
 	float ax;				
 	float ay; 
-	LPGAMEOBJECT player;
+	//CMario* mario;
+	CMario* player;
 	ULONGLONG die_start;
 
 	

@@ -33,6 +33,7 @@ public:
 	bool isDeleted; 
 
 //public:
+	void DeleteWhenOutOfCam();
 	void BeingAttackedByFireBallMario(CGameObject* obj_attack, int become_state);
 
 	void CheckWetherBeingAttacked(CGameObject* obj_attack,int become_state);

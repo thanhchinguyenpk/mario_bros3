@@ -30,7 +30,7 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	//SetState(CONCO_STATE_FLY_LEFT);
 	//SetState(koompas_state);
 	SetState(koompas_state);
-	player = mario;
+	player = dynamic_cast<CMario*>(mario);
 	
 	virtalbox = new VirtalBox(x-50, y,mario);
 	CGame* game = CGame::GetInstance();

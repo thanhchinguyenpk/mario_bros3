@@ -15,7 +15,7 @@ ParaGoompa::ParaGoompa(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
 	//SetState(PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING);
 	vx = -PARAGOOMBA_WALKING_SPEED ; // set ban đầu để nó qua trái
 
-	player = mario;
+	player = dynamic_cast<CMario*>(mario);
 }
 
 void ParaGoompa::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -187,8 +187,8 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
 		this->SetState(GOOMBA_STATE_DIE);*/
 	//}
-
-	this->CheckWetherBeingAttacked(player, PARA_GOOMBA_STATE_WAS_SHOOTED);
+	if (player->GetState() == MARIO_STATE_SPIN)
+		this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
 
 }
 

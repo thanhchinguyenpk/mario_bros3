@@ -17,6 +17,26 @@ CGameObject::CGameObject()
 	isDeleted = false;
 }
 
+void CGameObject::DeleteWhenOutOfCam()
+{
+
+	
+		if (x< CGame::GetInstance()->GetCamX() || x> CGame::GetInstance()->GetCamX() + 760)
+		{
+			this->Delete();
+			//DebugOut(L"[ERROR----------hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+		}
+
+		if (y< CGame::GetInstance()->GetCamY() || y> CGame::GetInstance()->GetCamY() + 730)
+		{
+			this->Delete();
+			DebugOut(L"[ERROR----------hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+		}
+
+	
+
+}
+
 void CGameObject::BeingAttackedByFireBallMario(CGameObject* obj_attack, int become_state)
 {
 

@@ -5,7 +5,7 @@
 
 
 #define MARIO_BULLET_GRAVITY 0.002f
-#define MARIO_BULLET_WALKING_SPEED 0.1f
+#define MARIO_BULLET_WALKING_SPEED 0.4f
 
 
 #define MARIO_BULLET_BBOX_WIDTH 8*3
@@ -24,6 +24,7 @@
 class MarioBullet : public CGameObject
 {
 protected:
+	
 	float ax;
 	float ay;
 

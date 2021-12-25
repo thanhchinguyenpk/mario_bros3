@@ -14,7 +14,7 @@ CGoomba::CGoomba(float x, float y, LPGAMEOBJECT mario):CGameObject(x, y)
 	die_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
 
-	player = mario;
+	player = dynamic_cast<CMario*>(mario);
 }
 
 void CGoomba::GetBoundingBox(float &left, float &top, float &right, float &bottom)
@@ -133,7 +133,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 		this->SetState(GOOMBA_STATE_DIE);*/
 	//}
 
-	this->CheckWetherBeingAttacked(player, GOOMBA_STATE_WAS_SHOOTED);
+	if(player->GetState()== MARIO_STATE_SPIN)
+		this->CheckWetherBeingAttacked(player, GOOMBA_STATE_WAS_SHOOTED);
 
 }
 

@@ -2,6 +2,7 @@
 #include "Koompas.h"
 #include "Goomba.h"
 #include "ParaGoompa.h"
+#include "VirtalBox.h"
 
 MarioBullet::MarioBullet(float x, float y) :CGameObject(x, y)
 {
@@ -10,6 +11,7 @@ MarioBullet::MarioBullet(float x, float y) :CGameObject(x, y)
 	die_start = -1;
 	//SetState(MARIO_BULLET_STATE_WALKING_LEFT);
 }
+
 
 void MarioBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -39,6 +41,8 @@ void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	//if (!e->obj->IsBlocking()) return;
 	if (dynamic_cast<MarioBullet*>(e->obj)) return;
+	if (dynamic_cast<VirtalBox*>(e->obj)) return;
+	
 
 	if (e->ny != 0)
 	{
@@ -48,7 +52,10 @@ void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)
 	{
-		//vx = -vx;
+		vy = 0;
+		vx = 0;
+		
+		this->Delete();
 	}
 
 
@@ -91,6 +98,8 @@ void MarioBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt, coObjects);
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
+	this->DeleteWhenOutOfCam();
 }
 
 
