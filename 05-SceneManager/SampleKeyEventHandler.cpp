@@ -21,13 +21,20 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetPosition(4281, 110);
 		break;
 	case DIK_Z:
-		mario->is_holding = true;
+		
 		break;
 	case DIK_T:
 		
-		if(abs(mario->vx) == MARIO_RUNNING_SPEED|| mario->GetState()== MARIO_STATE_FLY_HIGH)
+		/*if (abs(mario->vx) == MARIO_RUNNING_SPEED || mario->GetState() == MARIO_STATE_FLY_HIGH)
 			if (mario->GetLevel() == 3)
-				mario->SetState(MARIO_STATE_FLY_HIGH);
+				mario->SetState(MARIO_STATE_FLY_HIGH);*/
+		/*if (mario->GetLevel() == 4 && mario->IsOnTheFlatForm() == false)
+		{
+			mario->SetState(MARIO_STATE_JUMP_SHOOT_BULLET);
+			DebugOut(L"vo khong chi em tui %d\n", KeyCode);
+		}
+		*/
+		
 		break;
 	case DIK_P:
 		//mario->SetState(MARIO_STATE_KICK);
@@ -44,11 +51,17 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
-		//mario->SetState(MARIO_STATE_JUMP);
-		if (mario->IsOnTheFlatForm() == false && mario->level==3)
+		
+		/*if (mario->IsOnTheFlatForm() == false && mario->level == 3)
+			mario->SetState(MARIO_STATE_FLY_LANDING);*/
+		if (mario->level == 3 && (abs(mario->vx) == MARIO_RUNNING_SPEED || mario->GetState() == MARIO_STATE_FLY_HIGH))
+			mario->SetState(MARIO_STATE_FLY_HIGH);
+		else if (mario->level == 3 && mario->IsOnTheFlatForm() == false)
 			mario->SetState(MARIO_STATE_FLY_LANDING);
+		
 		else
 			mario->SetState(MARIO_STATE_JUMP);
+
 		break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
@@ -67,8 +80,18 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		mario->SetState(MARIO_STATE_DIE);
 		break;
 	case DIK_A:
+		mario->is_holding = true;
+
 		if (mario->GetLevel() == 4)
-			mario->SetState(MARIO_STATE_STAND_SHOOT);
+		{
+			if ( mario->IsOnTheFlatForm() == false)
+			{
+				mario->SetState(MARIO_STATE_JUMP_SHOOT_BULLET);
+				//DebugOut(L"vo khong chi em tui %d\n", KeyCode);
+			}
+			else
+				mario->SetState(MARIO_STATE_STAND_SHOOT);
+		}
 		else if (mario->GetLevel() == 3)
 			mario->SetState(MARIO_STATE_SPIN);
 		break;
@@ -77,7 +100,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_R: // reset
 		//Reload();
 		break;
-
+	case DIK_UP: 
+		mario->is_up_press = true;
+		break;
+		
 	}
 }
 
@@ -88,16 +114,20 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (KeyCode)
 	{
-	case DIK_Z:
+	case DIK_A:
 		mario->is_holding = false;
 		break;
 	case DIK_S:
 		if (mario->GetState() == MARIO_STATE_FLY_LANDING)
 			return;
-		mario->SetState(MARIO_STATE_RELEASE_JUMP);
+		if(mario->GetState()!= MARIO_STATE_FLY_HIGH)
+			mario->SetState(MARIO_STATE_RELEASE_JUMP);
 		break;
 	case DIK_DOWN:
 		mario->SetState(MARIO_STATE_SIT_RELEASE);
+		break;
+	case DIK_UP: // reset
+		mario->is_up_press = false;
 		break;
 	}
 }
@@ -107,17 +137,22 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	if (mario->GetState() == MARIO_STATE_FLY_HIGH)
-		return;
+	//if (mario->GetState() == MARIO_STATE_FLY_HIGH)
+	//	return;
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (mario->level==3 && mario->state== MARIO_STATE_FLY_LANDING)
+		if (mario->level==3 && mario->GetState()== MARIO_STATE_FLY_LANDING)
 		{
 
 			mario->vx = 0.1;
 			mario->nx = 1;
 			
+		}
+		else if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_HIGH)
+		{
+			mario->vx = 0.3;
+			mario->nx = 1;
 		}
 		else
 		{
@@ -132,9 +167,14 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (mario->level == 3 && mario->state == MARIO_STATE_FLY_LANDING)
+		if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_LANDING)
 		{
 			mario->vx = -0.1;
+			mario->nx = -1;
+		}
+		else if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_HIGH)
+		{
+			mario->vx = -0.3;
 			mario->nx = -1;
 		}
 		else
@@ -157,6 +197,9 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 			return;
 		if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 			return;
+		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
+			return;
+		
 
 		//DebugOut(L"[INFO] ra luôn luôn?\n" );
 		mario->SetState(MARIO_STATE_IDLE);

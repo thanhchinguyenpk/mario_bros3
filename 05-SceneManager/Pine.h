@@ -6,7 +6,7 @@
 #define	 PINE_TALL_BBOX_WIDTH 32*3
 #define	 PINE_TALL_BBOX_HEIGHT 48*3
 
-#define	 PINE_SHORT_BBOX_WIDTH 32*3
+#define	 PINE_SHORT_BBOX_WIDTH 30*3
 #define	 PINE_SHORT_BBOX_HEIGHT 32*3
 
 
@@ -20,7 +20,9 @@
 
 class Pine : public CGameObject
 {
-protected:
+public:
+
+	bool is_pine_can_go = false;
 
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {};
 	virtual void Render();
@@ -33,6 +35,6 @@ protected:
 
 public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
-	Pine(float x, float y, int type );
+	Pine(float x, float y, int type,int is_pine_can_go);
 	virtual void SetState(int state);
 };

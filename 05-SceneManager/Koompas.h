@@ -81,6 +81,7 @@
 class Koompas : public CGameObject
 {
 public:
+	bool is_brought = false;
 
 	VirtalBox* virtalbox = NULL;
 

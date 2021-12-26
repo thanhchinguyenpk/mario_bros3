@@ -36,8 +36,10 @@ void Pine::GetBoundingBox(float& l, float& t, float& r, float& b)
 	}
 }
 
-Pine::Pine(float x, float y, int type)
+Pine::Pine(float x, float y, int type, int is_pine_can_go)
 {
+	this->is_pine_can_go = is_pine_can_go;
+
 	if(type==1)
 		SetState(PINE_STATE_TALL);
 	else if(type==2)

@@ -43,6 +43,8 @@
 #define MARIO_STATE_FLY_LANDING		820
 #define MARIO_STATE_FLY_HIGH		840
 
+#define MARIO_STATE_JUMP_SHOOT_BULLET		850
+
 #define MARIO_STATE_KICK		900
 
 #pragma region ANIMATION_ID
@@ -91,9 +93,9 @@
 
 #define ID_ANI_MARIO_BIG_FIRE_IDLE_RIGHT 1700
 
-#define ID_ANI_MARIO_BIG_FIRE_SHOOT_BULLET_RIGHT 1720
+//#define ID_ANI_MARIO_BIG_FIRE_SHOOT_BULLET_RIGHT 1720
 
-#define ID_ANI_MARIO_BIG_FIRE_FLY_SHOOT_BULLET_RIGHT 1750
+//#define ID_ANI_MARIO_BIG_FIRE_FLY_SHOOT_BULLET_RIGHT 1750
 //===spin
 #define ID_ANI_MARIO_BIG_TAIL_STAND_RIGHT 1900
 #define ID_ANI_MARIO_BIG_TAIL_SPIN_RIGHT 1901
@@ -226,7 +228,9 @@
 class CMario : public CGameObject
 {
 public:
+	bool is_up_press = false;
 	//vector<LPGAMEOBJECT> listWeapons;
+	ULONGLONG jump_fire_throw_start = 0;
 
 	ULONGLONG time_to_switch_scene = 0;
 

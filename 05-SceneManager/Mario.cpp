@@ -31,6 +31,7 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	//CGameObject::Update(dt);
 	if (is_moving_in_world_map == true)
 	{
 		CGame* game_temp = CGame::GetInstance();
@@ -83,7 +84,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (this->GetY() < 900)
 				y += 0.03 * dt;
 			else 
-				y -= 0.03 * dt;
+				y -= 0.032 * dt;
 
 			return;
 		}
@@ -192,6 +193,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		fly_high_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
+	if (GetState() == MARIO_STATE_JUMP_SHOOT_BULLET && GetTickCount64() - jump_fire_throw_start >= 300 && jump_fire_throw_start)
+	{
+		SetState(MARIO_STATE_IDLE);
+		jump_fire_throw_start = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
 	
 	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= 1000)
 	{
@@ -202,6 +209,33 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		//SetState(MARIO_STATE_FLY_LANDING);
 		SetState(MARIO_STATE_IDLE);
+	}
+
+	//DebugOut(L"state la: %d\n", state);
+
+
+	if (holding_something != NULL)
+	{
+		//this->hold_somthing->SetPosition(this->x + 40, this->y);
+
+		if (is_holding == true)
+		{
+
+			//if (nx == -1)
+			this->holding_something->SetPosition(x + 40, y);
+			if (nx < 0)
+				this->holding_something->SetPosition(x - 40, y);
+
+
+			dynamic_cast<Koompas*>(holding_something)->is_brought = true;
+		}
+		else
+		{
+			Koompas* koompas = dynamic_cast<Koompas*>(holding_something);
+			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
+			koompas->is_brought = false;
+			holding_something = NULL;
+		}
 	}
 }
 
@@ -262,7 +296,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
 
-	if (dynamic_cast<Pine*>(e->obj))
+	if (dynamic_cast<Pine*>(e->obj)&&dynamic_cast<Pine*>(e->obj)->is_pine_can_go == true)
 	{
 		this->go_down = true;
 		//SetPosition(200, 100);
@@ -272,24 +306,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 
 
 
-	if (holding_something != NULL)
-	{
-		if (is_holding == true)
-		{
-			
-			if(nx==-1)
-				this->holding_something->SetPosition(this->x - 60, this->y);
-			else if(nx==1)
-				this->holding_something->SetPosition(this->x + 60, this->y);
-		}
-		else
-		{
-			Koompas* koompas = dynamic_cast<Koompas*>(holding_something);
-			koompas->SetState(GOOMBA_STATE_SHELL_RUNNING);
-			holding_something = NULL;
-		}
-	}
+	
 
+	//DebugOut(L"[INFO]y la------------------------------: %f\n", y);
 }
 
 
@@ -305,7 +324,8 @@ void CMario::OnCollisionWithVenusFireTrap(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPine(LPCOLLISIONEVENT e)
 {
-	if (e->ny > 0)
+	//dưới hầm đi từ pine đen
+	if (e->ny > 0 && dynamic_cast<Pine*>(e->obj)->is_pine_can_go ==true && is_up_press==true)
 	{
 
 		
@@ -349,7 +369,7 @@ void CMario::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 	if (is_hit_bonus == true)
 		is_auto = true;
 
-	if (e->ny > 0)
+	if (e->ny > 0 && dynamic_cast<FlatForm*>(e->obj)->is_go_through==true)
 	{
 		jump_down_to_up = true;
 		vy = vy_store;
@@ -414,7 +434,7 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 						if (koompas->GetState() == GOOMBA_STATE_INDENT_IN)
 						{
 							holding_something = koompas;
-							koompas->SetState(CONCO_STATE_BEING_HOLDING);
+							//koompas->SetState(CONCO_STATE_BEING_HOLDING);
 							//CONCO_STATE_WAS_BROUGHT
 							
 						}
@@ -843,6 +863,8 @@ int CMario::GetAniIdTail()
 		else
 			aniId = MARIO_ANI_TAIL_FLY_HIGH + TO_BECOME_LEFT;
 	}
+
+	
 	
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
@@ -909,7 +931,13 @@ int CMario::GetAniIdFire()
 		else
 			aniId = MARIO_ANI_ORANGE_SHOOT_BULLET_RIGHT + TO_BECOME_LEFT;
 
-	
+	if (state == MARIO_STATE_JUMP_SHOOT_BULLET)
+	{
+		if (nx >= 0)
+			aniId = MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT;
+		else
+			aniId = MARIO_ANI_ORANGE_JUMP_SHOOT_BULLET_RIGHT + TO_BECOME_LEFT;
+	}
 
 	if (aniId == -1) aniId = MARIO_ANI_ORANGE_IDLE_RIGHT;
 	return aniId;
@@ -1084,17 +1112,23 @@ void CMario::SetState(int state)
 		throw_start = GetTickCount64();
 		this->attack();
 		break;
+	case MARIO_STATE_JUMP_SHOOT_BULLET:
+		jump_fire_throw_start = GetTickCount64();
+		this->attack();
+		break;
+
 	case MARIO_STATE_SPIN:
 		spin_start = GetTickCount64();
 		break;
 	case MARIO_STATE_FLY_LANDING:
 		fly_start = GetTickCount64();
-		vy = 0.02;
+		vy = 0.06;
 		break;
 	case MARIO_STATE_FLY_HIGH:
 		fly_high_start = GetTickCount64();
 		vy = -0.3;
 		break;
+	
 		
 	}
 

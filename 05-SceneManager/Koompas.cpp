@@ -250,6 +250,14 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	CGameObject::Update(dt, coObjects);// sao
+	if (is_brought == false)
+	{
+		vy += KOOMPAS_AY * dt;
+		
+	}
+	
+	
 	//DebugOut(L"[INFO] heloo? %d \n",state);
 
 	//DebugOut(L"[INFO] state koompas %d \n",state);
@@ -261,8 +269,8 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetPosition(x+50, y-40);
 		//return;
 	}*/
-	if (state != CONCO_STATE_BEING_HOLDING)
-		vy += KOOMPAS_AY * dt;
+	//if (state != CONCO_STATE_BEING_HOLDING)
+		
 
 	
 	//vx += ax * dt;
@@ -273,7 +281,8 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	CGameObject::Update(dt, coObjects);// sao
+
+
 	float no_thing;
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
