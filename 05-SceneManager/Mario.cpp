@@ -161,7 +161,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			delete listWeapons[i];
 			listWeapons[i] = nullptr;
 			listWeapons.erase(listWeapons.begin() + i);
-			DebugOut(L"[INFO] xoa gach \n");
+			//DebugOut(L"[INFO] xoa gach \n");
 		}
 	}
 
@@ -196,6 +196,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= 1000)
 	{
 		CGame::GetInstance()->InitiateSwitchScene(3);
+	}
+
+	if (this->GetY() < 0)
+	{
+		//SetState(MARIO_STATE_FLY_LANDING);
+		SetState(MARIO_STATE_IDLE);
 	}
 }
 

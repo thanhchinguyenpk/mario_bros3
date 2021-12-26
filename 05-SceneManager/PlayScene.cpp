@@ -471,28 +471,35 @@ void CPlayScene::Update(DWORD dt)
 		list_bricklink[i]->Update(dt, &coObjects);
 	}
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return; 
+	if (player == NULL) return;
 
 	// Update camera to follow mario
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
-	CGame *game = CGame::GetInstance();
+	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
-	if (cx > 8448 - 760) cx = 8448 - 760-10;
+	if (cx > 8448 - 760) cx = 8448 - 760 - 10;
 	//CGame::GetInstance()->SetCamPos(cx, 700);
 
 	if (player->y < 570) //trên trời
 	{
-		CGame::GetInstance()->SetCamPos(cx, cy);
+		CGame::GetInstance()->SetCamPos(cx, 0);
 	}
-	else if(player->GetY()>1368)
+	else if (player->GetY() >= 570 && player->GetY() <= 1368)
+	{
+		CGame::GetInstance()->SetCamPos(cx, 700 - 24);
+	}
+
+	else if (player->GetY() > 1368)
+	{
 		CGame::GetInstance()->SetCamPos(cx, 1365);
-	else
-		CGame::GetInstance()->SetCamPos(cx, 700  -24);
+	}
+	
+		
 
 	PurgeDeletedObjects();
 

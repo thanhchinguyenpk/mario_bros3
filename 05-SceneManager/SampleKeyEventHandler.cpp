@@ -45,7 +45,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_S:
 		//mario->SetState(MARIO_STATE_JUMP);
-		if (mario->IsOnTheFlatForm() == false)
+		if (mario->IsOnTheFlatForm() == false && mario->level==3)
 			mario->SetState(MARIO_STATE_FLY_LANDING);
 		else
 			mario->SetState(MARIO_STATE_JUMP);
@@ -58,7 +58,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_3:
 		mario->SetLevel(MARIO_LEVEL_BIG_TAIL);
-		DebugOut(L"[INFO] hello %d\n", KeyCode);
+		//DebugOut(L"[INFO] hello %d\n", KeyCode);
 		break;
 	case DIK_4:
 		mario->SetLevel(MARIO_LEVEL_BIG_ORANGE);
@@ -112,17 +112,40 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (game->IsKeyDown(DIK_A))
-			mario->SetState(MARIO_STATE_RUNNING_RIGHT);
+		if (mario->level==3 && mario->state== MARIO_STATE_FLY_LANDING)
+		{
+
+			mario->vx = 0.1;
+			mario->nx = 1;
+			
+		}
 		else
-			mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		{
+
+			if (game->IsKeyDown(DIK_A))
+				mario->SetState(MARIO_STATE_RUNNING_RIGHT);
+			else
+				mario->SetState(MARIO_STATE_WALKING_RIGHT);
+		}
+	
+		
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (game->IsKeyDown(DIK_A))
-			mario->SetState(MARIO_STATE_RUNNING_LEFT);
+		if (mario->level == 3 && mario->state == MARIO_STATE_FLY_LANDING)
+		{
+			mario->vx = -0.1;
+			mario->nx = -1;
+		}
 		else
-			mario->SetState(MARIO_STATE_WALKING_LEFT);
+		{
+			
+
+			if (game->IsKeyDown(DIK_A))
+				mario->SetState(MARIO_STATE_RUNNING_LEFT);
+			else
+				mario->SetState(MARIO_STATE_WALKING_LEFT);
+		}
 	}
 	else
 	{

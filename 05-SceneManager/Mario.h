@@ -15,7 +15,7 @@
 #define MARIO_ACCEL_RUN_X	0.0007f
 
 //#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_SPEED_Y		0.8f
+#define MARIO_JUMP_SPEED_Y		0.85f
 #define MARIO_JUMP_RUN_SPEED_Y	0.95f
 
 #define MARIO_GRAVITY			0.002f
