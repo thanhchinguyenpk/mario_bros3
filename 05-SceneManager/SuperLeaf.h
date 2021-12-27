@@ -26,7 +26,7 @@
 #define  SUPER_LEAF_SPEED_VERTICAL		0.1f
 #define  SUPER_LEAF_SPEED_HORIZONTAL		0.15f
 
-
+#define ANI_SUPER_LEAF 7003
 class SuperLeaf : public CGameObject {
 public:
 	float original_pos_x=x;

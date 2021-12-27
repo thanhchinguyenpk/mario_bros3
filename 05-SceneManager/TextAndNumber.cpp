@@ -5,13 +5,13 @@ void TextAndNumber::Render(float posX, float posY, string str)
 	for (int i = 0; i < str.size(); i++)
 	{
 		if (str[i] >= '0' && str[i] <= '9')
-			textSpr = CSprites::GetInstance()->Get(str[i] - '0' + 200000);
+			textSpr = CSprites::GetInstance()->Get(str[i] - '0' + START_ANI_NUMBER);
 		else if (str[i] >= 'A' && str[i] <= 'Z')
-			textSpr = CSprites::GetInstance()->Get(str[i] - 'A' + 200010);
+			textSpr = CSprites::GetInstance()->Get(str[i] - 'A' + START_ANI_LETTER);
 		else if (str[i] == '!')
-			textSpr = CSprites::GetInstance()->Get(200036);
+			textSpr = CSprites::GetInstance()->Get(ANI_EXCLAIMATION_MARK);
 		else if (str[i] == ' ')
-			textSpr = CSprites::GetInstance()->Get(200037);
+			textSpr = CSprites::GetInstance()->Get(ANI_SPACE);
 
 
 		//textSpr = CSprites::GetInstance()->Get(str[i]-'a'+ 200010);
@@ -19,7 +19,7 @@ void TextAndNumber::Render(float posX, float posY, string str)
 		//CGame::GetInstance()->GetCamPos(x, y);
 
 
-		textSpr->Draw(posX + i * 24, posY );
+		textSpr->Draw(posX + i * SPACING_LETTER, posY );
 	}
 	
 }

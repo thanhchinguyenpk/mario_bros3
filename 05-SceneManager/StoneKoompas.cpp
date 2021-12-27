@@ -32,15 +32,15 @@ void StoneKoompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
-	if (state == STONE_KOOMPAS_STATE_DIE && GetTickCount64() - time_to_rescure > 5000)
+	if (state == STONE_KOOMPAS_STATE_DIE && GetTickCount64() - time_to_rescure > STONE_KOOMPAS_TIME_TO_DIE)
 	{
 		
 		this->SetState(STONE_KOOMPAS_STATE_HEAD_MOVING);
 		
 	}
-	if (state == STONE_KOOMPAS_STATE_HEAD_MOVING && GetTickCount64() - time_to_rescure > 9000)
+	if (state == STONE_KOOMPAS_STATE_HEAD_MOVING && GetTickCount64() - time_to_rescure > STONE_KOOMPAS_TIME_TO_HEAD_MOVING)
 	{
-		SetPosition(this->x, this->y - 50);
+		SetPosition(this->x, this->y - STONE_KOOMPAS_GAP_AVOID_FALLING);
 
 		if(nx<=0)
 			this->SetState(STONE_KOOMPAS_STATE_WALKING_LEFT);
@@ -64,7 +64,7 @@ void StoneKoompas::Render()
 	CAnimations::GetInstance()->Get(6012)->Render(x + 100, y);
 	CAnimations::GetInstance()->Get(6013)->Render(x + 200, y);*/
 
-	int idAni = 6000;
+	int idAni = ANI_STONE_KOOMPAS_WALKING_LEFT;
 
 	if(vx<0)
 		idAni = ANI_STONE_KOOMPAS_WALKING_LEFT;
@@ -141,10 +141,10 @@ void StoneKoompas::SetState(int state)
 		break;
 	case STONE_KOOMPAS_STATE_WALKING_LEFT:
 		nx = -1;
-		vx = -0.06;
+		vx = -STONE_KOOMPAS_WALKING_SPEED;
 		break;
 	case STONE_KOOMPAS_STATE_WALKING_RIGHT:
-		vx = 0.06;
+		vx = STONE_KOOMPAS_WALKING_SPEED;
 		nx = 1;
 		break;
 		

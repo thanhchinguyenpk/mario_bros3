@@ -5,8 +5,9 @@
 #include "FlatForm.h"
 
 #define SPINY_TURTLE_GRAVITY 0.002f
-#define KOOMPAS_WALKING_SPEED 0.06f
-#define KOOMPAS_FLYING_SPEED_Y 0.5f
+#define SPINY_TURTLE_WALKING_SPEED 0.06f
+
+#define SPINY_TURTLE_FLYING_SPEED_Y 0.5f
 
 #define SPINY_TURTLE_BBOX_WIDTH 32*3
 #define SPINY_TURTLE_BBOX_HEIGHT 22*3
@@ -45,6 +46,8 @@
 #define  ANI_SPINE_TURTLE_HAND_UP_AND_DOWN_LOW 6084
 #define  ANI_SPINE_TURTLE_BEING_JUMPED 6085
 #define  ANI_SPINE_TURTLE_DIE 6086
+
+#define AY_SPINE_TURTLE 0.002
 //stone koompas 
 class SpinyTurtle : public CGameObject
 {

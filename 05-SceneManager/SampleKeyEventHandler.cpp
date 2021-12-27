@@ -10,6 +10,15 @@
 #define CAN_NOT_WALK -1
 #define MARIO_SPEED_IN_WOLRD_MAP 0.4
 
+#define IN_SKY_POS_X 4281
+#define IN_SKY_POS_Y 110
+
+#define ABOVE_PINE_IN_SKY_X 6818
+#define ABOVE_PINE_IN_SKY_Y 210
+
+#define VY_FLY_LADING 0.1
+#define VY_FLY_HIGH 0.3
+
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
@@ -18,7 +27,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_O:
-		mario->SetPosition(4281, 110);
+		mario->SetPosition(IN_SKY_POS_X, IN_SKY_POS_Y);
 		break;
 	case DIK_Z:
 		
@@ -38,7 +47,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_P:
 		//mario->SetState(MARIO_STATE_KICK);
-		mario->SetPosition(6818, 210);
+		mario->SetPosition(ABOVE_PINE_IN_SKY_X, ABOVE_PINE_IN_SKY_Y);
 		break;
 	case DIK_DOWN:
 		if (mario->go_down == true)
@@ -54,9 +63,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		
 		/*if (mario->IsOnTheFlatForm() == false && mario->level == 3)
 			mario->SetState(MARIO_STATE_FLY_LANDING);*/
-		if (mario->level == 3 && (abs(mario->vx) == MARIO_RUNNING_SPEED || mario->GetState() == MARIO_STATE_FLY_HIGH))
+		if (mario->level == MARIO_LEVEL_BIG_TAIL && (abs(mario->vx) == MARIO_RUNNING_SPEED || mario->GetState() == MARIO_STATE_FLY_HIGH))
 			mario->SetState(MARIO_STATE_FLY_HIGH);
-		else if (mario->level == 3 && mario->IsOnTheFlatForm() == false)
+		else if (mario->level == MARIO_LEVEL_BIG_TAIL && mario->IsOnTheFlatForm() == false)
 			mario->SetState(MARIO_STATE_FLY_LANDING);
 		
 		else
@@ -82,7 +91,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_A:
 		mario->is_holding = true;
 
-		if (mario->GetLevel() == 4)
+		if (mario->GetLevel() == MARIO_LEVEL_BIG_ORANGE)
 		{
 			if ( mario->IsOnTheFlatForm() == false)
 			{
@@ -92,7 +101,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			else
 				mario->SetState(MARIO_STATE_STAND_SHOOT);
 		}
-		else if (mario->GetLevel() == 3)
+		else if (mario->GetLevel() == MARIO_LEVEL_BIG_TAIL)
 			mario->SetState(MARIO_STATE_SPIN);
 		break;
 		
@@ -142,16 +151,16 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
-		if (mario->level==3 && mario->GetState()== MARIO_STATE_FLY_LANDING)
+		if (mario->level== MARIO_LEVEL_BIG_TAIL && mario->GetState()== MARIO_STATE_FLY_LANDING)
 		{
 
-			mario->vx = 0.1;
+			mario->vx = VY_FLY_LADING;
 			mario->nx = 1;
 			
 		}
-		else if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_HIGH)
+		else if (mario->level == MARIO_LEVEL_BIG_TAIL && mario->GetState() == MARIO_STATE_FLY_HIGH)
 		{
-			mario->vx = 0.3;
+			mario->vx = VY_FLY_HIGH;
 			mario->nx = 1;
 		}
 		else
@@ -167,14 +176,14 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	}
 	else if (game->IsKeyDown(DIK_LEFT))
 	{
-		if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_LANDING)
+		if (mario->level == MARIO_LEVEL_BIG_TAIL && mario->GetState() == MARIO_STATE_FLY_LANDING)
 		{
-			mario->vx = -0.1;
+			mario->vx = -VY_FLY_LADING;
 			mario->nx = -1;
 		}
-		else if (mario->level == 3 && mario->GetState() == MARIO_STATE_FLY_HIGH)
+		else if (mario->level == MARIO_LEVEL_BIG_TAIL && mario->GetState() == MARIO_STATE_FLY_HIGH)
 		{
-			mario->vx = -0.3;
+			mario->vx = -VY_FLY_HIGH;
 			mario->nx = -1;
 		}
 		else

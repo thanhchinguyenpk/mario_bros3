@@ -12,7 +12,7 @@ void VirtalBox::Render()
 
 void VirtalBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += 0.002 * dt;
+	vy += AY_VIRTUAL_BOX * dt;
 
 	CGameObject::Update(dt, coObjects);
 

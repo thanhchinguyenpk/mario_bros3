@@ -12,6 +12,8 @@
 #define VIRTUAL_BOX_ADJUST_HEIGHT 100
 #define GAP 5
 
+#define AY_VIRTUAL_BOX 0.002
+
 class VirtalBox : public CGameObject {
 public:
 	LPGAMEOBJECT player;

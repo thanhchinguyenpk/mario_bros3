@@ -29,7 +29,7 @@ void SpinyTurtle::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += 0.002 * dt;
+	vy += AY_SPINE_TURTLE * dt;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -129,7 +129,7 @@ void SpinyTurtle::SetState(int state)
 		vy = 0;
 		break;
 	case SPINY_TURTLE_STATE_WALKING_RIGHT:
-		vx = 0.06;
+		vx = SPINY_TURTLE_WALKING_SPEED;
 		nx = 1;
 		break;
 
