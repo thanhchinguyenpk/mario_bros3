@@ -32,10 +32,11 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	SetState(koompas_state);
 	player = dynamic_cast<CMario*>(mario);
 	
-	virtalbox = new VirtalBox(x-50, y,mario);
-	CGame* game = CGame::GetInstance();
-	CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
-	scene->objects.push_back(virtalbox);
+	if(type==1)
+		virtalbox = new VirtalBox(x-50, y,mario);
+	//CGame* game = CGame::GetInstance();
+	//CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
+	//scene->objects.push_back(virtalbox);
 }
 
 void Koompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -90,10 +91,11 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 			if (!dynamic_cast<Koompas*>(e->obj))
 				vx = -vx;
 
-			if (vx > 0)
-				virtalbox->SetPosition(this->x + 50, y - 2);
-			else
-				virtalbox->SetPosition(this->x - 50, y - 2);
+			if (type == 1)
+				if (vx > 0)
+					virtalbox->SetPosition(this->x + 50, y - 2);
+				else
+					virtalbox->SetPosition(this->x - 50, y - 2);
 		
 		/* {
 			if (this->state == CONCO_STATE_WALKING_LEFT)
@@ -233,20 +235,24 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	virtalbox->vx = this->vx;
-	//virtalbox->Update(dt, coObjects);
-
-	if (abs(virtalbox->y - this->y) > 15)
+	if (type == 1)
 	{
-		if (this->state == CONCO_STATE_WALKING_LEFT)
+		virtalbox->vx = this->vx;
+		virtalbox->Update(dt, coObjects);
+
+
+		if (abs(virtalbox->y - this->y) > 15)
 		{
-			this->SetState(CONCO_STATE_WALKING_RIGHT);
-			virtalbox->SetPosition(this->x + 50, y);
-		}
-		else if (this->state == CONCO_STATE_WALKING_RIGHT)
-		{
-			this->SetState(CONCO_STATE_WALKING_LEFT);
-			virtalbox->SetPosition(this->x - 50, y);
+			if (this->state == CONCO_STATE_WALKING_LEFT)
+			{
+				this->SetState(CONCO_STATE_WALKING_RIGHT);
+				virtalbox->SetPosition(this->x + 50, y);
+			}
+			else if (this->state == CONCO_STATE_WALKING_RIGHT)
+			{
+				this->SetState(CONCO_STATE_WALKING_LEFT);
+				virtalbox->SetPosition(this->x - 50, y);
+			}
 		}
 	}
 
@@ -301,6 +307,19 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		SetPosition(this->x, this->y - GAP_AVOID_FALLING_DOWN);//để khi thọt ra mai rùa không bị rơi xuống
 		SetState(CONCO_STATE_WALKING_LEFT);
+
+		if (this->is_brought == true)
+		{
+			player->CollideWithEnemy();
+			player->holding_something = NULL;
+			player->SetState(MARIO_STATE_IDLE);
+			player->is_holding = false;
+
+			this->is_brought = false;
+
+			DebugOut(L"lin da vo may lan %d\n");
+			
+		}
 	}
 
 
@@ -336,7 +355,9 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Koompas::Render()
 {
-	//virtalbox->Render();
+	if (type == 1)
+		virtalbox->Render();
+
 	int aniId = CONCO_ANI_GREEN_WALKING_LEFT;
 
 	if (state == CONCO_STATE_DIE)
@@ -445,10 +466,10 @@ void Koompas::SetState(int state)
 		break;
 
 	case CONCO_STATE_FLY_LEFT:
-		vx = -KOOMPAS_WALKING_SPEED;
+		vx = -KOOMPAS_FLYING_SPEED_X;
 		break;
 	case CONCO_STATE_FLY_RIGHT:
-		vx = KOOMPAS_WALKING_SPEED;
+		vx = KOOMPAS_FLYING_SPEED_X;
 		break;
 	case CONCO_STATE_BEING_HOLDING:
 		vx = 0;

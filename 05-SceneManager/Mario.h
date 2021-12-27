@@ -233,6 +233,7 @@
 class CMario : public CGameObject
 {
 public:
+	bool is_jumped = false;
 	bool is_up_press = false;
 	//vector<LPGAMEOBJECT> listWeapons;
 	ULONGLONG jump_fire_throw_start = 0;

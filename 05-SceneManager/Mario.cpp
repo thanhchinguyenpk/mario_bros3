@@ -249,6 +249,12 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->SetState(MARIO_STATE_KICK);
 		}
 	}
+
+	if (is_jumped)
+	{
+		this->SetPosition(x, y - 2);
+		is_jumped = false;
+	}
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -421,8 +427,16 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 	}
+	else if (e->ny > 0)
+	{
+		CollideWithEnemy();
+		 //set post ở đây không có ý nghĩa
+		is_jumped = true;
+		DebugOut(L"va cham tren dau roi ne %d \n");
+	}
 	else
 	{
+
 		if (e->nx != 0)
 		{
 			if (is_holding == false)
@@ -609,6 +623,7 @@ void CMario::CollideWithEnemy()
 {
 	if (untouchable == 0)
 	{
+		DebugOut(L"vo may lan vay? %d \n", this->level);
 		if (level > MARIO_LEVEL_BIG)
 		{
 			level = MARIO_LEVEL_BIG;
@@ -618,10 +633,13 @@ void CMario::CollideWithEnemy()
 		{
 			level = MARIO_LEVEL_SMALL;
 			StartUntouchable();
+			DebugOut(L"level truoc khi chet mall %d \n", this->level);
 		}
-
 		else
+		{
 			SetState(MARIO_STATE_DIE);
+			DebugOut(L"level truoc khi chet die %d \n", this->level);
+		}
 	}
 	//untouchtable_timer
 
