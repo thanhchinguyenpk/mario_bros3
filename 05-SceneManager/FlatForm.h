@@ -10,6 +10,7 @@
 #define BRICK_BBOX_HEIGHT 8
 
 #define GAP 24
+
 class FlatForm : public CGameObject {
 public:
 	bool is_go_through = false;

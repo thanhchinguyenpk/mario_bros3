@@ -44,6 +44,7 @@ MapScene::MapScene(int id, LPCWSTR filePath) :
 #define ASSETS_SECTION_SPRITES 1
 #define ASSETS_SECTION_ANIMATIONS 2
 #define ASSETS_SECTION_SPRITES_PLUS 3
+#define SCENE_SECTION_MAP 4
 #define SCENE_SECTION_MAP_SELECTION 7
 
 #define MAX_SCENE_LINE 1024
@@ -163,7 +164,7 @@ void MapScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	}
-	case 5:
+	case OBJECT_TYPE_VISIBLE:
 	{ 
 
 		//float x = atof(tokens[1].c_str());
@@ -215,6 +216,8 @@ void MapScene::_ParseSection_MAP_SELECTION(string line)
 
 	map_portals.push_back(obj);
 }
+
+
 
 void MapScene::LoadAssets(LPCWSTR assetFile)
 {
@@ -280,7 +283,9 @@ void MapScene::Load()
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
 		if (line == "[MAP_SELECTION]") { section = SCENE_SECTION_MAP_SELECTION; continue; }
-
+		if (line == "[MAP]") {
+			section = SCENE_SECTION_MAP; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		//
@@ -291,6 +296,7 @@ void MapScene::Load()
 		case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_MAP_SELECTION: _ParseSection_MAP_SELECTION(line); break;
+		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 
 		}
 	}
@@ -302,9 +308,11 @@ void MapScene::Load()
 	//0	textures\world_map.txt	12	16	textures\tileset_worldmap.png	4 	8
 
 	//map = new Map(L"textures\\world_map.txt", L"textures\\tileset_worldmap.png",16,12, 8,4); // sửa lại để trong txt luon
-	map = new Map(L"textures\\world_map.txt", L"textures\\tileset_worldmap.png", 16, 12, 8, 4); // sửa lại để trong txt luon
 
-	map->LoadTileSet();
+	map->LoadTileSet();// hơi khác play scene
+
+	/*map = new Map(L"textures\\world_map.txt", L"textures\\tileset_worldmap.png", 16, 12, 8, 4); // sửa lại để trong txt luon
+	map->LoadTileSet();*/
 
 	current_portal = dynamic_cast<MapPortal*>(map_portals[0]);
 
@@ -312,8 +320,7 @@ void MapScene::Load()
 
 void MapScene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
+	
 
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 0; i < objects.size(); i++)
@@ -356,20 +363,13 @@ void MapScene::Update(DWORD dt)
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
 
-	//if (cx < 0) cx = 0;
-	//if (cx > 8448 - 760) cx = 8448 - 760 - 10;
-	//CGame::GetInstance()->SetCamPos(cx, 700);
 
-	//if (player->GetY() > 1368)
-		//CGame::GetInstance()->SetCamPos(cx, 1365);
-	//else
-		CGame::GetInstance()->SetCamPos(POS_CAM_X, POS_CAM_Y);
+	CGame::GetInstance()->SetCamPos(POS_CAM_X, POS_CAM_Y);
 
 	PurgeDeletedObjects();
 
 
-	//game_time->Update(dt);
-	//	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
+	
 }
 
 void MapScene::Render()
@@ -462,4 +462,23 @@ void MapScene::PurgeDeletedObjects()
 
 
 
+}
+
+
+void MapScene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+	DebugOut(L"[INFO] play scene mapid loading scene resources from : %s \n", line);
+
+	if (tokens.size() < 5) return;
+
+	map = new Map(ToLPCWSTR(tokens[0]), ToLPCWSTR(tokens[1]), atoi(tokens[2].c_str()), atoi(tokens[3].c_str()), atoi(tokens[4].c_str()), atoi(tokens[5].c_str()));
+	
+	
+
+
+
+	/*map = new Map(L"textures\\world_map.txt", L"textures\\tileset_worldmap.png", 16, 12, 8, 4); // sửa lại để trong txt luon
+
+	map->LoadTileSet();*/
 }

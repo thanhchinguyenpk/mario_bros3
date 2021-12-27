@@ -21,6 +21,9 @@
 #define ID_ANI_MARIO_BULLET_WALKING 5000
 #define ID_ANI_MARIO_BULLET_DIE 5001
 
+#define ANI_MARIO_BULLET 704
+#define VY_MARIO_BULLET 0.25*1.5
+
 class MarioBullet : public CGameObject
 {
 protected:

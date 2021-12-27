@@ -19,6 +19,8 @@
 
 #define WIDTH_WHEN_WAS_HIT 45
 
+#define TIME_TO_TRANSFER 3000
+
 class PButton : public CGameObject {
 public:
 

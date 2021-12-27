@@ -5,6 +5,11 @@
 #include "Animation.h"
 #include "Animations.h"
 
+#define VY_LAVA 1.5
+#define AY_LAVA 0.002
+#define LAVA_DISTANCE 300
+#define LAVA_TIME_TO_MOVE_UP 3000
+
 
 #define ID_ANI_COIN 11000
 

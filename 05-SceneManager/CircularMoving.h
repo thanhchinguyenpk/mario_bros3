@@ -15,6 +15,18 @@
 #define CIRCAL_BBOX_WIDTH 10
 #define CIRCAL_BBOX_HEIGHT 16
 
+#define ANI_CIRCULAR_MOVING 6070
+
+#define ORIGINAL_POS_X 2400
+#define ORIGINAL_POS_Y 900
+
+#define CIRCULAR_MOVING_SPEED 0.1
+
+#define CIRCULAR_MOVING_RADIUS 100
+
+#define FULL_CIRCLE_DEGREE 360
+#define HALF_CIRCLE_DEGREE 360
+
 class CircularMoving : public CGameObject {
 public:
 	int count = 0;

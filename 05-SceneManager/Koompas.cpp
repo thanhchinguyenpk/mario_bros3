@@ -6,19 +6,7 @@
 #include "BrickBlink.h"
 #include "PlayScene.h"
 
-#define KOOMPAS_VY_WAS_SHOOTED 0.6f
-#define KOOMPAS_VX_WAS_SHOOTED 0.1f
-#define KOOMPAS_VX_SHELL_RUNNING  0.1//0.7f
 
-#define GAP_ANI_TO_RED 8
-
-#define GAP_AVOID_FALLING_DOWN 32
-
-#define TIME_TO_SHELL_MOVING	7000
-#define TIME_TO_INDENT_OUT		10000
-#define TIME_TO_WALKING_LEFT	12000
-
-#define KOOMPAS_AY 0.002
 
 Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koompas_state) :CGameObject(x, y)
 {
@@ -32,7 +20,7 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	SetState(koompas_state);
 	player = dynamic_cast<CMario*>(mario);
 	
-	if(type==1)
+	if(type== KOOMPAS_RED)
 		virtalbox = new VirtalBox(x-50, y,mario);
 	//CGame* game = CGame::GetInstance();
 	//CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
@@ -91,11 +79,11 @@ void Koompas::OnCollisionWith(LPCOLLISIONEVENT e)
 			if (!dynamic_cast<Koompas*>(e->obj))
 				vx = -vx;
 
-			if (type == 1)
+			if (type == KOOMPAS_RED)
 				if (vx > 0)
-					virtalbox->SetPosition(this->x + 50, y - 2);
+					virtalbox->SetPosition(this->x + GAP_VIRTUAL_BOX_TURAROUND_X, y - GAP_VIRTUAL_BOX_TURAROUND_Y);
 				else
-					virtalbox->SetPosition(this->x - 50, y - 2);
+					virtalbox->SetPosition(this->x - GAP_VIRTUAL_BOX_TURAROUND_X, y - GAP_VIRTUAL_BOX_TURAROUND_Y);
 		
 		/* {
 			if (this->state == CONCO_STATE_WALKING_LEFT)
@@ -198,9 +186,9 @@ void Koompas::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 
 		if ( koompas->GetX()>this->GetX()  )
 		{
-			DebugOut(L"[INFO] heloo? %d\n", koompas->state);
-				//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
-				this->is_minus_vx = true;
+			//DebugOut(L"[INFO] heloo? %d\n", koompas->state);
+			//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
+			this->is_minus_vx = true;
 		}
 		//koompas->SetState(CONCO_STATE_WAS_SHOOTED);
 			SetState(CONCO_STATE_WAS_SHOOTED);
@@ -235,23 +223,23 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (type == 1)
+	if (type == KOOMPAS_RED)
 	{
 		virtalbox->vx = this->vx;
 		virtalbox->Update(dt, coObjects);
 
 
-		if (abs(virtalbox->y - this->y) > 15)
+		if (abs(virtalbox->y - this->y) > GAP_VIRTUAL_BOX_TO_KOOMPAS)
 		{
 			if (this->state == CONCO_STATE_WALKING_LEFT)
 			{
 				this->SetState(CONCO_STATE_WALKING_RIGHT);
-				virtalbox->SetPosition(this->x + 50, y);
+				virtalbox->SetPosition(this->x + GAP_VIRTUAL_BOX_TURAROUND_X, y);
 			}
 			else if (this->state == CONCO_STATE_WALKING_RIGHT)
 			{
 				this->SetState(CONCO_STATE_WALKING_LEFT);
-				virtalbox->SetPosition(this->x - 50, y);
+				virtalbox->SetPosition(this->x - GAP_VIRTUAL_BOX_TURAROUND_X, y);
 			}
 		}
 	}
@@ -317,7 +305,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			this->is_brought = false;
 
-			DebugOut(L"lin da vo may lan %d\n");
+			//DebugOut(L"lin da vo may lan %d\n");
 			
 		}
 	}
@@ -355,7 +343,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Koompas::Render()
 {
-	if (type == 1)
+	if (type == KOOMPAS_RED)
 		virtalbox->Render();
 
 	int aniId = CONCO_ANI_GREEN_WALKING_LEFT;

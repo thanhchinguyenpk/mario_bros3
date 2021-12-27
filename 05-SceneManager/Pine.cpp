@@ -40,11 +40,11 @@ Pine::Pine(float x, float y, int type, int is_pine_can_go)
 {
 	this->is_pine_can_go = is_pine_can_go;
 
-	if(type==1)
+	if(type== PINE_TALL)
 		SetState(PINE_STATE_TALL);
-	else if(type==2)
+	else if(type== PINE_SHORT)
 		SetState(PINE_STATE_SHORT);
-	else if (type == 3)
+	else if (type == PINE_BLACK)
 		SetState(PINE_STATE_BLACK);
 }
 

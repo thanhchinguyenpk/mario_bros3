@@ -46,7 +46,7 @@ void MarioBullet::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (e->ny != 0)
 	{
-		vy = -0.25 * 1.5;
+		vy = -VY_MARIO_BULLET;
 		//vy = -vy;
 		//vy = 0;
 	}
@@ -111,7 +111,7 @@ void MarioBullet::Render()
 		aniId = ID_ANI_MARIO_BULLET_DIE;
 	}
 
-	CAnimations::GetInstance()->Get(704)->Render(x, y);
+	CAnimations::GetInstance()->Get(ANI_MARIO_BULLET)->Render(x, y);
 	RenderBoundingBox();
 }
 

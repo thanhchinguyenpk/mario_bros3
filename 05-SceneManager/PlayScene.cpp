@@ -43,6 +43,7 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_ASSETS	1
 #define SCENE_SECTION_OBJECTS	2
+#define SCENE_SECTION_MAP	3
 
 #define ASSETS_SECTION_UNKNOWN -1
 #define ASSETS_SECTION_SPRITES 1
@@ -208,49 +209,49 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new FlatForm(x, y, width, height, is_go_through);
 		break; 
 	}
-	case 7: obj = new ParaGoompa(x, y,player); break;
-	case 8:
+	case OBJECT_TYPE_PARA_GOOMBA: obj = new ParaGoompa(x, y,player); break;
+	case OBJECT_TYPE_BRICK_COIN:
 	{
 		int has_item = (int)atof(tokens[3].c_str());
 		obj = new BrickCoin(x, y, has_item, player); break;
 	}
-	case 9: obj  = new Mushroom(x, y,1); break;
-	case 10: obj = new SuperLeaf(x, y); break;
-	case 11:
+	case OBJECT_TYPE_MUSHROOM: obj  = new Mushroom(x, y,1); break;
+	case OBJECT_TYPE_SUPER_LEAF: obj = new SuperLeaf(x, y); break;
+	case OBJECT_TYPE_KOOMPAS:
 	{ 
 		int type = (int)atof(tokens[3].c_str());
 		int state = (int)atof(tokens[4].c_str());
 
 		obj = new Koompas(x, y, player,type, state); break; 
 	}
-	case 12:
+	case OBJECT_TYPE_PINE:
 	{ 
 		int type = (int)atof(tokens[3].c_str());
 		int is_can_go = (int)atof(tokens[4].c_str());
 		obj = new Pine(x, y, type, is_can_go); break;
 	}
-	case 13:
+	case OBJECT_TYPE_PLANT_BULLET:
 	{
 		//int direction= (int)atof(tokens[3].c_str());
 		//obj = new PlantBullet(x, y,p); break;
 	}
-	case 14: 
+	case OBJECT_TYPE_VENUS_FIRE_TRAP:
 	{
 		int type = (int)atof(tokens[3].c_str());
 		obj = new VenusFireTrap(x, y, player, type); break;
 	}
-	case 15:
+	case OBJECT_TYPE_PIRANHA_PLANT:
 	{
 		//int type = (int)atof(tokens[3].c_str());
 		obj = new PiranhaPlant(x, y, player); break;
 	}
-	case 16:
+	case OBJECT_TYPE_BRICK_BLINK:
 	{
 		//int type = (int)atof(tokens[3].c_str());
 		//obj = new PiranhaPlant(x, y, player); break;
 		obj = new BrickBlink(x, y, player); break;
 	}
-	case 17:
+	case OBJECT_TYPE_PBUTTON:
 	{
 		//int type = (int)atof(tokens[3].c_str());
 		//obj = new PiranhaPlant(x, y, player); break;
@@ -259,37 +260,37 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new PButton(x, y); break;
 		
 	}
-	case 18:
+	case OBJECT_TYPE_RANDOM_BONUS:
 	{
 		CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new RandomBonus(x, y, mario); break;
 
 	}
-	case 19:
+	case OBJECT_TYPE_VIRTUAL_BOX:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new VirtalBox(x, y, player); break;
 
 	}
-	case 20:
+	case OBJECT_TYPE_STONE_KOOMPAS:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new StoneKoompas(x, y); break;
 		
 	}
-	case 21:
+	case OBJECT_TYPE_LAVA_BALL:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new LavaBall(x, y); break;
 		
 	}
-	case 22:
+	case OBJECT_TYPE_CIRCULAR_MOVING:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
 		obj = new CircularMoving(x, y); break;
 
 	}
-	case 23:
+	case OBJECT_TYPE_SPINY_TURTLE:
 	{
 		obj = new SpinyTurtle(x, y, player); break;
 	}
@@ -377,6 +378,9 @@ void CPlayScene::Load()
 		if (line[0] == '#') continue;	// skip comment lines	
 		if (line == "[ASSETS]") { section = SCENE_SECTION_ASSETS; continue; };
 		if (line == "[OBJECTS]") { section = SCENE_SECTION_OBJECTS; continue; };
+		if (line == "[MAP]") {
+			section = SCENE_SECTION_MAP; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }	
 
 		//
@@ -386,6 +390,7 @@ void CPlayScene::Load()
 		{ 
 			case SCENE_SECTION_ASSETS: _ParseSection_ASSETS(line); break;
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
+			case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		}
 	}
 
@@ -393,10 +398,10 @@ void CPlayScene::Load()
 
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 
-	map = new Map(L"textures\\map_thanh.txt", L"textures\\Final1.png", 176, 41 ,  29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
+	//map = new Map(L"textures\\map_thanh.txt", L"textures\\Final1.png", 176, 41 ,  29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
 	//map = new Map(L"textures\\map_test.txt", L"textures\\Final1.png", 176, 41, 29, 30);//=new Map(L"textures\\map_thanh.txt",176,41)
 
-	map->LoadTileSet();
+	
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -485,21 +490,21 @@ void CPlayScene::Update(DWORD dt)
 	cy -= game->GetBackBufferHeight() / 2;
 
 	if (cx < 0) cx = 0;
-	if (cx > 8448 - 760) cx = 8448 - 760 - 10;
+	if (cx > END_FIRST_SCENE) cx = END_FIRST_SCENE - END_FIRST_SCENE_GAP;
 	//CGame::GetInstance()->SetCamPos(cx, 700);
 
-	if (player->y < 570) //trên trời
+	if (player->y < TOP_IN_GROUND) //trên trời
 	{
 		CGame::GetInstance()->SetCamPos(cx, 0);
 	}
-	else if (player->GetY() >= 570 && player->GetY() <= 1368)
+	else if (player->GetY() >= TOP_IN_GROUND && player->GetY() <= BOT_IN_GROUND)
 	{
-		CGame::GetInstance()->SetCamPos(cx, 700 - 24);
+		CGame::GetInstance()->SetCamPos(cx, CAM_Y_IN_GROUND);
 	}
 
-	else if (player->GetY() > 1368)
+	else if (player->GetY() > BOT_IN_GROUND)
 	{
-		CGame::GetInstance()->SetCamPos(cx, 1365);
+		CGame::GetInstance()->SetCamPos(cx, BOT_IN_GROUND);//1365
 	}
 	
 		
@@ -534,7 +539,7 @@ void CPlayScene::Render()
 	game_time = GameTime::GetInstance();
 
 	//game_ui->Render(300 - game_time->GetTime(), player->number_brick_coin_hit, player->score, 4, 1);
-	game_ui->Render(300 - game_time->GetTime(), 5, 2000, 4, 1);
+	game_ui->Render(GAME_TIME - game_time->GetTime(), EATEN_COIN, SCORE, LIFE, SCENE);
 
 }
 
@@ -649,4 +654,24 @@ void CPlayScene::PurgeDeletedObjects()
 
 
 
+}
+
+void CPlayScene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+	DebugOut(L"[INFO] play scene mapid loading scene resources from : %s \n", line);
+
+	if (tokens.size() < 5) return;
+	//atoi là số
+	//tokens là chữ
+
+	/*map->LoadMap(atoi(tokens[0].c_str()),
+		ToLPCWSTR(tokens[1]), atoi(tokens[2].c_str()), atoi(tokens[3].c_str()),
+		ToLPCWSTR(tokens[4]), atoi(tokens[5].c_str()), atoi(tokens[6].c_str()));*/
+
+	map = new Map(ToLPCWSTR(tokens[0]), ToLPCWSTR(tokens[1]), atoi(tokens[2].c_str()), atoi(tokens[3].c_str()), atoi(tokens[4].c_str()), atoi(tokens[5].c_str()));
+	//map = new Map(L"textures\\map_thanh.txt", L"textures\\Final1.png", 176, 41, 29, 30);
+
+
+	map->LoadTileSet();
 }

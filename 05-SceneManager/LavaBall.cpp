@@ -10,18 +10,18 @@ LavaBall::LavaBall(float x, float y) :CGameObject(x, y)
 void LavaBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if(state!= LAVA_BALL_STATE_STOP)
-		vy += 0.002 * dt;
+		vy += AY_LAVA * dt;
 
 	
 	y += vy * dt;
 
-	if (this->y > original_pos_y + 300 && time_to_stop==0)
+	if (this->y > original_pos_y + LAVA_DISTANCE && time_to_stop==0)
 	{
 		this->SetState(LAVA_BALL_STATE_STOP);
-		this->SetPosition(this->x, original_pos_y + 300);
+		this->SetPosition(this->x, original_pos_y + LAVA_DISTANCE);
 	}
 
-	if (state == LAVA_BALL_STATE_STOP && GetTickCount64() - time_to_stop > 3000)
+	if (state == LAVA_BALL_STATE_STOP && GetTickCount64() - time_to_stop > LAVA_TIME_TO_MOVE_UP)
 	{
 		this->SetState(LAVA_BALL_STATE_MOVING_UP);
 		time_to_stop = 0;
@@ -42,6 +42,7 @@ void LavaBall::GetBoundingBox(float& l, float& t, float& r, float& b)
 void LavaBall::Render()
 {
 	int IdAni = ANI_LAVA_BALL_UP;
+
 	if(vy<0)
 		IdAni = ANI_LAVA_BALL_UP;
 	else
@@ -66,7 +67,7 @@ void LavaBall::SetState(int state)
 
 
 		vx = 0;
-		vy = -1.5;
+		vy = -VY_LAVA;
 		
 		//ay = 0;
 		break;

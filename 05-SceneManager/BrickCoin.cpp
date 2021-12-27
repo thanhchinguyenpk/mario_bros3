@@ -28,13 +28,6 @@ void BrickCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	y += vy * dt;
 
-	//if (y < originalY - 20)
-	//{
-	//	vy = abs(vy);
-	//	//return;
-	//}else if (y > originalY)
-	//	vy = 0;
-
 
 	if (y < originalY - BRICKCOIN_GAP_BOUNCING && vy<0)
 	{
@@ -49,12 +42,6 @@ void BrickCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//flag = false;
 	}
 
-	//DebugOut(L"[ERROR-------vy của viên gạch-----------------] DINPUT::GetDeviceData failed. Error: %f\n",y);
-
-	//if (player->GetState() == MARIO_STATE_SPIN)
-	//{
-		
-	//}
 
 	if(state!= BRICK_COIN_STATE_DA_DAP)
 		this->CheckWetherBeingAttacked(player, BRICK_COIN_STATE_DA_DAP);
@@ -77,7 +64,6 @@ void BrickCoin::SetState(int state)
 
 	case BRICK_COIN_STATE_DA_DAP:
 		vy = -BRICKCOIN_VX;
-		//vx = 0;
 		
 			if (has_item == BRICKCOIN_CONTAINS_PBUTTON)
 			{

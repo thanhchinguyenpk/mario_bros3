@@ -18,6 +18,10 @@
 #define  ANI_PINE_SHORT				741
 #define  ANI_PINE_BLACK				742
 
+
+#define  PINE_TALL				1
+#define  PINE_SHORT				2
+#define  PINE_BLACK				3
 class Pine : public CGameObject
 {
 public:

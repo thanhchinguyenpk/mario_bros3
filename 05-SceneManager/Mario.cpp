@@ -58,22 +58,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (is_set_position == true)
 	{
-		if (GetTickCount64() - time_to_go_down > 3000 )
+		if (GetTickCount64() - time_to_go_down > MARIO_TIME_TO_GO_PINE)
 		{
-			if (this->GetY() < 500)
+			if (this->GetY() < MARIO_Y_ABOVE)
 			{
-				SetPosition(6350, 1500);
+				SetPosition(MARIO_POS_X_UNDER_GROUND, MARIO_POS_Y_UNDER_GROUND);
 				is_set_position = false;
 				time_to_go_down = 0;
 			}
-			else if(this->GetY()>=900 && this->GetY()<= 1170)
+			else if(this->GetY()>= MARIO_Y_ABOVE && this->GetY()<= MARIO_Y_BELOW)
 			{
 				is_set_position = false;
 				time_to_go_down = 0;
 			}
 			else
 			{
-				SetPosition(6984, 1170);
+				SetPosition(MARIO_POS_X_IN_GROUND, MARIO_POS_Y_IN_GROUND);
 				time_to_go_down = GetTickCount64();
 			}
 
@@ -81,10 +81,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			if (this->GetY() < 900)
-				y += 0.03 * dt;
+			if (this->GetY() < MARIO_Y_ABOVE)
+				y += MARIO_VY_GO_DOWN_PINE * dt;
 			else 
-				y -= 0.032 * dt;
+				y -= MARIO_VY_GO_UP_PINE * dt;
 
 			return;
 		}
@@ -93,7 +93,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (is_auto)
 	{
-		x += 0.3 * dt;
+		x += MARIO_VX_AUTO * dt;
 		return;
 	}
 
@@ -138,13 +138,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (jump_down_to_up == true)
 	{
-		SetPosition(x, y-1);
+		SetPosition(x, y- MARIO_GAP_JUMP);
 		jump_down_to_up = false;
 		//DebugOut(L"[INFO] vo day khoooooooooooooooooooooooooong \n" );
 	}
 
 
-	if (is_kick==true && GetTickCount64() - kick_start >=200  && kick_start)
+	if (is_kick==true && GetTickCount64() - kick_start >= MARIO_TIME_KICK && kick_start)
 	{
 		
 		kick_start = 0;
@@ -167,40 +167,40 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 
-	if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start >= 200 && throw_start)
+	if (GetState() == MARIO_STATE_STAND_SHOOT && GetTickCount64() - throw_start >= MARIO_TIME_THROW && throw_start)
 	{
 		SetState(MARIO_STATE_IDLE);
 		throw_start = 0;
 
 	}
-	if (GetState() == MARIO_STATE_SPIN && GetTickCount64() - spin_start >= 300 && spin_start)
+	if (GetState() == MARIO_STATE_SPIN && GetTickCount64() - spin_start >= MARIO_TIME_SPIN && spin_start)
 	{
 		SetState(MARIO_STATE_IDLE);
 		spin_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
 
-	if (GetState() == MARIO_STATE_FLY_LANDING && GetTickCount64() - fly_start >= 300 && fly_start)
+	if (GetState() == MARIO_STATE_FLY_LANDING && GetTickCount64() - fly_start >= MARIO_TIME_FLY_LANDING && fly_start)
 	{
 		SetState(MARIO_STATE_IDLE);
 		fly_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
 
-	if (GetState() == MARIO_STATE_FLY_HIGH && GetTickCount64() - fly_high_start >= 300 && fly_high_start)
+	if (GetState() == MARIO_STATE_FLY_HIGH && GetTickCount64() - fly_high_start >= MARIO_TIME_FLY_HIGH && fly_high_start)
 	{
 		SetState(MARIO_STATE_IDLE);
 		fly_high_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
-	if (GetState() == MARIO_STATE_JUMP_SHOOT_BULLET && GetTickCount64() - jump_fire_throw_start >= 300 && jump_fire_throw_start)
+	if (GetState() == MARIO_STATE_JUMP_SHOOT_BULLET && GetTickCount64() - jump_fire_throw_start >= MARIO_TIME_JUMP_AND_SHOOT && jump_fire_throw_start)
 	{
 		SetState(MARIO_STATE_IDLE);
 		jump_fire_throw_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
 	
-	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= 1000)
+	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= MARIO_TIME_TO_SWITCH_SCENE)
 	{
 		CGame::GetInstance()->InitiateSwitchScene(3);
 	}
@@ -225,15 +225,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			
 			if (level == MARIO_LEVEL_SMALL)
 			{
-				this->holding_something->SetPosition(this->x + 40, this->y - 10);
+				this->holding_something->SetPosition(this->x + MARIO_GAP_HOLDING_X, this->y - MARIO_GAP_HOLDING_Y);
 				if (this->nx < 0)
-					this->holding_something->SetPosition(this->x - 40, this->y - 10);
+					this->holding_something->SetPosition(this->x - MARIO_GAP_HOLDING_X, this->y - MARIO_GAP_HOLDING_Y);
 			}
 			else
 			{
-				this->holding_something->SetPosition(x + 40, y);
+				this->holding_something->SetPosition(x + MARIO_GAP_HOLDING_X, y);
 				if (nx < 0)
-					this->holding_something->SetPosition(x - 40, y);
+					this->holding_something->SetPosition(x - MARIO_GAP_HOLDING_X, y);
 
 			}
 
@@ -252,7 +252,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (is_jumped)
 	{
-		this->SetPosition(x, y - 2);
+		this->SetPosition(x, y - MARIO_GAP_BEING_JUMPED);
 		is_jumped = false;
 	}
 }
@@ -532,8 +532,6 @@ void CMario::OnCollisionWithBrickCoin(LPCOLLISIONEVENT e)
 			brick->SetState(BRICK_COIN_STATE_DA_DAP);
 	}
 
-
-	
 }
 
 
@@ -623,7 +621,7 @@ void CMario::CollideWithEnemy()
 {
 	if (untouchable == 0)
 	{
-		DebugOut(L"vo may lan vay? %d \n", this->level);
+		//DebugOut(L"vo may lan vay? %d \n", this->level);
 		if (level > MARIO_LEVEL_BIG)
 		{
 			level = MARIO_LEVEL_BIG;
@@ -633,12 +631,12 @@ void CMario::CollideWithEnemy()
 		{
 			level = MARIO_LEVEL_SMALL;
 			StartUntouchable();
-			DebugOut(L"level truoc khi chet mall %d \n", this->level);
+			//DebugOut(L"level truoc khi chet mall %d \n", this->level);
 		}
 		else
 		{
 			SetState(MARIO_STATE_DIE);
-			DebugOut(L"level truoc khi chet die %d \n", this->level);
+			//DebugOut(L"level truoc khi chet die %d \n", this->level);
 		}
 	}
 	//untouchtable_timer
@@ -1198,7 +1196,7 @@ void CMario::SetState(int state)
 			else
 			{
 				vy = -MARIO_JUMP_SPEED_Y;
-				vx = nx==1?0.3:-0.3;
+				vx = nx==1 ? MARIO_VX_JUMP : -MARIO_VX_JUMP;
 			}
 		
 		}
@@ -1258,11 +1256,11 @@ void CMario::SetState(int state)
 		break;
 	case MARIO_STATE_FLY_LANDING:
 		fly_start = GetTickCount64();
-		vy = 0.06;
+		vy = MARIO_VY_FLY_LANDING;
 		break;
 	case MARIO_STATE_FLY_HIGH:
 		fly_high_start = GetTickCount64();
-		vy = -0.3;
+		vy = -MARIO_VY_FLY_HIGH;
 		break;
 	
 		
@@ -1273,7 +1271,7 @@ void CMario::SetState(int state)
 
 void CMario::attack()
 {
-	if (listWeapons.size() == 2)
+	if (listWeapons.size() == MARIO_SIZE_WEAPON)
 		return;
 
 	MarioBullet* temp = new MarioBullet(this->x, this->y);
@@ -1281,16 +1279,16 @@ void CMario::attack()
 	if (this->GetNX() > 0)
 	{
 		temp->SetState(MARIO_BULLET_STATE_WALKING_RIGHT);
-		temp->SetPosition(this->GetX() + 10 + 5, this->GetY());
+		temp->SetPosition(this->GetX() + MARIO_GAP_BULLET_RIGHT, this->GetY());
 	}
 	else
 	{
 		temp->SetState(MARIO_BULLET_STATE_WALKING_LEFT);
-		temp->SetPosition(this->GetX() - 5, this->GetY());
+		temp->SetPosition(this->GetX() - MARIO_GAP_BULLET_LEFT, this->GetY());
 	}
 
 	listWeapons.push_back(temp);
-	DebugOut(L"[INFO] weapon: %d\n", listWeapons.size());
+	//DebugOut(L"[INFO] weapon: %d\n", listWeapons.size());
 
 }
 
@@ -1374,11 +1372,11 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 				right = left + MARIO_TAIL_BBOX_WIDTH;
 				bottom = top + MARIO_TAIL_BBOX_HEIGHT;*/
 
-				left = x - MARIO_TAIL_BBOX_WIDTH / 2 - 90;
+				left = x - MARIO_TAIL_BBOX_WIDTH / 2 - MARIO_WIDTH_SPIN;
 				//top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
-				top = y - 5;
+				top = y - MARIO_HEIGHT_SPIN;
 
-				right = x + MARIO_TAIL_BBOX_WIDTH / 2 + 90;
+				right = x + MARIO_TAIL_BBOX_WIDTH / 2 + MARIO_WIDTH_SPIN;
 				bottom = y + MARIO_TAIL_BBOX_HEIGHT / 2;
 			}
 			else

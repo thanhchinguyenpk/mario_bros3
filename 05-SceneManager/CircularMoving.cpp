@@ -4,17 +4,18 @@
 void CircularMoving::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(6070)->Render(x, y);
+	animations->Get(ANI_CIRCULAR_MOVING)->Render(x, y);
 
 	RenderBoundingBox();
 }
 
 void CircularMoving::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	count += 0.1 * dt;
-	count %= 360;
-	x = 2400 + 100 * sin(count * PI / 180);
-	y = 900 + 100 * cos(count * PI / 180);
+	count += CIRCULAR_MOVING_SPEED * dt;
+	count %= FULL_CIRCLE_DEGREE;
+
+	x = ORIGINAL_POS_X + CIRCULAR_MOVING_RADIUS * sin(count * PI / HALF_CIRCLE_DEGREE);
+	y = ORIGINAL_POS_Y + CIRCULAR_MOVING_RADIUS * cos(count * PI / HALF_CIRCLE_DEGREE);
 }
 
 void CircularMoving::GetBoundingBox(float& l, float& t, float& r, float& b)

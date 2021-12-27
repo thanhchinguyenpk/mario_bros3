@@ -18,7 +18,7 @@ public:
 	BrickDebris(float brick_pos_x, float brick_pos_y, int nx, float height);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
-	void GetBoundingBox(float& l, float& t, float& r, float& b) {};// vì không get nên nó ko va chạm á
+	void GetBoundingBox(float& l, float& t, float& r, float& b) {};
 
 
 };

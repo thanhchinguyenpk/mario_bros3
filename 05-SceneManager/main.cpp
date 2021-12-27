@@ -52,8 +52,7 @@ HOW TO INSTALL Microsoft.DXSDK.D3DX
 //#define SCREEN_WIDTH 320
 //#define SCREEN_HEIGHT 240
 
-#define SCREEN_WIDTH 760
-#define SCREEN_HEIGHT 730
+
 
 LRESULT CALLBACK WinProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {

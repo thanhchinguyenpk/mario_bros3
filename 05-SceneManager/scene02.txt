@@ -1,4 +1,5 @@
 # list of object assets to load in this scene
+
 [ASSETS]
 brick.txt
 mario.txt
@@ -280,3 +281,7 @@ goomba.txt
 
 #spiny turtle
 #23	3000	600
+
+
+[MAP]
+textures\map_thanh.txt	textures\Final1.png	176	41	29	30
