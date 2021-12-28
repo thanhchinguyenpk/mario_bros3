@@ -234,7 +234,8 @@ void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 			DebugOut(L"hé liu PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp----->  \n");
 
 		}*/
-		CGame::GetInstance()->InitiateSwitchScene(2);
+		if (map_scene->current_portal->id_portal==1)
+			CGame::GetInstance()->InitiateSwitchScene(FIRST_SCENE);
 		break;
 	case DIK_RIGHT:
 		if (map_scene->current_portal->r != CAN_NOT_WALK)

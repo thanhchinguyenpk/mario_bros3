@@ -11,17 +11,15 @@
 Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koompas_state) :CGameObject(x, y)
 {
 	this->ax = 0;
-	//this->ay = GOOMBA_GRAVITY;
 	die_start = -1;
-
 	type = koompas_type;
-	//SetState(CONCO_STATE_FLY_LEFT);
-	//SetState(koompas_state);
+	
 	SetState(koompas_state);
 	player = dynamic_cast<CMario*>(mario);
 	
 	if(type== KOOMPAS_RED)
 		virtalbox = new VirtalBox(x-50, y,mario);
+
 	//CGame* game = CGame::GetInstance();
 	//CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
 	//scene->objects.push_back(virtalbox);
@@ -186,11 +184,10 @@ void Koompas::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 
 		if ( koompas->GetX()>this->GetX()  )
 		{
-			//DebugOut(L"[INFO] heloo? %d\n", koompas->state);
-			//koompas->is_minus_vx = true;//vx=is_minus_vx?-0.1:0.1;
+
 			this->is_minus_vx = true;
 		}
-		//koompas->SetState(CONCO_STATE_WAS_SHOOTED);
+
 			SetState(CONCO_STATE_WAS_SHOOTED);
 
 		
@@ -208,16 +205,6 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 	FlatForm* flatform = dynamic_cast<FlatForm*>(e->obj);
 
-	/*if (this->x > flatform->GetX() + flatform->width - flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
-	{
-		vx = -abs(vx);
-		//DebugOut(L"[INFO] alo chi em tui?\n");
-	}
-	else if (this->x < flatform->GetX() - flatform->dodoi && state == CONCO_STATE_WALKING_LEFT)
-	{
-		vx = abs(vx);
-		//DebugOut(L"[INFO] alo chi em tui?\n");
-	}*/
 
 }
 
@@ -252,28 +239,13 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	
 	
-	//DebugOut(L"[INFO] heloo? %d \n",state);
 
-	//DebugOut(L"[INFO] state koompas %d \n",state);
 
-	/*if (state == CONCO_STATE_WAS_BROUGHT)
-	{
-		float x, y;
-		player->GetPosition(x, y);
-		SetPosition(x+50, y-40);
-		//return;
-	}*/
-	//if (state != CONCO_STATE_BEING_HOLDING)
-		
-
-	
-	//vx += ax * dt;
-
-	if ((state == CONCO_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
+	/*if ((state == CONCO_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
 	{
 		isDeleted = true;
 		return;
-	}
+	}*/
 
 
 
@@ -305,38 +277,30 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			this->is_brought = false;
 
-			//DebugOut(L"lin da vo may lan %d\n");
-			
 		}
 	}
 
 
 
 
-	
-	/*float ml, mt, mr, mb;
-	float il, it, ir, ib;
-
-	this->GetBoundingBox(il, it, ir, ib);
-	player->GetBoundingBox(ml, mt, mr, mb);
-
-	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
-	{
-		//SetState(CONCO_STATE_WAS_SHOOTED);
-		//DebugOut(L"[INFO] bump, kill koompas  \n");
-		DebugOut(L"[INFO] đã vô hàm checkoverlap koompas \n");
-		SetState(CONCO_STATE_WAS_SHOOTED);
-		//this->SetState(GOOMBA_STATE_DIE);
-		//DebugOut(L"[INFO] vyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy: %f\n", vy);
-
-	}*/
 
 	if(player->GetState()== MARIO_STATE_SPIN)
 		this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
-	// 
-	//this->CheckWetherBeingAttacked(player, -1000);
+	
+	if (effect)
+	{
+		effect->Update(dt, coObjects);
+		if (effect->isDeleted == true)
+		{
+			delete effect;
+			effect = NULL;
+		}
+	}
 
-
+	if (y > POS_Y_HOLD)
+	{
+		this->Delete();
+	}
 	
 }
 
@@ -397,8 +361,9 @@ void Koompas::Render()
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 
-	//for (int i = 0; i < 9; i++)
-	//	animations->Get(716 + i)->Render(x + i * 50, y);
+
+	if (effect)
+		effect->Render();
 
 	RenderBoundingBox();
 }
@@ -414,42 +379,45 @@ void Koompas::SetState(int state)
 		vx = 0;
 		vy = 0;
 		ay = 0;
+
 		break;
 	case CONCO_STATE_WALKING_LEFT:
 		vx = -KOOMPAS_WALKING_SPEED;
-		//vx = 0;
 		break;
+
 	case CONCO_STATE_WALKING_RIGHT:
 		vx = KOOMPAS_WALKING_SPEED;
-		//vx = 0;
+		
 		break;
 	case GOOMBA_STATE_INDENT_IN:
-		//vx = -KOOMPAS_WALKING_SPEED;
+		
+		if (effect == NULL)
+			effect = new MoneyEffect(this->x, this->y - EFFECT_GAP);
 		vx = 0;
 		vy = 0; 
 		time_to_indent_out = GetTickCount64();
-		//ax = 0;
-		//ay = 0;
+		
 		break;
 	case GOOMBA_STATE_SHELL_RUNNING:
+		if (effect == NULL)
+			effect = new MoneyEffect(this->x, this->y - EFFECT_GAP);
+
 		vx = player->GetX() > x ? -KOOMPAS_VX_SHELL_RUNNING : KOOMPAS_VX_SHELL_RUNNING;
 		is_blocking = 1;
-		//vx = 0.02;
-		//vy = 0;
+		
 		break;
 	case CONCO_STATE_WAS_BROUGHT:
 		vx = 0;
 		vy = 0;
-		//vy = 0;
+		
 		break;
 	case CONCO_STATE_INDENT_OUT:
 
 		break;
 	case CONCO_STATE_WAS_SHOOTED:
 		vy = -KOOMPAS_VY_WAS_SHOOTED;
-		//DebugOut(L"[INFO] cuc cu %d \n", DirectionWhenBeingAttack);
+		
 		vx = DirectionWhenBeingAttack ==-1 ?-KOOMPAS_VX_WAS_SHOOTED : KOOMPAS_VX_WAS_SHOOTED;
-		//vx = 0.09;
 		is_colliable = 0;
 		break;
 

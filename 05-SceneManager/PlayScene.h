@@ -12,6 +12,7 @@
 #include "Map.h"
 #include "PiranhaPlant.h"
 #include "UI.h"
+#include "CoinEffect.h"
 
 //#include "Koopas.h"
 

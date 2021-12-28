@@ -14,7 +14,7 @@ goomba.txt
 
 # MARIO
 #0	6080	210	0
-0	2244	1130	0
+0	444	1130	0
 #5215
 #4	2500	1100
 
@@ -126,7 +126,7 @@ goomba.txt
 #2	2090	600
 
 #test
-#2	2790	600
+2	2790	600
 #2	2430	600
 #2	2470	600
 
@@ -138,7 +138,7 @@ goomba.txt
 #para goomba
 
 #con này nè
-#7	2900	1148
+7	2900	1148
 
 #brick coin		1 chứ item 	2 chứ pbutton 	3 chuwsnaams xanh
 #8	300	1210	1
@@ -183,9 +183,11 @@ goomba.txt
 
 #rùa đỏ test koompas
 #11	2329	800	1	100
+#rùa xanh test
+#11	2400	1048	0	600
 
 #11	900	900	1	600
-11	2400	1048	0	600
+#11	2400	1048	0	600
 #11	3200	1048	0	600
 
 #venus fire trap

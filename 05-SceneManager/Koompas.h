@@ -3,6 +3,7 @@
 #include "Mario.h"
 #include "FlatForm.h"
 #include "VirtalBox.h"
+#include "MoneyEffect.h"
 
 #define KOOMPAS_GREEN		0
 #define KOOMPAS_RED			1
@@ -99,12 +100,11 @@
 class Koompas : public CGameObject
 {
 public:
+	MoneyEffect* effect = NULL;
+
 	bool is_brought = false;
-
 	VirtalBox* virtalbox = NULL;
-
 	int type = KOOMPAS_GREEN;
-
 	bool is_blocking = 1;
 
 	bool is_minus_vx = false;

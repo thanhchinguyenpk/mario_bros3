@@ -31,6 +31,9 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (is_on_the_ground == false && y > POS_Y_HOLD || x > POS_Y_END_MAP) // rơi xuống hố hoặc đi qua end scene hoặc chết vì enemy(phía dưới)
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
+
 	//CGameObject::Update(dt);
 	if (is_moving_in_world_map == true)
 	{
@@ -62,9 +65,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (this->GetY() < MARIO_Y_ABOVE)
 			{
-				SetPosition(MARIO_POS_X_UNDER_GROUND, MARIO_POS_Y_UNDER_GROUND);
+				SetPosition(MARIO_POS_X_UNDER_GROUND, MARIO_POS_Y_UNDER_GROUND); // dưới lòng đất
 				is_set_position = false;
 				time_to_go_down = 0;
+
+				is_on_the_ground = true;
 			}
 			else if(this->GetY()>= MARIO_Y_ABOVE && this->GetY()<= MARIO_Y_BELOW)
 			{
@@ -73,8 +78,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else
 			{
-				SetPosition(MARIO_POS_X_IN_GROUND, MARIO_POS_Y_IN_GROUND);
+				SetPosition(MARIO_POS_X_IN_GROUND, MARIO_POS_Y_IN_GROUND); //trên mặt đất
 				time_to_go_down = GetTickCount64();
+
+				is_on_the_ground = false;
 			}
 
 			
@@ -85,6 +92,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				y += MARIO_VY_GO_DOWN_PINE * dt;
 			else 
 				y -= MARIO_VY_GO_UP_PINE * dt;
+
+			
 
 			return;
 		}
@@ -202,7 +211,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	
 	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= MARIO_TIME_TO_SWITCH_SCENE)
 	{
-		CGame::GetInstance()->InitiateSwitchScene(3);
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
 	}
 
 	if (this->GetY() < 0)
@@ -255,6 +264,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->SetPosition(x, y - MARIO_GAP_BEING_JUMPED);
 		is_jumped = false;
 	}
+
+
 }
 
 void CMario::OnNoCollision(DWORD dt)
@@ -404,6 +415,8 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 	
 	if (e->ny < 0)
 	{
+		this->score += SCORE;
+
 		if (koompas->GetState() == CONCO_STATE_FLY_LEFT)
 		{
 			koompas->SetState(CONCO_STATE_WALKING_LEFT);
@@ -528,8 +541,12 @@ void CMario::OnCollisionWithBrickCoin(LPCOLLISIONEVENT e)
 	BrickCoin* brick = dynamic_cast<BrickCoin*>(e->obj);
 	if (e->ny > 0)
 	{
+		
 		if (brick->is_hit == false)
+		{
+			this->hit_brick_number++;
 			brick->SetState(BRICK_COIN_STATE_DA_DAP);
+		}
 	}
 
 }
@@ -540,7 +557,8 @@ void CMario::OnCollisionWithParaGoomba(LPCOLLISIONEVENT e)
 	ParaGoompa* paragoomba = dynamic_cast<ParaGoompa*>(e->obj);
 	if (e->ny < 0) // phương va chạm hướng lên
 	{
-		//score += 100;
+		this->score += SCORE;
+
 		if (paragoomba->GetState() == PARA_GOOMBA_STATE_WALKING_WITHOUT_SWING)
 		{
 			paragoomba->SetState(PARA_GOOMBA_STATE_DIE);
@@ -572,6 +590,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	// jump on top >> kill Goomba and deflect a bit 
 	if (e->ny < 0)
 	{
+		this->score += SCORE;
 		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
 			goomba->SetState(GOOMBA_STATE_DIE);

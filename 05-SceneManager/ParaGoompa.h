@@ -2,6 +2,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Mario.h"
+#include "MoneyEffect.h"
 
 #define GOOMBA_GRAVITY 0.002f
 #define PARAGOOMBA_WALKING_SPEED 0.06f
@@ -53,6 +54,7 @@
 class ParaGoompa : public CGameObject
 {
 protected:
+	MoneyEffect* effect = NULL;
 
 	int is_minus_vx = false;
 	int is_colliable = 1;
