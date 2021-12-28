@@ -331,4 +331,4 @@ goomba.txt
 24	200	1200	
 
 [MAP]
-textures\map_thanh.txt	textures\Final1.png	176	41	29	30
+textures\castle_scene.txt	textures\Final1.png	160	56	29	30

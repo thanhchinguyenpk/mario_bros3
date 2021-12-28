@@ -359,6 +359,7 @@ public:
 
 	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	void OnCollisionWithVenusFireTrap(LPCOLLISIONEVENT e);
+	void OnCollisionWithFireFlower(LPCOLLISIONEVENT e);
 	
 
 	

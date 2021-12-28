@@ -27,6 +27,7 @@
 #include "SuperLeaf.h"
 #include "VirtalBox.h"
 #include "StoneKoompas.h"
+#include "FireFlower.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -321,6 +322,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<VenusFireTrap*>(e->obj))
 		OnCollisionWithVenusFireTrap(e);
+	else if (dynamic_cast<FireFlower*>(e->obj))
+		OnCollisionWithFireFlower(e);
+	
 
 
 	//DebugOut(L"dam len nut helloooooooooooooooo %d \n", this->go_down);
@@ -341,6 +345,11 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 }
 
 
+void CMario::OnCollisionWithFireFlower(LPCOLLISIONEVENT e)
+{
+	SetLevel(MARIO_LEVEL_BIG_ORANGE);
+	dynamic_cast<FireFlower*>(e->obj)->Delete();
+}
 
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {

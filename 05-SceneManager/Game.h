@@ -21,6 +21,7 @@ using namespace std;
 #define SAMPLE_SCENE	1
 #define FIRST_SCENE	2
 #define MAP_SCENE	3
+#define CASTLE_SCENE	4
 
 /*
 	Our simple game framework

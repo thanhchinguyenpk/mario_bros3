@@ -27,6 +27,7 @@
 #include "LavaBall.h"
 #include "CircularMoving.h"
 #include "SpinyTurtle.h"
+#include "FireFlower.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -294,6 +295,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new SpinyTurtle(x, y, player); break;
 	}
+	case OBJECT_TYPE_FIRE_FLOWER:
+	{
+		obj = new FireFlower(x, y); break;
+	}
 	
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
@@ -463,6 +468,24 @@ void CPlayScene::Update(DWORD dt)
 
 					}
 				}
+				brick->dropped = true;
+				player->score += CORE;
+			}
+			else if (brick->is_hit == true && brick->dropped == false && brick->has_item == BRICKCOIN_CONTAINS_FIRE_FLOWER)
+			{
+				if (player->GetLevel() == MARIO_LEVEL_SMALL)
+				{
+
+					Mushroom* mushroom = new Mushroom(x, y, RED);
+					itemsMarioCanEat.push_back(mushroom);
+
+				}
+				else
+				{
+					FireFlower* fire_flower = new FireFlower(x, y - BRICK_COIN_BBOX_WIDTH);
+					itemsMarioCanEat.push_back(fire_flower);
+				}
+
 				brick->dropped = true;
 				player->score += CORE;
 			}

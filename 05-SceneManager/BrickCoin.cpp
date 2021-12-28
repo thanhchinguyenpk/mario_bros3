@@ -1,6 +1,7 @@
 ﻿#include "BrickCoin.h"
 #include "PButton.h"
 #include "PlayScene.h"
+#include "FireFlower.h"
 
 #define BRICKCOIN_GAP_BOUNCING 20
 #define BRICKCOIN_VX 0.2
@@ -72,6 +73,14 @@ void BrickCoin::SetState(int state)
 				CGame* game = CGame::GetInstance();
 				CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
 				scene->objects.push_back(pbutton);
+
+			}else if (has_item == BRICKCOIN_CONTAINS_FIRE_FLOWER)
+			{
+				/*FireFlower* fire_flower = new FireFlower(x, y - BRICK_COIN_BBOX_WIDTH);
+
+				CGame* game = CGame::GetInstance();
+				CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
+				scene->objects.push_back(fire_flower);*/
 			}
 		
 		break;

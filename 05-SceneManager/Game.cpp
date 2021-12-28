@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "PlayScene.h"
 #include "MapScene.h"
+#include "CastleScene.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -463,6 +464,9 @@ void CGame::_ParseSection_SCENES(string line)
 		 scene = new CPlayScene(id, path); // bữa thầy nói cần handle chỗ này nêu muốn sence khác
 	else if (id == MAP_SCENE)
 		 scene = new MapScene(id, path);
+	else if (id == CASTLE_SCENE)
+		scene = new CastleScene(id, path);
+
 	scenes[id] = scene;
 }
 

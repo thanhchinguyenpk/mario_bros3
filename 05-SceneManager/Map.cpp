@@ -101,7 +101,7 @@ void Map::Draw()
 
 	//CSprites* sprites = CSprites::GetInstance();
 
-	for (int i = begin_row; i < end_row; i++)
+	for (int i = begin_row; i < end_row ; i++) // mới cọng một trừ 1 sở scene castle
 	{
 		for (int j = begin_column; j < end_column; j++)
 		{
