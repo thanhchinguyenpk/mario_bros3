@@ -544,7 +544,9 @@ void CastleScene::Update(DWORD dt)
 		CGame::GetInstance()->SetCamPos(cx, BOT_IN_GROUND);//1365
 	}*/
 
-	CGame::GetInstance()->SetCamPos(cx-24, 700);
+	//CGame::GetInstance()->SetCamPos(cx-24-50, 700
+
+	CGame::GetInstance()->SetCamPos(cx - 24 - 50, 2100);
 
 	PurgeDeletedObjects();
 

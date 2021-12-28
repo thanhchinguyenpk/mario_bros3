@@ -32,8 +32,8 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (is_on_the_ground == false && y > POS_Y_HOLD || x > POS_Y_END_MAP) // rơi xuống hố hoặc đi qua end scene hoặc chết vì enemy(phía dưới)
-		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
+	/*if (is_on_the_ground == false && y > POS_Y_HOLD || x > POS_Y_END_MAP) // rơi xuống hố hoặc đi qua end scene hoặc chết vì enemy(phía dưới)
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);*/
 
 	//CGameObject::Update(dt);
 	if (is_moving_in_world_map == true)
