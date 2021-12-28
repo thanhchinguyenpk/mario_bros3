@@ -22,7 +22,10 @@ class CastleScene : public CScene
 {
 	//protected: 
 public:
+
+	//bool is_mario_in_end_castle;
 	// A play scene has to have player, right? 
+	
 	GameTime* game_time;
 	UI* game_ui;
 
@@ -65,6 +68,8 @@ public:
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+
+	bool is_mario_in_end_castle = false;
 };
 
 typedef CastleScene* LPCASTLESCENE;

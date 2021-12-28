@@ -28,6 +28,7 @@
 #include "VirtalBox.h"
 #include "StoneKoompas.h"
 #include "FireFlower.h"
+#include "Door.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -324,6 +325,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithVenusFireTrap(e);
 	else if (dynamic_cast<FireFlower*>(e->obj))
 		OnCollisionWithFireFlower(e);
+	else if (dynamic_cast<Door*>(e->obj))
+		OnCollisionWithDoor(e);
+	
 	
 
 
@@ -344,6 +348,25 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	//DebugOut(L"[INFO]y la------------------------------: %f\n", y);
 }
 
+
+void CMario::OnCollisionWithDoor(LPCOLLISIONEVENT e)
+{
+	//SetLevel(MARIO_LEVEL_BIG_ORANGE);
+	
+	Door* door = dynamic_cast<Door*>(e->obj);
+
+	if (door->type == 1)
+	{
+		this->SetPosition(3600, 2300);
+		is_on_the_ground = true;
+	}
+	else if (door->type == 2)
+	{
+		this->SetPosition(5958, 1083);
+		is_on_the_ground = false;
+	}
+	
+}
 
 void CMario::OnCollisionWithFireFlower(LPCOLLISIONEVENT e)
 {

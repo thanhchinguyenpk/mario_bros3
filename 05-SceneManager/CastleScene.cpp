@@ -30,6 +30,7 @@
 #include "CircularMoving.h"
 #include "SpinyTurtle.h"
 #include "FireFlower.h"
+#include "Door.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -301,6 +302,12 @@ void CastleScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new FireFlower(x, y); break;
 	}
+	case OBJECT_TYPE_DOOR:
+	{
+		int type = (int)atof(tokens[3].c_str());
+		obj = new Door(x, y,type); break;
+	}
+	
 
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
@@ -544,9 +551,32 @@ void CastleScene::Update(DWORD dt)
 		CGame::GetInstance()->SetCamPos(cx, BOT_IN_GROUND);//1365
 	}*/
 
-	//CGame::GetInstance()->SetCamPos(cx-24-50, 700
+	//CGame::GetInstance()->SetCamPos(cx - 24 , 700);
 
-	CGame::GetInstance()->SetCamPos(cx - 24 - 50, 2100);
+	if (player->is_on_the_ground == true)
+	{
+		if (cx < 3550) cx = 3550;
+		CGame::GetInstance()->SetCamPos(cx - 24 - 50, 2100);
+	}
+
+	else
+	{
+		if (cx > 7680-760+15) cx = 7680 - 760+15;
+		CGame::GetInstance()->SetCamPos(cx - 24, 700);
+	}
+
+
+	
+	if (player->x > 7320 && is_mario_in_end_castle == false)
+	{
+		this->is_mario_in_end_castle = true;
+		CGameObject* obj = new FlatForm(6886, 760, 48, 432, 0); //tham số cuối là ko nhảy từ dưới xuyên qua đc
+		objects.push_back(obj);
+
+	}
+	if(is_mario_in_end_castle==true)
+		CGame::GetInstance()->SetCamPos(7680 - 760 + 15 - 24, 700);
+
 
 	PurgeDeletedObjects();
 
