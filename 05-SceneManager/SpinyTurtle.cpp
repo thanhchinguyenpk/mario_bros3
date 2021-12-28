@@ -1,15 +1,19 @@
 ﻿#include "SpinyTurtle.h"
-
+#include "FlatForm.h"
 
 SpinyTurtle::SpinyTurtle(float x, float y, LPGAMEOBJECT mario) :CGameObject(x, y)
 {
-	this->SetState(SPINY_TURTLE_STATE_WALKING_LEFT);
+	this->SetState(SPINY_TURTLE_STATE_STILL);
 	player = mario;
 }
 
 void SpinyTurtle::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state == SPINY_TURTLE_STATE_DIE || state == SPINY_TURTLE_STATE_HEAD_MOVING)
+
+	//if (state == SPINY_TURTLE_STATE_INJURY)
+	//	return;
+
+	if ( state == SPINY_TURTLE_STATE_HEAD_MOVING)
 	{
 		left = x - SPINY_TURTLE_BBOX_WIDTH_DIE / 2;
 		top = y - SPINY_TURTLE_BBOX_HEIGHT_DIE / 2;
@@ -30,6 +34,59 @@ void SpinyTurtle::GetBoundingBox(float& left, float& top, float& right, float& b
 void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vy += AY_SPINE_TURTLE * dt;
+
+	vx += ax * dt;
+
+	if (stage == 1)
+	{
+		if (this->x - player->x < 300 && state == SPINY_TURTLE_STATE_STILL)
+			this->SetState(SPINY_TURTLE_STATE_JUMP);
+
+
+		if (abs(this->x - player->x) > 300 && state== SPINY_TURTLE_STATE_WALKING)
+		{
+			if (this->x > player->x)
+				vx = -abs(vx);
+			else if (this->x < player->x)
+				vx = abs(vx);
+
+			time_to_spine = GetTickCount64();
+
+		}
+
+		if (GetState() == SPINY_TURTLE_STATE_WALKING && GetTickCount64() - time_to_spine >= 300 && time_to_spine)
+		{
+			SetState(SPINY_TURTLE_STATE_SPINE);
+
+			if (vx > 0)
+				ax = -0.0001;
+			else if (vx < 0)
+				ax = 0.0001;
+
+			time_to_spine = 0;
+			
+			DebugOut(L"[INFO] vo day hoai sao------------------------------??\n");
+		}
+
+		if (abs(vx) < 0.02 && state == SPINY_TURTLE_STATE_SPINE)
+		{
+			this->SetState(SPINY_TURTLE_STATE_JUMP);
+			ax = 0;
+		}
+	}
+	else if (stage == 2)
+	{
+
+	}
+
+
+
+	DebugOut(L"[INFO] con turle:  %d\n", state);
+
+	
+
+
+
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
@@ -67,10 +124,31 @@ void SpinyTurtle::Render()
 
 	int idAni = ANI_SPINE_TURTLE;
 
+	if (stage == 1)
+	{
+		if(state== SPINY_TURTLE_STATE_STILL)
+			idAni = ANI_SPINE_TURTLE;
+
+		if(vy<0)
+			idAni = ANI_SPINELESS_TURTLE;
+		else if(vy>0 && vy< 0.1)
+			idAni = ANI_SPINE_TURTLE_STANDING;
+		else if (vy > 0.1)
+			idAni = ANI_SPINE_TURTLE_HAND_UP_AND_DOWN_HIGH;
+
+		if(state== SPINY_TURTLE_STATE_WALKING)
+			idAni = ANI_SPINE_TURTLE_HAND_UP_AND_DOWN_HIGH;
+
+		if (state == SPINY_TURTLE_STATE_SPINE)
+			idAni = ANI_SPINE_TURTLE;
+	}
+
 	
 
+	if (state == SPINY_TURTLE_STATE_INJURY)
+		idAni = ANI_SPINE_TURTLE_BEING_JUMPED;
 
-	CAnimations::GetInstance()->Get(ANI_SPINE_TURTLE)->Render(x, y);
+	CAnimations::GetInstance()->Get(idAni)->Render(x, y);
 
 
 	RenderBoundingBox();
@@ -92,11 +170,22 @@ void SpinyTurtle::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)
 	{
-		//vx = -vx;
-		if (state == SPINY_TURTLE_STATE_WALKING_LEFT)
+		vx = -vx;
+		/*if (state == SPINY_TURTLE_STATE_WALKING_LEFT)
 			this->SetState(SPINY_TURTLE_STATE_WALKING_RIGHT);
 		else
-			this->SetState(SPINY_TURTLE_STATE_WALKING_LEFT);
+			this->SetState(SPINY_TURTLE_STATE_WALKING_LEFT);*/
+	}
+
+	if (dynamic_cast<FlatForm*>(e->obj))
+	{
+		if (stage == 1)
+		{
+			if (state == SPINY_TURTLE_STATE_JUMP)
+			{
+				this->SetState(SPINY_TURTLE_STATE_WALKING);
+			}
+		}
 	}
 }
 
@@ -107,13 +196,13 @@ void SpinyTurtle::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case SPINY_TURTLE_STATE_DIE:
+	case SPINY_TURTLE_STATE_JUMP:
 		//die_start = GetTickCount64();
 		//y += (SPINY_TURTLE_BBOX_HEIGHT - SPINY_TURTLE_BBOX_HEIGHT_DIE) / 2;
 
-
-		vx = 0;
-		vy = 0;
+		//time_to_jump = GetTickCount64();
+		vx =  this->x> player->x ?-0.15 : 0.15;
+		vy = -0.7;
 		//is_block = 0;
 		//time_to_rescure = GetTickCount64();
 		//ay = 0;
@@ -132,6 +221,25 @@ void SpinyTurtle::SetState(int state)
 		vx = SPINY_TURTLE_WALKING_SPEED;
 		nx = 1;
 		break;
+	case SPINY_TURTLE_STATE_STILL:
+		vx = 0;
+		vy = 0;
+		nx = 1;
+		break;
+	case SPINY_TURTLE_STATE_WALKING:
+		//tý chỉnh tốc độ lại sau
+		break;
 
+	case SPINY_TURTLE_STATE_SPINE:
+		//tý chỉnh tốc độ lại sau
+		break;
+
+	case SPINY_TURTLE_STATE_INJURY:
+		vx = 0;
+		vy = 0;
+		break;
+
+		
+		
 	}
 }

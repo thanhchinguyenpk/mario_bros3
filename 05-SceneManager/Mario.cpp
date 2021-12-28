@@ -29,6 +29,7 @@
 #include "StoneKoompas.h"
 #include "FireFlower.h"
 #include "Door.h"
+#include "SpinyTurtle.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -327,6 +328,9 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireFlower(e);
 	else if (dynamic_cast<Door*>(e->obj))
 		OnCollisionWithDoor(e);
+	else if (dynamic_cast<SpinyTurtle*>(e->obj))
+		OnCollisionWithSpinyTurtle(e);
+	
 	
 	
 
@@ -346,6 +350,36 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	
 
 	//DebugOut(L"[INFO]y la------------------------------: %f\n", y);
+}
+
+
+
+
+void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
+{
+	SpinyTurtle* spiny_turtle = dynamic_cast<SpinyTurtle*>(e->obj);
+	if (e->ny < 0)
+	{
+		if (spiny_turtle->stage == 1)
+		{
+
+			if (spiny_turtle->GetState() == SPINY_TURTLE_STATE_JUMP ||
+				spiny_turtle->GetState() == SPINY_TURTLE_STATE_WALKING)
+			{
+				spiny_turtle->SetState(SPINY_TURTLE_STATE_INJURY);
+				spiny_turtle->stage = 2;
+				spiny_turtle->ax = 0;
+
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else
+				CollideWithEnemy();
+		}
+
+		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - 1);
+	}
+	else
+		CollideWithEnemy();
 }
 
 

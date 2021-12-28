@@ -23,7 +23,14 @@
 #define SPINY_TURTLE_DIE_TIMEOUT 500
 
 
-#define SPINY_TURTLE_STATE_DIE 100
+
+#define SPINY_TURTLE_STATE_STILL 0
+
+#define SPINY_TURTLE_STATE_JUMP 100
+#define SPINY_TURTLE_STATE_WALKING 500
+#define SPINY_TURTLE_STATE_SPINE 600
+#define SPINY_TURTLE_STATE_INJURY 700
+
 #define SPINY_TURTLE_STATE_WALKING_LEFT 200
 #define SPINY_TURTLE_STATE_WALKING_RIGHT 300
 #define SPINY_TURTLE_STATE_HEAD_MOVING 400
@@ -52,16 +59,22 @@
 class SpinyTurtle : public CGameObject
 {
 public:
+	float ax = 0;
+
+	ULONGLONG time_to_spine=0;
+	ULONGLONG time_to_jump = 0;
+
+	int stage = 1;
 
 	LPGAMEOBJECT player;
-	ULONGLONG time_to_rescure;
+	
 	bool is_block = 1;
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 
 	int IsCollidable() { return 1; };
 	//	virtual int IsBlocking() { return 1; };
-	int IsBlocking() { return is_block; };
+	int IsBlocking() { return 0; };
 
 	void OnNoCollision(DWORD dt);
 
