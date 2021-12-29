@@ -39,6 +39,8 @@ public:
 	vector<LPGAMEOBJECT> list_bricklink;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> itemsMarioCanEat;
+	
+	vector<LPGAMEOBJECT> items;
 
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_SPRITES_PLUS(string line);
@@ -71,6 +73,9 @@ public:
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 
 	void SetEnemiesInScene(vector<LPGAMEOBJECT> listEnemy) { enemies.clear(); enemies = listEnemy; }
+	void SetItems(vector<LPGAMEOBJECT> listItem) { items.clear(); items = listItem; }
+	void SetBrickBlink(vector<LPGAMEOBJECT> ListBrickBlink) { list_bricklink.clear(); list_bricklink = ListBrickBlink; }
+	
 
 };
 

@@ -22,9 +22,10 @@ public:
 	CMario* player = NULL;
 
 	vector<LPGAMEOBJECT> total_obj;
-	vector<LPGAMEOBJECT> enemies;
-	vector<LPGAMEOBJECT> items;
-	vector<LPGAMEOBJECT> bricks;
+
+	vector<LPGAMEOBJECT> enemies; // quái
+	vector<LPGAMEOBJECT> items; //brick question, coin,, randombonus
+	vector<LPGAMEOBJECT> bricks_blink; // brickblink
 
 	vector<LPGAMEOBJECT> cells[MAX_ROW][MAX_COLUMN];
 
@@ -40,7 +41,7 @@ public:
 	void UpdatePositionInGrid(float cam_x, float cam_y);
 	//update obj từ cell nào qua cell nào
 
-	LPGAMEOBJECT CreateNewObj(int obj_type, float x, float y, float w, float h, int ani_id, int type, int extra0 = 0, int extra1 = 1, int extra2 = 1, int id_grid = 0);
+	LPGAMEOBJECT CreateNewObj(int id_grid ,int obj_type, float x, float y, float w, float h, int extra0, int extra1);
 
 	void ReadFileObj();
 
