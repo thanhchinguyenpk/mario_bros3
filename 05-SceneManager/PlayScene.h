@@ -13,6 +13,7 @@
 #include "PiranhaPlant.h"
 #include "UI.h"
 #include "CoinEffect.h"
+#include "Grid.h"
 
 //#include "Koopas.h"
 
@@ -21,6 +22,8 @@ class CPlayScene: public CScene
 {
 //protected: 
 public:
+
+	CGrid* grid;
 	// A play scene has to have player, right? 
 	GameTime* game_time;
 	UI* game_ui;
@@ -32,6 +35,7 @@ public:
 	TextAndNumber temp;
 	//GameTime* game_time ;
 
+	vector<LPGAMEOBJECT> enemies;//dr
 	vector<LPGAMEOBJECT> list_bricklink;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> itemsMarioCanEat;
@@ -45,6 +49,7 @@ public:
 	void _ParseSection_OBJECTS(string line);
 
 	void _ParseSection_MAP(string line);
+	void _ParseSection_OBJECTS_GRID(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
 	
@@ -64,6 +69,9 @@ public:
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+
+	void SetEnemiesInScene(vector<LPGAMEOBJECT> listEnemy) { enemies.clear(); enemies = listEnemy; }
+
 };
 
 typedef CPlayScene* LPPLAYSCENE;

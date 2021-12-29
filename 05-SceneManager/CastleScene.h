@@ -36,6 +36,10 @@ public:
 	TextAndNumber temp;
 	//GameTime* game_time ;
 
+	vector<LPGAMEOBJECT> enemies;
+	void SetEnemiesInScene(vector<LPGAMEOBJECT> listEnemy) { enemies.clear(); enemies = listEnemy; }
+
+
 	vector<LPGAMEOBJECT> list_bricklink;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> itemsMarioCanEat;

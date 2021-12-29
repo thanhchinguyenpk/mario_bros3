@@ -32,6 +32,10 @@ public:
 	CMario* player;
 	vector<LPGAMEOBJECT> objects;
 
+	vector<LPGAMEOBJECT> enemies;
+	void SetEnemiesInScene(vector<LPGAMEOBJECT> listEnemy) { enemies.clear(); enemies = listEnemy; }
+
+
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_SPRITES_PLUS(string line);
 
@@ -59,6 +63,8 @@ public:
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+
+	
 };
 
 typedef MapScene* LPMAPSCENE;

@@ -367,8 +367,7 @@ void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
 				spiny_turtle->GetState() == SPINY_TURTLE_STATE_WALKING)
 			{
 				spiny_turtle->SetState(SPINY_TURTLE_STATE_INJURY);
-				spiny_turtle->stage = 2;
-				spiny_turtle->ax = 0;
+				
 
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}

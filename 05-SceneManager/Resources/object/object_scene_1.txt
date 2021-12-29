@@ -1,0 +1,3 @@
+#id	 type	x	y	w	h	ani_set_id	extra_settings per object type
+#con cua						type(biến phụ)
+9	2	672	1152	48	48	5	2	100

@@ -1,6 +1,13 @@
 #pragma once
 
+//#include <d3dx10.h>
+//#include "GameObject.h"
 #include "KeyEventHandler.h"
+#include <vector>
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+
 
 /*
 *  Abstract class for a game scene
@@ -25,6 +32,12 @@ public:
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0; 
+
+
+	//virtual void SetEnemiesInScene(vector<LPGAMEOBJECT> listEnemy) {}
+	//virtual void SetItemsInScene(vector<LPGAMEOBJECT> listItem) {}
+	//virtual void SetBrickInScene(vector<LPGAMEOBJECT> listBrick) {}
+
 };
 typedef CScene * LPSCENE;
 

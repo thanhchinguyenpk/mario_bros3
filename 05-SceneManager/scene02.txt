@@ -14,10 +14,19 @@ goomba.txt
 
 # MARIO
 #0	6080	210	0
-0	444	1130	0
+0	100	1130	0
 #5215
 #4	2500	1100
-
+# goomba
+#2	860	600
+#2	1587	1185
+#hai con đúng
+#2	2244	600
+#2	2090	600
+#test
+#2	2790	600
+#2	2430	600
+#2	2470	600
 #coin trên mặt đất		
 4	3216	955
 4	3312	859
@@ -159,19 +168,6 @@ goomba.txt
 
 
 
-# goomba
-#2	860	600
-
-2	1587	1185
-
-#hai con đúng
-#2	2244	600
-#2	2090	600
-
-#test
-2	2790	600
-#2	2430	600
-#2	2470	600
 
 #COIN
 #4	100	120
@@ -203,6 +199,8 @@ goomba.txt
 #P button ( brick có chứa P button)
 #P button đúng
 8	6096	1104	2
+
+8	528	1056	1
 
 #nút cao hơn
 #8	6096	1004	2
@@ -330,5 +328,10 @@ goomba.txt
 #fire flower
 24	200	1200	
 
+[OBJECTS_GRID]
+# file_path
+Resources\object\object_scene_1.txt	Resources\object\grid_scene_1.txt
+
 [MAP]
 textures\map_thanh.txt	textures\Final1.png	176	41	29	30
+

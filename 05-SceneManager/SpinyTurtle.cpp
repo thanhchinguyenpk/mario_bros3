@@ -81,15 +81,25 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-	DebugOut(L"[INFO] con turle:  %d\n", state);
+	//DebugOut(L"[INFO] con turle:  %d\n", state);
 
 	
 
 
-
+	
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
+
+
+	if (GetState() == SPINY_TURTLE_STATE_INJURY && GetTickCount64() - time_to_rescue >= 300 && time_to_rescue)
+	{
+		if (stage == 1)
+		{
+			stage = 2;
+			//setstae đi
+		}
+	}
 	/*if (state == SPINY_TURTLE_STATE_DIE && GetTickCount64() - time_to_rescure > 5000)
 	{
 
@@ -171,10 +181,7 @@ void SpinyTurtle::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (e->nx != 0)
 	{
 		vx = -vx;
-		/*if (state == SPINY_TURTLE_STATE_WALKING_LEFT)
-			this->SetState(SPINY_TURTLE_STATE_WALKING_RIGHT);
-		else
-			this->SetState(SPINY_TURTLE_STATE_WALKING_LEFT);*/
+
 	}
 
 	if (dynamic_cast<FlatForm*>(e->obj))
@@ -197,30 +204,14 @@ void SpinyTurtle::SetState(int state)
 	switch (state)
 	{
 	case SPINY_TURTLE_STATE_JUMP:
-		//die_start = GetTickCount64();
-		//y += (SPINY_TURTLE_BBOX_HEIGHT - SPINY_TURTLE_BBOX_HEIGHT_DIE) / 2;
 
-		//time_to_jump = GetTickCount64();
 		vx =  this->x> player->x ?-0.15 : 0.15;
 		vy = -0.7;
-		//is_block = 0;
-		//time_to_rescure = GetTickCount64();
-		//ay = 0;
+	
 		break;
-	case SPINY_TURTLE_STATE_HEAD_MOVING:
-		vx = 0;
-		vy = 0;
-		break;
-	case SPINY_TURTLE_STATE_WALKING_LEFT:
-		nx = -1;
-		//vx = -0.06;
-		vx = 0;
-		vy = 0;
-		break;
-	case SPINY_TURTLE_STATE_WALKING_RIGHT:
-		vx = SPINY_TURTLE_WALKING_SPEED;
-		nx = 1;
-		break;
+	
+	
+
 	case SPINY_TURTLE_STATE_STILL:
 		vx = 0;
 		vy = 0;
@@ -237,6 +228,10 @@ void SpinyTurtle::SetState(int state)
 	case SPINY_TURTLE_STATE_INJURY:
 		vx = 0;
 		vy = 0;
+		ax = 0;
+		time_to_rescue = GetTickCount64();
+		
+		
 		break;
 
 		
