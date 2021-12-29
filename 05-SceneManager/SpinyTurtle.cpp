@@ -39,7 +39,7 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (stage == 1)
 	{
-		if (this->x - player->x < 300 && state == SPINY_TURTLE_STATE_STILL)
+		if (this->x - player->x < 200 && state == SPINY_TURTLE_STATE_STILL)
 			this->SetState(SPINY_TURTLE_STATE_JUMP);
 
 

@@ -154,7 +154,7 @@ int Run()
 	int done = 0;
 	ULONGLONG frameStart = GetTickCount64();
 	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
-
+	DebugOut(L"[INFO]load xong chua?\n");
 	while (!done)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -174,8 +174,9 @@ int Run()
 		if (dt >= tickPerFrame)
 		{
 			frameStart = now;
-
-			CGame::GetInstance()->ProcessKeyboard();			
+			DebugOut(L"[INFO]chua process chua?\n");
+			CGame::GetInstance()->ProcessKeyboard();
+			DebugOut(L"[INFO]da process chua?\n");
 			Update(dt);
 			Render();
 
@@ -206,6 +207,7 @@ int WINAPI WinMain(
 	//IMPORTANT: this is the only place where a hardcoded file name is allowed ! 
 	game->Load(L"mario-sample.txt");  
 
+	
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 
 	Run();

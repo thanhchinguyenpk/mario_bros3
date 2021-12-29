@@ -728,7 +728,7 @@ void CastleScene::PurgeDeletedObjects()
 void CastleScene::_ParseSection_MAP(string line)
 {
 	vector<string> tokens = split(line);
-	DebugOut(L"[INFO] play scene mapid loading scene resources from : %s \n", line);
+	DebugOut(L"[INFO] castle scene mapid loading scene resources from : %s \n", line);
 
 	if (tokens.size() < 5) return;
 	//atoi là số

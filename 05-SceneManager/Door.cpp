@@ -3,7 +3,7 @@
 void Door::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ANI_COIN)->Render(x, y);
+	//animations->Get(ANI_COIN)->Render(x, y);
 
 	RenderBoundingBox();
 }

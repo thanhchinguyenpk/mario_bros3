@@ -389,6 +389,8 @@ void CGame::ProcessKeyboard()
 
 	// Collect all key states first
 	hr = didv->GetDeviceState(sizeof(keyStates), keyStates);
+
+	
 	if (FAILED(hr))
 	{
 		// If the keyboard lost focus or was not acquired then try to get control back.
@@ -408,7 +410,10 @@ void CGame::ProcessKeyboard()
 		}
 	}
 
+	DebugOut(L"[INFO]hello key bora\n");
+	
 	keyHandler->KeyState((BYTE*)&keyStates);
+	DebugOut(L"[INFO] sau hello key bora\n");
 
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
@@ -419,6 +424,7 @@ void CGame::ProcessKeyboard()
 		return;
 	}
 
+	
 	// Scan through all buffered events, check if the key is pressed or released
 	for (DWORD i = 0; i < dwElements; i++)
 	{

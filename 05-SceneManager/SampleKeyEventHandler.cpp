@@ -6,6 +6,7 @@
 #include "Mario.h"
 #include "PlayScene.h"
 #include "MapScene.h"
+#include "CastleScene.h"
 
 #define CAN_NOT_WALK -1
 #define MARIO_SPEED_IN_WOLRD_MAP 0.4
@@ -23,6 +24,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
 	CMario* mario = (CMario *)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer(); 
+
+	if (mario == NULL)
+		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	switch (KeyCode)
 	{
@@ -121,6 +125,10 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	//DebugOut(L"[INFO] KeyUp: %d\n", KeyCode);
 
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	if (mario == NULL)
+		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
 	switch (KeyCode)
 	{
 	case DIK_A:
@@ -146,6 +154,8 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 	LPGAME game = CGame::GetInstance();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+	if(mario==NULL)
+		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	//if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 	//	return;
 
@@ -213,7 +223,7 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		//DebugOut(L"[INFO] ra luôn luôn?\n" );
 		mario->SetState(MARIO_STATE_IDLE);
 	}
-		
+	
 }
 
 void MapSceneKeyHandler::OnKeyDown(int KeyCode)
@@ -236,6 +246,10 @@ void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 		}*/
 		if (map_scene->current_portal->id_portal==1)
 			CGame::GetInstance()->InitiateSwitchScene(FIRST_SCENE);
+
+		if (map_scene->current_portal->id_portal == 7)
+			CGame::GetInstance()->InitiateSwitchScene(CASTLE_SCENE);
+
 		break;
 	case DIK_RIGHT:
 		if (map_scene->current_portal->r != CAN_NOT_WALK)

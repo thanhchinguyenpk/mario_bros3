@@ -13,6 +13,8 @@ goomba.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
+#marrio
+
 #0	6080	210	0
 #ban đầu
 #0	110	1110	0
@@ -23,10 +25,10 @@ goomba.txt
 #0	3600	2300	0
 
 #cuối
-#0	5958	1083	0
+0	5958	1083	0
 
 #gần con quái
-0	7167	1083	0
+#0	7167	1083	0
 #door
 25	5230	1100	1
 25	4896	2493	2
@@ -113,10 +115,14 @@ goomba.txt
 #circular moving
 #22 	2500	800
 
+#22	2709	1032
+#22	3432	1080
+#22	4386	1128
+
 #spiny turtle
 23	7550	1083
 #fire flower
-24	200	1200	
+#24	200	1200	
 
 [MAP]
 textures\castle_scene.txt	textures\Final1.png	160	56	29	30
