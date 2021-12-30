@@ -292,7 +292,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_CIRCULAR_MOVING:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
-		obj = new CircularMoving(x, y); break;
+		obj = new CircularMoving(x, y,player); break;
 
 	}
 	case OBJECT_TYPE_SPINY_TURTLE:

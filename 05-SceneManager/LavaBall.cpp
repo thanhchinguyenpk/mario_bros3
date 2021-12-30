@@ -49,6 +49,9 @@ void LavaBall::Render()
 		IdAni = ANI_LAVA_BALL_DOWN;
 
 	CAnimations* animations = CAnimations::GetInstance();
+
+	if (y > LAVAL_BALL_DISAPEAR)
+		return;
 	animations->Get(IdAni)->Render(x, y);
 
 	RenderBoundingBox();

@@ -24,6 +24,7 @@
 #define LAVA_BALL_STATE_MOVING_UP 100
 #define LAVA_BALL_STATE_MOVING_DOWN 200
 
+#define LAVAL_BALL_DISAPEAR 1225
 
 class LavaBall : public CGameObject {
 public:

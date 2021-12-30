@@ -30,6 +30,8 @@
 #include "FireFlower.h"
 #include "Door.h"
 #include "SpinyTurtle.h"
+#include "CircularMoving.h"
+#include "LavaBall.h"
 
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -330,6 +332,10 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithDoor(e);
 	else if (dynamic_cast<SpinyTurtle*>(e->obj))
 		OnCollisionWithSpinyTurtle(e);
+	else if (dynamic_cast<CircularMoving*>(e->obj))
+		OnCollisionWithCircularMoving(e);
+	else if (dynamic_cast<LavaBall*>(e->obj))
+		OnCollisionWithLavaBall(e);
 	
 	
 	
@@ -353,7 +359,15 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 }
 
 
+void CMario::OnCollisionWithLavaBall(LPCOLLISIONEVENT e)
+{
+	CollideWithEnemy();
+}
 
+void CMario::OnCollisionWithCircularMoving(LPCOLLISIONEVENT e)
+{
+	CollideWithEnemy();
+}
 
 void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
 {

@@ -1,21 +1,39 @@
 #include "CircularMoving.h"
 
 
+
+
+void CircularMoving::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	CGameObject::Update(dt, coObjects);
+
+	count += CIRCULAR_MOVING_SPEED * dt;
+	count %= FULL_CIRCLE_DEGREE;
+
+	x = origin_pos_x + CIRCULAR_MOVING_RADIUS * sin(count * PI / HALF_CIRCLE_DEGREE);
+	y = origin_pos_y + CIRCULAR_MOVING_RADIUS * cos(count * PI / HALF_CIRCLE_DEGREE);
+
+
+
+	float ml, mt, mr, mb;
+	float il, it, ir, ib;
+
+	this->GetBoundingBox(il, it, ir, ib);
+	player->GetBoundingBox(ml, mt, mr, mb);
+
+	if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
+	{
+		player->CollideWithEnemy();
+	}
+
+}
+
 void CircularMoving::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ANI_CIRCULAR_MOVING)->Render(x, y);
 
-	RenderBoundingBox();
-}
-
-void CircularMoving::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	count += CIRCULAR_MOVING_SPEED * dt;
-	count %= FULL_CIRCLE_DEGREE;
-
-	x = ORIGINAL_POS_X + CIRCULAR_MOVING_RADIUS * sin(count * PI / HALF_CIRCLE_DEGREE);
-	y = ORIGINAL_POS_Y + CIRCULAR_MOVING_RADIUS * cos(count * PI / HALF_CIRCLE_DEGREE);
+	//RenderBoundingBox();
 }
 
 void CircularMoving::GetBoundingBox(float& l, float& t, float& r, float& b)

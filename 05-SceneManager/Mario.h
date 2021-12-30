@@ -362,6 +362,8 @@ public:
 	void OnCollisionWithFireFlower(LPCOLLISIONEVENT e);
 	void OnCollisionWithDoor(LPCOLLISIONEVENT e);
 	void OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e);
+	void OnCollisionWithCircularMoving(LPCOLLISIONEVENT e);
+	void OnCollisionWithLavaBall(LPCOLLISIONEVENT e);
 	
 
 	
