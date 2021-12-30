@@ -606,16 +606,18 @@ void CPlayScene::Render()
 		itemsMarioCanEat[i]->Render();
 	}
 
-	for (int i = 0; i < items.size(); i++)
-		items[i]->Render();
-
-	for (int i = 0; i < enemies.size(); i++)
-		enemies[i]->Render();
+	
 
 	
 
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+
+	for (int i = 0; i < items.size(); i++)
+		items[i]->Render();
+
+	for (int i = 0; i < enemies.size(); i++)
+		enemies[i]->Render();
 
 	for (int i = 0; i < list_bricklink.size(); i++)
 	{

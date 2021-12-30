@@ -1477,12 +1477,17 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 				right = left + MARIO_TAIL_BBOX_WIDTH;
 				bottom = top + MARIO_TAIL_BBOX_HEIGHT;*/
 
-				left = x - MARIO_TAIL_BBOX_WIDTH / 2 - MARIO_WIDTH_SPIN;
-				//top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+				/*left = x - MARIO_TAIL_BBOX_WIDTH / 2 - MARIO_WIDTH_SPIN;
 				top = y - MARIO_HEIGHT_SPIN;
 
 				right = x + MARIO_TAIL_BBOX_WIDTH / 2 + MARIO_WIDTH_SPIN;
-				bottom = y + MARIO_TAIL_BBOX_HEIGHT / 2;
+				bottom = y + MARIO_TAIL_BBOX_HEIGHT / 2;*/
+
+
+				left = x - MARIO_BIG_TAIL_SPIN_BBOX_WIDTH / 2;
+				top = y;//chỉ vẫy phần đuôi
+				right = x + MARIO_BIG_TAIL_SPIN_BBOX_WIDTH / 2;
+				bottom = y + MARIO_BIG_TAIL_BBOX_HEIGHT / 2;
 			}
 			else
 			{

@@ -39,7 +39,7 @@ void CGrid::GetListObjInGrid(float cam_x, float cam_y)
 
 	enemies.clear();
 	items.clear();
-	bricks_blink.clear();
+	//bricks_blink.clear();
 
 	int top = (int)((cam_y) / CELL_HEIGHT);
 	int bottom = (int)((cam_y + SCREEN_HEIGHT) / CELL_HEIGHT);
@@ -95,7 +95,7 @@ void CGrid::GetListObjInGrid(float cam_x, float cam_y)
 	//{
 		dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetEnemiesInScene(enemies);
 		dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetItems(items);
-		dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetBrickBlink(bricks_blink);
+		//dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetBrickBlink(bricks_blink);
 	//}
 }
 
@@ -115,7 +115,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 	{
 		enemies.clear();
 		items.clear();
-		bricks_blink.clear();
+		//bricks_blink.clear();
 
 		CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
 
@@ -173,7 +173,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 				}
 		}
 
-		bricks_blink = scene->list_bricklink;
+		/*bricks_blink = scene->list_bricklink;
 		for (int m = 0; m < bricks_blink.size(); m++) {
 			LPGAMEOBJECT blink = bricks_blink[m];
 
@@ -197,7 +197,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 				for (int j = left; j <= right; j++) {
 					cells[i][j].push_back(blink);
 				}
-		}
+		}*/
 
 
 
