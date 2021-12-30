@@ -154,7 +154,7 @@ int Run()
 	int done = 0;
 	ULONGLONG frameStart = GetTickCount64();
 	DWORD tickPerFrame = 1000 / MAX_FRAME_RATE;
-	DebugOut(L"[INFO]load xong chua?\n");
+	//DebugOut(L"[INFO]load xong chua?\n");
 	while (!done)
 	{
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -174,9 +174,9 @@ int Run()
 		if (dt >= tickPerFrame)
 		{
 			frameStart = now;
-			DebugOut(L"[INFO]chua process chua?\n");
+			//DebugOut(L"[INFO]chua process chua?\n");
 			CGame::GetInstance()->ProcessKeyboard();
-			DebugOut(L"[INFO]da process chua?\n");
+			//DebugOut(L"[INFO]da process chua?\n");
 			Update(dt);
 			Render();
 

@@ -131,7 +131,8 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
-		int frame_time = atoi(tokens[i+1].c_str());
+		int temp = i + 1;
+		int frame_time = atoi(tokens[temp].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
 
@@ -322,7 +323,9 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		objects.push_back(obj);
 
 
-	game_ui = new UI(player);
+	game_ui->SetPlayer(player);
+
+	
 }
 
 void CPlayScene::LoadAssets(LPCWSTR assetFile)
@@ -372,7 +375,7 @@ void CPlayScene::Load()
 	
 	
 	//temp = new TextAndNumber();
-	game_time = new GameTime();
+	//game_time = new GameTime();
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
@@ -450,6 +453,7 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 
+	DebugOut(L"[INFO]size brick blink %d\n", list_bricklink.size());
 	
 	for (size_t i = 0; i < items.size(); i++)
 	{
@@ -458,7 +462,7 @@ void CPlayScene::Update(DWORD dt)
 
 		if (dynamic_cast<BrickCoin*>(items[i]))
 		{
-			 DebugOut(L"[INFO] ua day la brickcoin ne?\n");
+			//DebugOut(L"[INFO] ua day la brickcoin ne?\n");
 			BrickCoin* brick = dynamic_cast<BrickCoin*>(items[i]);
 			float x, y;
 			brick->GetPosition(x, y);
@@ -523,12 +527,16 @@ void CPlayScene::Update(DWORD dt)
 			}
 
 		}
+
+		//DebugOut(L"[INFO] day la day la brickcoin ne?\n");
 	}
 
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->Update(dt, &coObjects);
 		enemies[i]->is_appeared = false;
+
+		
 	}
 
 	for (size_t i = 0; i < objects.size(); i++)
@@ -593,16 +601,18 @@ void CPlayScene::Render()
 {
 	map->Draw();
 
+	for (int i = 0; i < itemsMarioCanEat.size(); i++)
+	{
+		itemsMarioCanEat[i]->Render();
+	}
+
 	for (int i = 0; i < items.size(); i++)
 		items[i]->Render();
 
 	for (int i = 0; i < enemies.size(); i++)
 		enemies[i]->Render();
 
-	for (int i = 0; i < itemsMarioCanEat.size(); i++)
-	{
-		itemsMarioCanEat[i]->Render();
-	}
+	
 
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();

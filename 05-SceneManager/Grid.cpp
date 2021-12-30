@@ -22,11 +22,13 @@
 
 void CGrid::Classify(LPGAMEOBJECT obj)
 {
+
+	
 	//type là loại để tạo, cũng dùng để phân loại trong grid
 	if (obj->type == OBJECT_TYPE_COIN|| obj->type == OBJECT_TYPE_BRICK_COIN|| obj->type == OBJECT_TYPE_RANDOM_BONUS)
 		items.push_back(obj);
-	else if (obj->type == OBJECT_TYPE_BRICK_BLINK)
-		bricks_blink.push_back(obj);
+	/*else if (obj->type == OBJECT_TYPE_BRICK_BLINK)
+		bricks_blink.push_back(obj);*/
 	else
 		enemies.push_back(obj);
 }
@@ -213,7 +215,8 @@ LPGAMEOBJECT CGrid::CreateNewObj(int id_grid, int obj_type, float x, float y, fl
 {
 	///CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
-	CGameObject* obj = NULL;
+	//CGameObject* obj = NULL;
+	CGameObject* obj=NULL;
 
 	switch (obj_type)
 	{
@@ -305,6 +308,7 @@ LPGAMEOBJECT CGrid::CreateNewObj(int id_grid, int obj_type, float x, float y, fl
 
 
 	obj->SetPosition(x, y);
+	obj->type = obj_type;
 	obj->w = (int)w;
 	obj->h =(int)h;
 	obj->id_grid = id_grid;
@@ -333,6 +337,8 @@ void CGrid::ReadFileObj()
 		if (tokens.size() < 6) continue;
 		int id_grid = atoi(tokens[0].c_str());
 		int obj_type = atoi(tokens[1].c_str());
+
+		DebugOut(L"[INFO]co may loai: %d \n", obj_type);
 		float x = (float)atof(tokens[2].c_str());
 		float y = (float)atof(tokens[3].c_str());
 
@@ -352,7 +358,7 @@ void CGrid::ReadFileObj()
 
 	}
 
-	DebugOut(L"total obj la---------------] DINPUT::GetDeviceData failed. Error: %d\n", total_obj.size());
+	//DebugOut(L"total obj la---------------] DINPUT::GetDeviceData failed. Error: %d\n", total_obj.size());
 	f.close();
 
 	//LPGAMEOBJECT obj = CreateNewObj(2, 672,1152, 48, 48, 0, 0, 0, 1, 1, 9);

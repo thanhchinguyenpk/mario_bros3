@@ -25,9 +25,9 @@ public:
 
 	vector<LPGAMEOBJECT> visible_object;
 
-	MapPortal* current_portal;
+	MapPortal* current_portal=NULL;
 
-	Map* map;
+	Map* map=NULL;
 
 	CMario* player;
 	vector<LPGAMEOBJECT> objects;

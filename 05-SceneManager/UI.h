@@ -5,7 +5,7 @@
 
 class UI
 {
-	LPGAMEOBJECT player;
+	LPGAMEOBJECT player=NULL;
 
 	float posX = 100.0f, posY = 800.0f;
 
@@ -13,8 +13,11 @@ class UI
 
 public:
 
-	UI(LPGAMEOBJECT mario) { player = mario; };
+	UI() {};
 	~UI() {};
+
+	void SetPlayer(LPGAMEOBJECT mario) { player = mario; };
+	
 
 	void Update() {};
 	void Render(int remainingTime, int the_number_mario_hit_brick, int point_hub, int id_map, int world);

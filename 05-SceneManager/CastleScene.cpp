@@ -131,6 +131,7 @@ void CastleScene::_ParseSection_ANIMATIONS(string line)
 	for (int i = 1; i < tokens.size(); i += 2)	// why i+=2 ?  sprite_id | frame_time  
 	{
 		int sprite_id = atoi(tokens[i].c_str());
+		//temp = i + 1;
 		int frame_time = atoi(tokens[i + 1].c_str());
 		ani->Add(sprite_id, frame_time);
 	}
@@ -327,7 +328,7 @@ void CastleScene::_ParseSection_OBJECTS(string line)
 		objects.push_back(obj);
 
 
-	game_ui = new UI(player);
+	game_ui->SetPlayer(player);
 }
 
 void CastleScene::LoadAssets(LPCWSTR assetFile)
@@ -374,7 +375,7 @@ void CastleScene::Load()
 
 
 	//temp = new TextAndNumber();
-	game_time = new GameTime();
+	//game_time = new GameTime();
 
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 

@@ -43,8 +43,8 @@ public:
 	//bool is_mario_in_end_castle;
 	// A play scene has to have player, right? 
 	
-	GameTime* game_time;
-	UI* game_ui;
+	GameTime* game_time= new GameTime();
+	UI* game_ui=new UI();
 
 	Map* map;
 

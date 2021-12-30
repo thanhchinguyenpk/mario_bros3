@@ -410,10 +410,10 @@ void CGame::ProcessKeyboard()
 		}
 	}
 
-	DebugOut(L"[INFO]hello key bora\n");
+	//DebugOut(L"[INFO]hello key bora\n");
 	
 	keyHandler->KeyState((BYTE*)&keyStates);
-	DebugOut(L"[INFO] sau hello key bora\n");
+	//DebugOut(L"[INFO] sau hello key bora\n");
 
 	// Collect all buffered events
 	DWORD dwElements = KEYBOARD_BUFFER_SIZE;
