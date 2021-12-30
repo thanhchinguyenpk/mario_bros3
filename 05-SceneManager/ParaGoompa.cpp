@@ -188,7 +188,7 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		this->SetState(GOOMBA_STATE_DIE);*/
 	//}
 	if (player->GetState() == MARIO_STATE_SPIN)
-		this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
+		this->CheckWetherBeingAttacked(player, PARA_GOOMBA_STATE_WAS_SHOOTED);
 
 	if (effect)
 	{
@@ -200,6 +200,9 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+
+	if (this->y > POS_Y_ENEMY_DELETE)
+		this->Delete();
 }
 
 

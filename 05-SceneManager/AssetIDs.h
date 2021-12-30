@@ -3,6 +3,8 @@
 //
 // This file contains all IDs of game assets 
 //
+#define POS_Y_ENEMY_DELETE 1350
+
 #define BORDER_COLUMN_GRID_GET_OBJ 1
 
 #define BORDER_COLUMN_GRID 1
