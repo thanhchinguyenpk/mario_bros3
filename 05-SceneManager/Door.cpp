@@ -39,8 +39,8 @@ void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void Door::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - COIN_BBOX_WIDTH / 2;
-	t = y - COIN_BBOX_HEIGHT / 2;
-	r = l + COIN_BBOX_WIDTH;
-	b = t + COIN_BBOX_HEIGHT;
+	l = x - DOOR_BBOX_WIDTH / 2;
+	t = y - DOOR_BBOX_HEIGHT / 2;
+	r = l + DOOR_BBOX_WIDTH;
+	b = t + DOOR_BBOX_HEIGHT;
 }

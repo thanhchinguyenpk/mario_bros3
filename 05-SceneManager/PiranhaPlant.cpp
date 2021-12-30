@@ -14,7 +14,7 @@ PiranhaPlant::PiranhaPlant(float x, float y, LPGAMEOBJECT mario) :CGameObject(x,
 
 	player = mario;
 
-	min_y = y - VENUS_BBOX_HEIGHT+ GAP_MIN_Y;
+	min_y = y - PIRANHA_PLANT_BBOX_HEIGHT+ GAP_MIN_Y;
 	max_y = y+ GAP_MAX_Y;
 
 
@@ -27,10 +27,10 @@ PiranhaPlant::PiranhaPlant(float x, float y, LPGAMEOBJECT mario) :CGameObject(x,
 
 void PiranhaPlant::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x - VENUS_BBOX_WIDTH / 2;
-	top = y - VENUS_BBOX_HEIGHT / 2;
-	right = x + VENUS_BBOX_WIDTH / 2;
-	bottom = y + VENUS_BBOX_HEIGHT / 2;
+	left = x - PIRANHA_PLANT_BBOX_WIDTH / 2;
+	top = y - PIRANHA_PLANT_BBOX_HEIGHT / 2;
+	right = x + PIRANHA_PLANT_BBOX_WIDTH / 2;
+	bottom = y + PIRANHA_PLANT_BBOX_HEIGHT / 2;
 }
 
 

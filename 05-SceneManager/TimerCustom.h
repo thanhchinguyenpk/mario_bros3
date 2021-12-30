@@ -3,8 +3,8 @@
 class TimerCustom
 {
 public:
-	int startTime;
-	int limitTime;
+	ULONGLONG startTime;
+	ULONGLONG limitTime;
 
 public:
 

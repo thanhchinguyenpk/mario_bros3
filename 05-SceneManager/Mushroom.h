@@ -5,11 +5,11 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define ID_ANI_COIN 11000
+//#define ID_ANI_COIN 11000
 
-#define	COIN_WIDTH 10
-#define COIN_BBOX_WIDTH 48
-#define COIN_BBOX_HEIGHT 48
+//#define	COIN_WIDTH 10
+#define MUSH_ROOM_BBOX_WIDTH 48
+#define MUSH_ROOM_BBOX_HEIGHT 48
 
 #define  MUSHROOM_STATE_GOING_UP		 100
 #define  MUSHROOM_STATE_MOVING_LEFT		 200
@@ -19,11 +19,11 @@
 
 #define  MUSHROOM_MOVING_SPEED	 0.1
 
-#define  MUSHROOM_RED	7004
-#define  MUSHROOM_GREEN	762
+#define  ANI_MUSHROOM_RED	7004
+#define  ANI_MUSHROOM_GREEN	762
 
-#define RED	1
-#define GREEN 2
+#define MUSHROOM_RED	1
+#define MUSHROOM_GREEN 2
 
 #define AY_MUSHROOM 0.002
 #define VY_MUSHROOM_GO_UP 0.1f
@@ -31,7 +31,7 @@
 class Mushroom : public CGameObject {
 
 public:
-	int type = RED;
+	int type = MUSHROOM_RED;
 	float pos_y_brick = y;
 	bool enable_gravity = false;
 

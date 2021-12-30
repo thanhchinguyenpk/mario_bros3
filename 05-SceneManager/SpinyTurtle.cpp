@@ -13,20 +13,11 @@ void SpinyTurtle::GetBoundingBox(float& left, float& top, float& right, float& b
 	//if (state == SPINY_TURTLE_STATE_INJURY)
 	//	return;
 
-	if ( state == SPINY_TURTLE_STATE_HEAD_MOVING)
-	{
-		left = x - SPINY_TURTLE_BBOX_WIDTH_DIE / 2;
-		top = y - SPINY_TURTLE_BBOX_HEIGHT_DIE / 2;
-		right = left + SPINY_TURTLE_BBOX_WIDTH_DIE;
-		bottom = top + SPINY_TURTLE_BBOX_HEIGHT_DIE;
-	}
-	else
-	{
 		left = x - SPINY_TURTLE_BBOX_WIDTH / 2;
 		top = y - SPINY_TURTLE_BBOX_HEIGHT / 2;
 		right = left + SPINY_TURTLE_BBOX_WIDTH;
 		bottom = top + SPINY_TURTLE_BBOX_HEIGHT;
-	}
+
 
 }
 

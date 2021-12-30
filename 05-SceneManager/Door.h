@@ -6,13 +6,13 @@
 #include "Mario.h"
 
 
-#define ID_ANI_COIN 11000
+//#define ID_ANI_COIN 11000
 
-#define	COIN_WIDTH 10
-#define COIN_BBOX_WIDTH 48
-#define COIN_BBOX_HEIGHT 96
+//#define	COIN_WIDTH 10
+#define DOOR_BBOX_WIDTH 48
+#define DOOR_BBOX_HEIGHT 96
 
-#define ANI_COIN 777
+//#define ANI_COIN 777
 
 #define POS_X_MARIO_UNDER_CASTLE 3600
 #define POS_Y_MARIO_UNDER_CASTLE 2300

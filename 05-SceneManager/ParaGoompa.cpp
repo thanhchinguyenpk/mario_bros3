@@ -156,7 +156,7 @@ void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	CGameObject::Update(dt, coObjects);
-	float no_thing;
+	//float no_thing;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 

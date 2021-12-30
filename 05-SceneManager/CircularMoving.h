@@ -8,7 +8,7 @@
 #include <math.h> 
 #include "Mario.h"
 
-#define PI 3.14159265
+#define PI 3.14159265f
 
 #define ID_ANI_COIN 11000
 
@@ -21,9 +21,9 @@
 #define ORIGINAL_POS_X 2400
 #define ORIGINAL_POS_Y 900
 
-#define CIRCULAR_MOVING_SPEED 0.15
+#define CIRCULAR_MOVING_SPEED 0.15f
 
-#define CIRCULAR_MOVING_RADIUS 150
+#define CIRCULAR_MOVING_RADIUS 150.0f
 
 #define FULL_CIRCLE_DEGREE 360
 #define HALF_CIRCLE_DEGREE 180

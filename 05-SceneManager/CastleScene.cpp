@@ -209,7 +209,7 @@ void CastleScene::_ParseSection_OBJECTS(string line)
 		float width = (float)atof(tokens[3].c_str());
 		float height = (float)atof(tokens[4].c_str());
 
-		int is_go_through = (float)atof(tokens[5].c_str());
+		int is_go_through = (int)atof(tokens[5].c_str());
 		obj = new FlatForm(x, y, width, height, is_go_through);
 		break;
 	}
@@ -456,7 +456,7 @@ void CastleScene::Update(DWORD dt)
 
 				if (brick->has_item == BRICKCOIN_CONTAINS_GREEN_MUSHROOM)
 				{
-					Mushroom* mushroom = new Mushroom(x, y, GREEN);
+					Mushroom* mushroom = new Mushroom(x, y, MUSHROOM_GREEN);
 					itemsMarioCanEat.push_back(mushroom);
 				}
 				else
@@ -464,7 +464,7 @@ void CastleScene::Update(DWORD dt)
 					if (player->GetLevel() == MARIO_LEVEL_SMALL)
 					{
 
-						Mushroom* mushroom = new Mushroom(x, y, RED);
+						Mushroom* mushroom = new Mushroom(x, y, MUSHROOM_RED);
 						itemsMarioCanEat.push_back(mushroom);
 
 					}
@@ -478,14 +478,14 @@ void CastleScene::Update(DWORD dt)
 					}
 				}
 				brick->dropped = true;
-				player->score += CORE;
+				player->score += SCORE;
 			}
 			else if (brick->is_hit == true && brick->dropped == false && brick->has_item == BRICKCOIN_CONTAINS_FIRE_FLOWER)
 			{
 				if (player->GetLevel() == MARIO_LEVEL_SMALL)
 				{
 
-					Mushroom* mushroom = new Mushroom(x, y, RED);
+					Mushroom* mushroom = new Mushroom(x, y, MUSHROOM_RED);
 					itemsMarioCanEat.push_back(mushroom);
 
 				}
@@ -496,7 +496,7 @@ void CastleScene::Update(DWORD dt)
 				}
 
 				brick->dropped = true;
-				player->score += CORE;
+				player->score += SCORE;
 			}
 			else if (brick->is_hit == true && brick->dropped == false)
 			{
@@ -505,7 +505,7 @@ void CastleScene::Update(DWORD dt)
 				itemsMarioCanEat.push_back(coineffect);
 
 				brick->dropped = true;
-				player->score += CORE;
+				player->score += SCORE;
 			}
 
 		}
