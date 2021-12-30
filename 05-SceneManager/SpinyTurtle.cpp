@@ -92,14 +92,18 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-	if (GetState() == SPINY_TURTLE_STATE_INJURY && GetTickCount64() - time_to_rescue >= 300 && time_to_rescue)
+	if (GetState() == SPINY_TURTLE_STATE_INJURY && GetTickCount64() - time_to_rescue >= 3000 && time_to_rescue)
 	{
-		if (stage == 1)
-		{
-			stage = 2;
-			//setstae đi
-		}
+		heart -= 1;
+
+		if (heart == 0)
+			CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
+		else
+			this->SetState(SPINY_TURTLE_STATE_JUMP);
+
 	}
+
+	
 	/*if (state == SPINY_TURTLE_STATE_DIE && GetTickCount64() - time_to_rescure > 5000)
 	{
 

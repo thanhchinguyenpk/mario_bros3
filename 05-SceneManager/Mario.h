@@ -13,7 +13,8 @@
 #define EFFECT_GAP 50
 
 #define POS_Y_HOLD	1320
-#define POS_Y_END_MAP	8700
+#define POS_X_END_MAP	8700
+#define POS_Y_HOLD_CASTLE	2688
 
 //#define MARIO_WALKING_SPEED		0.1f
 #define MARIO_WALKING_SPEED		0.3f

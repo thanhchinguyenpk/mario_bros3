@@ -280,7 +280,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_STONE_KOOMPAS:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
-		obj = new StoneKoompas(x, y); break;
+		obj = new StoneKoompas(x, y,player); break;
 		
 	}
 	case OBJECT_TYPE_LAVA_BALL:

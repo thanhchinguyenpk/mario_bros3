@@ -49,6 +49,8 @@
 class StoneKoompas : public CGameObject
 {
 public:
+	CMario* player;
+
 	ULONGLONG time_to_rescure;
 	bool is_block = 1;
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -64,7 +66,7 @@ public:
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
-	StoneKoompas(float x, float y);
+	StoneKoompas(float x, float y, CMario* mario);
 	void SetState(int state);
 };
 

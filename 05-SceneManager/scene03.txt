@@ -15,7 +15,6 @@ goomba.txt
 # MARIO
 #marrio
 
-#0	100	210	0
 #ban đầu
 #0	110	1110	0
 #cuc mau do
@@ -24,8 +23,10 @@ goomba.txt
 #gần laval ball đoạn đầu
 #0	700	900	0
 gần laval ball đoạn sau
-0	3822	700	0
+#0	3822	700	0
 
+#gần stone koompas
+0	4700	700	0
 #cuối đoạn 1
 #0	5100	1110	0
 
@@ -37,9 +38,7 @@ gần laval ball đoạn sau
 
 #gần con quái
 #0	7167	1083	0
-#door
-25	5230	1100	1
-25	4896	2493	2
+
 
 
 # nền, chặn biên nền
@@ -115,7 +114,7 @@ gần laval ball đoạn sau
 
 
 #stone koompas
-#20	2400	900
+20	5200	900
 
 #lava ball
 21 	880	1080
@@ -139,6 +138,14 @@ gần laval ball đoạn sau
 23	7550	1083
 #fire flower
 #24	200	1200	
+
+#door
+25	5230	1100	1
+25	4896	2493	2
+
+#brick coin
+8	1726	990	4
+8	4725	1050	1
 
 [MAP]
 textures\castle_scene.txt	textures\Final1.png	160	56	29	30

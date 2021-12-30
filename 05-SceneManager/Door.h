@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "Mario.h"
 
 
 #define ID_ANI_COIN 11000
@@ -15,8 +16,10 @@
 
 class Door : public CGameObject {
 public:
+
+	CMario* player;
 	int type = 1;
-	Door(float x, float y, int type) : CGameObject(x, y) { this->type = type; }
+	Door(float x, float y, int type, CMario* mario) : CGameObject(x, y) { this->type = type; player = mario;}
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

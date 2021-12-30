@@ -1,9 +1,10 @@
 ﻿#include "StoneKoompas.h"
 
 
-StoneKoompas::StoneKoompas(float x, float y) :CGameObject(x, y)
+StoneKoompas::StoneKoompas(float x, float y , CMario* mario) :CGameObject(x, y)
 {
 	this->SetState(STONE_KOOMPAS_STATE_WALKING_LEFT);
+	player = mario;
 }
 
 void StoneKoompas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -46,9 +47,25 @@ void StoneKoompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->SetState(STONE_KOOMPAS_STATE_WALKING_LEFT);
 		else
 			this->SetState(STONE_KOOMPAS_STATE_WALKING_RIGHT);
+
+		is_block = 1;
 	}
 
-	DebugOut(L"nx cua sto %d\n", nx);
+	//DebugOut(L"nx cua sto %d\n", nx);
+
+	if (is_block == true)
+	{
+		float ml, mt, mr, mb;
+		float il, it, ir, ib;
+
+		this->GetBoundingBox(il, it, ir, ib);
+		player->GetBoundingBox(ml, mt, mr, mb);
+
+		if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
+		{
+			player->CollideWithEnemy();
+		}
+	}
 }
 
 void StoneKoompas::Render()

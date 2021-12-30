@@ -36,8 +36,8 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*if (is_on_the_ground == false && y > POS_Y_HOLD || x > POS_Y_END_MAP) // rơi xuống hố hoặc đi qua end scene hoặc chết vì enemy(phía dưới)
-		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);*/
+	if (is_on_the_ground == false && y > POS_Y_HOLD || x > POS_X_END_MAP|| is_on_the_ground == true && y > POS_Y_HOLD_CASTLE) // rơi xuống hố hoặc đi qua end scene hoặc chết vì enemy(phía dưới)
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
 
 	//CGameObject::Update(dt);
 	if (is_moving_in_world_map == true)
@@ -372,6 +372,13 @@ void CMario::OnCollisionWithCircularMoving(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
 {
 	SpinyTurtle* spiny_turtle = dynamic_cast<SpinyTurtle*>(e->obj);
+
+	if (spiny_turtle->GetState() == SPINY_TURTLE_STATE_INJURY)
+	{
+		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - 1);
+		return;
+	}
+
 	if (e->ny < 0)
 	{
 		if (spiny_turtle->stage == 1)
@@ -400,18 +407,7 @@ void CMario::OnCollisionWithDoor(LPCOLLISIONEVENT e)
 {
 	//SetLevel(MARIO_LEVEL_BIG_ORANGE);
 	
-	Door* door = dynamic_cast<Door*>(e->obj);
-
-	if (door->type == 1)
-	{
-		this->SetPosition(3600, 2300);
-		is_on_the_ground = true;
-	}
-	else if (door->type == 2)
-	{
-		this->SetPosition(5958, 1083);
-		is_on_the_ground = false;
-	}
+	
 	
 }
 
@@ -575,16 +571,26 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
 {
-	//e->obj->Delete();
-	//coin++;
-	if (e->ny < 0)
+	StoneKoompas* stone_koompas = dynamic_cast<StoneKoompas*>(e->obj);
+	
+	if (stone_koompas->IsBlocking() == true)
 	{
-		e->obj->SetState(STONE_KOOMPAS_STATE_DIE);
-		vy = -MARIO_JUMP_DEFLECT_SPEED;
-		//DebugOut(L"stone koompas %d \n");
+		if (e->ny < 0)
+		{
+			e->obj->SetState(STONE_KOOMPAS_STATE_DIE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+			//DebugOut(L"stone koompas %d \n");
+		}
+		else
+			CollideWithEnemy();
 	}
 	else
-		CollideWithEnemy();
+	{
+		if (e->ny < 0)
+		{
+			stone_koompas->SetPosition(stone_koompas->x, stone_koompas->y - 1);
+		}
+	}
 }
 
 void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)

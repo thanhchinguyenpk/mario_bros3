@@ -48,6 +48,8 @@
 class SpinyTurtle : public CGameObject
 {
 public:
+	int heart = 3;
+
 	ULONGLONG time_to_rescue = 0;
 	float ax = 0;
 

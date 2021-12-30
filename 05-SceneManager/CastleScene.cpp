@@ -279,7 +279,7 @@ void CastleScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_STONE_KOOMPAS:
 	{
 		//CMario* mario = dynamic_cast<CMario*>(player);
-		obj = new StoneKoompas(x, y); break;
+		obj = new StoneKoompas(x, y,player); break;
 
 	}
 	case OBJECT_TYPE_LAVA_BALL:
@@ -305,7 +305,7 @@ void CastleScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_DOOR:
 	{
 		int type = (int)atof(tokens[3].c_str());
-		obj = new Door(x, y,type); break;
+		obj = new Door(x, y,type,player); break;
 	}
 	
 
