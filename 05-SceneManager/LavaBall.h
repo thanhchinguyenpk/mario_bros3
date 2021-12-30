@@ -5,8 +5,8 @@
 #include "Animation.h"
 #include "Animations.h"
 
-#define VY_LAVA 1.5
-#define AY_LAVA 0.002
+#define VY_LAVA 1.5f
+#define AY_LAVA 0.002f
 #define LAVA_DISTANCE 300
 #define LAVA_TIME_TO_MOVE_UP 3000
 

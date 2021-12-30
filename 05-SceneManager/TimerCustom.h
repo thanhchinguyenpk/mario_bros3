@@ -10,7 +10,7 @@ public:
 
 	TimerCustom(int limitTime) { this->limitTime = limitTime; startTime = 0; };
 
-	TimerCustom() {};
+	//TimerCustom() {};
 	~TimerCustom() {};
 
 

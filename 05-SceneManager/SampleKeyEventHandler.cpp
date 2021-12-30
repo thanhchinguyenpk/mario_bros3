@@ -9,7 +9,7 @@
 #include "CastleScene.h"
 
 #define CAN_NOT_WALK -1
-#define MARIO_SPEED_IN_WOLRD_MAP 0.4
+#define MARIO_SPEED_IN_WOLRD_MAP 0.4f
 
 #define IN_SKY_POS_X 4281
 #define IN_SKY_POS_Y 110
@@ -17,8 +17,8 @@
 #define ABOVE_PINE_IN_SKY_X 6818
 #define ABOVE_PINE_IN_SKY_Y 210
 
-#define VY_FLY_LADING 0.1
-#define VY_FLY_HIGH 0.3
+#define VY_FLY_LADING 0.1f
+#define VY_FLY_HIGH 0.3f
 
 #define PORTAL_PLAY_SCENE 1
 #define PORTAL_CASTLE_SCENE 7

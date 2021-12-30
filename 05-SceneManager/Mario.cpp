@@ -573,7 +573,7 @@ void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
 {
 	StoneKoompas* stone_koompas = dynamic_cast<StoneKoompas*>(e->obj);
 	
-	if (stone_koompas->IsBlocking() == true)
+	if (stone_koompas->IsBlocking() == 1)
 	{
 		if (e->ny < 0)
 		{

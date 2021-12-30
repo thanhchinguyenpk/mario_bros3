@@ -1,6 +1,6 @@
 #include "MoneyEffect.h"
 
-MoneyEffect::MoneyEffect(int pos_x, int pos_y, int moneyAni)
+MoneyEffect::MoneyEffect(float pos_x, float pos_y, int moneyAni)
 {
 	this->x = pos_x;
 	this->y = pos_y;

@@ -44,7 +44,7 @@
 #define  ANI_STONE_KOOMPAS_DIE_RIGHT 6012
 #define  ANI_STONE_KOOMPAS_HEAD_MOVING_RIGHT 6013
 
-#define AY_STONE_KOOMPAS 0.002
+#define AY_STONE_KOOMPAS 0.002f
 
 //stone koompas 
 class StoneKoompas : public CGameObject

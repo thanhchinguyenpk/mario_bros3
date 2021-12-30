@@ -7,7 +7,7 @@ void CircularMoving::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
-	count += CIRCULAR_MOVING_SPEED * dt;
+	count += (int)CIRCULAR_MOVING_SPEED * dt;
 	count %= FULL_CIRCLE_DEGREE;
 
 	x = origin_pos_x + CIRCULAR_MOVING_RADIUS * sin(count * PI / HALF_CIRCLE_DEGREE);

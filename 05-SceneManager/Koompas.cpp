@@ -249,7 +249,7 @@ void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-	float no_thing;
+	
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 
 
