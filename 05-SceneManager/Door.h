@@ -14,6 +14,15 @@
 
 #define ANI_COIN 777
 
+#define POS_X_MARIO_UNDER_CASTLE 3600
+#define POS_Y_MARIO_UNDER_CASTLE 2300
+
+#define POS_X_MARIO_IN_CASTLE 5958
+#define POS_Y_MARIO_IN_CASTLE 1083
+
+#define DOOR_IN_CASTLE	1
+#define DOOR_UNDER_CASTLE	2
+
 class Door : public CGameObject {
 public:
 

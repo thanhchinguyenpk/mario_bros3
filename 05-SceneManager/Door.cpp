@@ -22,14 +22,14 @@ void Door::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
 		{
-			if (this->type == 1)
+			if (this->type == DOOR_IN_CASTLE)
 			{
-				player->SetPosition(3600, 2300);
+				player->SetPosition(POS_X_MARIO_UNDER_CASTLE, POS_Y_MARIO_UNDER_CASTLE);
 				player->is_on_the_ground = true;
 			}
-			else if (this->type == 2)
+			else if (this->type == DOOR_UNDER_CASTLE)
 			{
-				player->SetPosition(5958, 1083);
+				player->SetPosition(POS_X_MARIO_IN_CASTLE, POS_Y_MARIO_IN_CASTLE);
 				player->is_on_the_ground = false;
 			}
 		}

@@ -555,27 +555,27 @@ void CastleScene::Update(DWORD dt)
 
 	if (player->is_on_the_ground == true)
 	{
-		if (cx < 3550) cx = 3550;
-		CGame::GetInstance()->SetCamPos(cx - 24 - 50, 2100);
+		if (cx < CAM_MIN_X_UNDER_CASTLE) cx = CAM_MIN_X_UNDER_CASTLE;
+		CGame::GetInstance()->SetCamPos(cx - CAM_WIDTH_UNDER_CASTLE, CAM_Y_UNDER_CASTLE);
 	}
 
 	else
 	{
-		if (cx > 7680-760+15) cx = 7680 - 760+15;
-		CGame::GetInstance()->SetCamPos(cx - 24, 700);
+		if (cx > CAM_MIN_X_IN_CASTLE) cx = CAM_MIN_X_IN_CASTLE;
+		CGame::GetInstance()->SetCamPos(cx - CAM_WIDTH_IN_CASTLE, CAM_Y_IN_CASTLE);
 	}
 
 
 	
-	if (player->x > 7320 && is_mario_in_end_castle == false)
+	if (player->x > Y_STUCK_WITH_BOSS && player->is_in_end_castle == false)
 	{
-		this->is_mario_in_end_castle = true;
-		CGameObject* obj = new FlatForm(6886, 760, 48, 432, 0); //tham số cuối là ko nhảy từ dưới xuyên qua đc
+		player->is_in_end_castle = true;
+		CGameObject* obj = new FlatForm(OBJECT_BLOCK_MARIO_END_CASTLE_POS_X, OBJECT_BLOCK_MARIO_END_CASTLE_POS_Y, OBJECT_BLOCK_MARIO_END_CASTLE_WIDTH, OBJECT_BLOCK_MARIO_END_CASTLE_HEIGHT, 0); //tham số cuối là ko nhảy từ dưới xuyên qua đc
 		objects.push_back(obj);
 
 	}
-	if(is_mario_in_end_castle==true)
-		CGame::GetInstance()->SetCamPos(7680 - 760 + 15 - 24, 700);
+	if(player->is_in_end_castle ==true)
+		CGame::GetInstance()->SetCamPos(CAM_X_END_CASTLE, CAM_Y_END_CASTLE);
 
 
 	PurgeDeletedObjects();

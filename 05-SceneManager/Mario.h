@@ -281,6 +281,8 @@
 class CMario : public CGameObject
 {
 public:
+	bool is_in_end_castle = false;
+
 	int hit_brick_number = 0;
 	int score = 0;
 

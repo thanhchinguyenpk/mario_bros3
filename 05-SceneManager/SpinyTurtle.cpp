@@ -37,13 +37,13 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vx += ax * dt;
 
-	if (stage == 1)
+	if (stage == FIRST_STAGE)
 	{
-		if (this->x - player->x < 200 && state == SPINY_TURTLE_STATE_STILL)
+		if (this->x - player->x < DISTANCE_TO_ACTIVE_SPINY_TURTLE && state == SPINY_TURTLE_STATE_STILL)
 			this->SetState(SPINY_TURTLE_STATE_JUMP);
 
 
-		if (abs(this->x - player->x) > 300 && state== SPINY_TURTLE_STATE_WALKING)
+		if (abs(this->x - player->x) > DISTANCE_TO_FOLLOW_MARIO && state== SPINY_TURTLE_STATE_WALKING)
 		{
 			if (this->x > player->x)
 				vx = -abs(vx);
@@ -54,30 +54,30 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		}
 
-		if (GetState() == SPINY_TURTLE_STATE_WALKING && GetTickCount64() - time_to_spine >= 300 && time_to_spine)
+		if (GetState() == SPINY_TURTLE_STATE_WALKING && GetTickCount64() - time_to_spine >= TIME_TO_SPINE && time_to_spine)
 		{
 			SetState(SPINY_TURTLE_STATE_SPINE);
 
 			if (vx > 0)
-				ax = -0.0001;
+				ax = -AX_WHEN_SPINE;
 			else if (vx < 0)
-				ax = 0.0001;
+				ax = AX_WHEN_SPINE;
 
 			time_to_spine = 0;
 			
-			DebugOut(L"[INFO] vo day hoai sao------------------------------??\n");
+			//DebugOut(L"[INFO] vo day hoai sao------------------------------??\n");
 		}
 
-		if (abs(vx) < 0.02 && state == SPINY_TURTLE_STATE_SPINE)
+		if (abs(vx) < VX_FROM_SPINY_STATE_BECOME_JUMPING_STATE && state == SPINY_TURTLE_STATE_SPINE)
 		{
 			this->SetState(SPINY_TURTLE_STATE_JUMP);
 			ax = 0;
 		}
 	}
-	else if (stage == 2)
+	/*else if (stage == 2)
 	{
 
-	}
+	}*/
 
 
 
@@ -92,7 +92,7 @@ void SpinyTurtle::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 
 
-	if (GetState() == SPINY_TURTLE_STATE_INJURY && GetTickCount64() - time_to_rescue >= 3000 && time_to_rescue)
+	if (GetState() == SPINY_TURTLE_STATE_INJURY && GetTickCount64() - time_to_rescue >= TIME_TO_RESCUE && time_to_rescue)
 	{
 		heart -= 1;
 
@@ -138,16 +138,16 @@ void SpinyTurtle::Render()
 
 	int idAni = ANI_SPINE_TURTLE;
 
-	if (stage == 1)
+	if (stage == FIRST_STAGE)
 	{
 		if(state== SPINY_TURTLE_STATE_STILL)
 			idAni = ANI_SPINE_TURTLE;
 
 		if(vy<0)
 			idAni = ANI_SPINELESS_TURTLE;
-		else if(vy>0 && vy< 0.1)
+		else if(vy>0 && vy< VY_STADING)
 			idAni = ANI_SPINE_TURTLE_STANDING;
-		else if (vy > 0.1)
+		else if (vy > VY_STADING)
 			idAni = ANI_SPINE_TURTLE_HAND_UP_AND_DOWN_HIGH;
 
 		if(state== SPINY_TURTLE_STATE_WALKING)
@@ -190,7 +190,7 @@ void SpinyTurtle::OnCollisionWith(LPCOLLISIONEVENT e)
 
 	if (dynamic_cast<FlatForm*>(e->obj))
 	{
-		if (stage == 1)
+		if (stage == FIRST_STAGE)
 		{
 			if (state == SPINY_TURTLE_STATE_JUMP)
 			{
@@ -209,8 +209,8 @@ void SpinyTurtle::SetState(int state)
 	{
 	case SPINY_TURTLE_STATE_JUMP:
 
-		vx =  this->x> player->x ?-0.15 : 0.15;
-		vy = -0.7;
+		vx =  this->x> player->x ?-VX_SPINY_TURTLE_JUMPING : VX_SPINY_TURTLE_JUMPING;
+		vy = -VY_SPINY_TURTLE_JUMPING;
 	
 		break;
 	

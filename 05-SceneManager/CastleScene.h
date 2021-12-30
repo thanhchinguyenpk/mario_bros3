@@ -15,7 +15,24 @@
 #include "UI.h"
 #include "CoinEffect.h"
 
-//#include "Koopas.h"
+#define CAM_MIN_X_UNDER_CASTLE 3550
+#define CAM_WIDTH_UNDER_CASTLE 74
+#define CAM_Y_UNDER_CASTLE 2100
+
+
+#define CAM_MIN_X_IN_CASTLE 7680-760+15
+#define CAM_WIDTH_IN_CASTLE 24
+#define CAM_Y_IN_CASTLE 700
+
+#define Y_STUCK_WITH_BOSS 7320
+
+#define CAM_X_END_CASTLE 7680 - 760 + 15 - 24
+#define CAM_Y_END_CASTLE 700
+
+#define OBJECT_BLOCK_MARIO_END_CASTLE_POS_X 6886
+#define OBJECT_BLOCK_MARIO_END_CASTLE_POS_Y 760
+#define OBJECT_BLOCK_MARIO_END_CASTLE_WIDTH 48
+#define OBJECT_BLOCK_MARIO_END_CASTLE_HEIGHT 432
 
 
 class CastleScene : public CScene
@@ -73,7 +90,7 @@ public:
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 
-	bool is_mario_in_end_castle = false;
+	//bool is_mario_in_end_castle = false;
 };
 
 typedef CastleScene* LPCASTLESCENE;
