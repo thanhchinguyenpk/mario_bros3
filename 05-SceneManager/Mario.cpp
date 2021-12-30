@@ -520,7 +520,7 @@ void CMario::OnCollisionWithKoompas(LPCOLLISIONEVENT e)
 		CollideWithEnemy();
 		 //set post ở đây không có ý nghĩa
 		is_jumped = true;
-		DebugOut(L"va cham tren dau roi ne %d \n");
+		//DebugOut(L"va cham tren dau roi ne %d \n");
 	}
 	else
 	{

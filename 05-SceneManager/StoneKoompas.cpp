@@ -29,7 +29,7 @@ void StoneKoompas::GetBoundingBox(float& left, float& top, float& right, float& 
 
 void StoneKoompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += 0.002 * dt;
+	vy += AY_STONE_KOOMPAS * dt;
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 

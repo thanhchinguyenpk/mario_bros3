@@ -75,17 +75,17 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 			return;
 		
 		
-		if (count % 5 == 0|| count % 5 == 1|| count % 5 == 2)
+		if (count % 5 == JUMP_SHORT_0 || count % 5 == JUMP_SHORT_1 || count % 5 == JUMP_SHORT_2)
 		{
 			SetState(PARA_GOOMBA_STATE_JUMP_SHORT_1);
 			count++;
 		}
-		else if (count % 5 == 3)
+		else if (count % 5 == JUMP_HIGHT)
 		{ 
 			SetState(PARA_GOOMBA_STATE_JUMP_HIGH);
 			count++;
 		}	
-		else if (count % 5 == 4)
+		else if (count % 5 == WALKING)
 		{
 			if (walking_start == 0)
 			{

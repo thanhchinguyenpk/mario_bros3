@@ -18,7 +18,7 @@ Koompas::Koompas(float x, float y, LPGAMEOBJECT mario,int koompas_type, int koom
 	player = dynamic_cast<CMario*>(mario);
 	
 	if(type== KOOMPAS_RED)
-		virtalbox = new VirtalBox(x-50, y,mario);
+		virtalbox = new VirtalBox(x- GAP_VIRTUAL_BOX, y,mario);
 
 	//CGame* game = CGame::GetInstance();
 	//CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();

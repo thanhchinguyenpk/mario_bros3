@@ -20,6 +20,9 @@
 #define VY_FLY_LADING 0.1
 #define VY_FLY_HIGH 0.3
 
+#define PORTAL_PLAY_SCENE 1
+#define PORTAL_CASTLE_SCENE 7
+
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
@@ -244,10 +247,10 @@ void MapSceneKeyHandler::OnKeyDown(int KeyCode)
 			DebugOut(L"hé liu PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp----->  \n");
 
 		}*/
-		if (map_scene->current_portal->id_portal==1)
+		if (map_scene->current_portal->id_portal== PORTAL_PLAY_SCENE)
 			CGame::GetInstance()->InitiateSwitchScene(FIRST_SCENE);
 
-		if (map_scene->current_portal->id_portal == 7)
+		if (map_scene->current_portal->id_portal == PORTAL_CASTLE_SCENE)
 			CGame::GetInstance()->InitiateSwitchScene(CASTLE_SCENE);
 
 		break;
