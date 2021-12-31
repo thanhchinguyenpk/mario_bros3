@@ -673,7 +673,7 @@ void CPlayScene::Render()
 	}
 	//for (int i = 0; i < items.size(); i++)
 		//items[i]->Render();
-
+	//
 	for (int i = 0; i < enemies.size(); i++)
 		enemies[i]->Render();
 
