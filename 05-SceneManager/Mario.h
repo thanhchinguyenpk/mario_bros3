@@ -8,7 +8,7 @@
 #include "MarioBullet.h"
 #include "Game.h"
 
-
+#define DISTANCING 1
 
 #define EFFECT_GAP 50
 
@@ -98,7 +98,6 @@
 #define MARIO_STATE_KICK		900
 
 #define MARIO_STATE_TRANSFORM		950
-
 #define MARIO_STATE_APPEAR_TAIL		1000
 
 #pragma region ANIMATION_ID

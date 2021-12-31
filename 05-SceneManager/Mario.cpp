@@ -390,7 +390,7 @@ void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
 
 	if (spiny_turtle->GetState() == SPINY_TURTLE_STATE_INJURY)
 	{
-		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - 1);
+		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - DISTANCING);
 		return;
 	}
 
@@ -411,7 +411,7 @@ void CMario::OnCollisionWithSpinyTurtle(LPCOLLISIONEVENT e)
 				CollideWithEnemy();
 		}
 
-		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - 1);
+		spiny_turtle->SetPosition(spiny_turtle->x, spiny_turtle->y - DISTANCING);
 	}
 	else
 		CollideWithEnemy();
@@ -603,7 +603,7 @@ void CMario::OnCollisionWithStoneKoompas(LPCOLLISIONEVENT e)
 	{
 		if (e->ny < 0)
 		{
-			stone_koompas->SetPosition(stone_koompas->x, stone_koompas->y - 1);
+			stone_koompas->SetPosition(stone_koompas->x, stone_koompas->y - DISTANCING);
 		}
 	}
 }
@@ -623,10 +623,11 @@ void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
 	dynamic_cast<SuperLeaf*>(e->obj)->Delete();
-	SetState(MARIO_STATE_APPEAR_TAIL);
-	SetLevel(MARIO_LEVEL_BIG_TAIL);
+	
+	 SetLevel(MARIO_LEVEL_BIG_TAIL);
 	//e->obj->Delete();
 	//coin++;
+	 //SetState(MARIO_STATE_APPEAR_TAIL);
 
 }
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
@@ -634,8 +635,9 @@ void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 	//e->obj->Delete();
 	//DebugOut(L"[INFO]co vo va cham mushroom ko %d\n");
 	
-	if(dynamic_cast<Mushroom*>(e->obj)->type==MUSHROOM_RED)
-		SetState(MARIO_STATE_TRANSFORM);
+	if (dynamic_cast<Mushroom*>(e->obj)->type == MUSHROOM_RED)
+		//SetState(MARIO_STATE_TRANSFORM);
+		SetLevel(MARIO_LEVEL_BIG);
 		
 		
 	dynamic_cast<Mushroom*>(e->obj)->Delete();
@@ -1263,7 +1265,7 @@ void CMario::Render()
 
 	}
 
-	if (time_to_transform)
+	if (state == MARIO_STATE_TRANSFORM)
 	{
 		if (nx >= 0)
 			aniId = MARIO_ANI_TRANSFORM;
@@ -1271,7 +1273,7 @@ void CMario::Render()
 			aniId = MARIO_ANI_TRANSFORM + TO_BECOME_LEFT;
 	}
 
-	if (time_to_appear_tail)
+	if (state == MARIO_STATE_APPEAR_TAIL)
 		aniId = MARIO_ANI_APEAR_TAIL;
 	/*int count = 402;
 	GameTime* game_time = GameTime::GetInstance();

@@ -22,7 +22,7 @@ void BrickCoin::Render()
 	//for(int i=0;i<8;i++)
 	// animations->Get(825+i)->Render(x+i*50, y);
 	
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void BrickCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

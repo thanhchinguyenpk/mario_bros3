@@ -23,6 +23,9 @@
 #define PORTAL_PLAY_SCENE 1
 #define PORTAL_CASTLE_SCENE 7
 
+#define HACK_POS_X 2200*3
+#define HACK_POS_Y 362*3
+
 void CSampleKeyHandler::OnKeyDown(int KeyCode)
 {
 	DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
@@ -37,13 +40,13 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_M:
-		mario->SetState(MARIO_STATE_APPEAR_TAIL);
+		//mario->SetState(MARIO_STATE_APPEAR_TAIL);
 
 		//DebugOut(L"[INFO]stransform marioooo\n");
 		break;
 	case DIK_L:
-		mario->SetState(MARIO_STATE_TRANSFORM);
-
+		//mario->SetState(MARIO_STATE_TRANSFORM);
+		mario->SetPosition(HACK_POS_X, HACK_POS_Y);
 		//DebugOut(L"[INFO]stransform marioooo\n");
 		break;
 		
@@ -176,11 +179,11 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 
 	if(mario==NULL)
 		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	//if (mario->GetState() == MARIO_STATE_FLY_HIGH)
-	//	return;
-
-	if (mario->GetState() == MARIO_STATE_TRANSFORM)
+	if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 		return;
+
+	//if (mario->GetState() == MARIO_STATE_TRANSFORM)
+	//	return;
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{

@@ -96,7 +96,7 @@ void CGameObject::CheckWetherBeingAttacked(CGameObject *obj_attack, int become_s
 
 void CGameObject::RenderBoundingBox()
 {
-	D3DXVECTOR3 p(x, y, 0);
+	/*D3DXVECTOR3 p(x, y, 0);
 	RECT rect;
 
 	LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
@@ -113,6 +113,7 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->GetCamPos(cx, cy);
 
 	CGame::GetInstance()->Draw(x - cx, y - cy, bbox, rect.left, rect.top, rect.right, rect.bottom, TRANSPARENT_COLOR);
+	*/
 }
 
 CGameObject::~CGameObject()
