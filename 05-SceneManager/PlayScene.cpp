@@ -38,6 +38,8 @@ CPlayScene::CPlayScene(int id, LPCWSTR filePath):
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
+	map = NULL;
+	grid = NULL;
 }
 
 
@@ -453,7 +455,6 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 
-	DebugOut(L"[INFO]size brick blink %d\n", list_bricklink.size());
 	
 	for (size_t i = 0; i < items.size(); i++)
 	{
@@ -528,13 +529,14 @@ void CPlayScene::Update(DWORD dt)
 
 		}
 
-		//DebugOut(L"[INFO] day la day la brickcoin ne?\n");
+		
 	}
 
 	for (size_t i = 0; i < enemies.size(); i++)
 	{
 		enemies[i]->Update(dt, &coObjects);
 		enemies[i]->is_appeared = false;
+
 
 		
 	}
@@ -594,6 +596,10 @@ void CPlayScene::Update(DWORD dt)
 
 
 	game_time->Update(dt);
+
+	if (GAME_TIME - game_time->GetTime() < 0)
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
+
 //	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
 }
 
@@ -630,6 +636,9 @@ void CPlayScene::Render()
 
 	//game_ui->Render(300 - game_time->GetTime(), player->number_brick_coin_hit, player->score, 4, 1);
 	game_ui->Render(GAME_TIME - game_time->GetTime(), player->hit_brick_number, player->score, LIFE, SCENE);
+
+
+	
 
 }
 

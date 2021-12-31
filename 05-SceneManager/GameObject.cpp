@@ -15,6 +15,12 @@ CGameObject::CGameObject()
 	nx = 1;	
 	state = -1;
 	isDeleted = false;
+	w = 0;
+	h = 0;
+	type = 0;
+	id_grid = 0;
+	id = 0;
+
 }
 
 void CGameObject::DeleteWhenOutOfCam()
@@ -24,13 +30,13 @@ void CGameObject::DeleteWhenOutOfCam()
 		if (x< CGame::GetInstance()->GetCamX() || x> CGame::GetInstance()->GetCamX() + SCREEN_WIDTH)
 		{
 			this->Delete();
-			//DebugOut(L"[ERROR----------hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+			//DebugOut(L"[ERROR----------chieu ngang hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
 		}
 
 		if (y< CGame::GetInstance()->GetCamY() || y> CGame::GetInstance()->GetCamY() + SCREEN_HEIGHT)
 		{
 			this->Delete();
-			//DebugOut(L"[ERROR----------hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
+			//DebugOut(L"[ERROR---------- chieu doc hihi delete rùi nè-------------------] DINPUT::GetDeviceData failed. Error: %f\n", vx);
 		}
 
 	

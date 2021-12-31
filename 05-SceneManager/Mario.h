@@ -279,7 +279,7 @@
 #define MARIO_BIG_TAIL_SITDOWN_BBOX_HEIGHT 16*3
 
 
-#define MARIO_BIG_TAIL_SPIN_BBOX_WIDTH  45*3
+#define MARIO_BIG_TAIL_SPIN_BBOX_WIDTH  48*3
 #define MARIO_BIG_TAIL_BBOX_HEIGHT 28*3
 
 class CMario : public CGameObject
@@ -392,7 +392,7 @@ public:
 		ax = 0.0f;
 		ay = MARIO_GRAVITY; 
 
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
 		isOnPlatform = false;

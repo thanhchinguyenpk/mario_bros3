@@ -16,7 +16,7 @@ goomba.txt
 #marrio
 
 #ban đầu
-#0	110	1110	0
+0	110	1110	0
 #cuc mau do
 
 #0	2400	1083	0
@@ -28,7 +28,7 @@ gần laval ball đoạn sau
 #gần stone koompas
 #0	4700	700	0
 #cuối đoạn 1
-0	5100	1110	0
+#0	5100	1110	0
 
 #dưới
 #0	3600	2300	0

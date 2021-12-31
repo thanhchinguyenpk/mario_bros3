@@ -308,10 +308,10 @@ LPGAMEOBJECT CGrid::CreateNewObj(int id_grid, int obj_type, float x, float y, fl
 
 
 	obj->SetPosition(x, y);
-	obj->type = obj_type;
-	obj->w = (int)w;
-	obj->h =(int)h;
-	obj->id_grid = id_grid;
+	obj->SetType(obj_type);
+	obj->SetWidth((int)w);
+	obj->SetHeight((int)h);
+	obj->SetIdGrid(id_grid);
 
 	//LPANIMATION_SET ani_set = animation_sets->Get(ani_id);
 	// nhớ thêm đoạn code animation set mà null chẳng hạn 0:32:38

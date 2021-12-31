@@ -43,6 +43,12 @@ public:
 	bool isDeleted; 
 
 //public:
+
+	void SetType(int Type) { type = Type; }
+	void SetWidth(int Width) { w = Width; }
+	void SetHeight(int Height) { h = Height; }
+	void SetIdGrid(int IdGrid) { id_grid = IdGrid; }
+
 	void DeleteWhenOutOfCam();
 	void BeingAttackedByFireBallMario(CGameObject* obj_attack, int become_state);
 
