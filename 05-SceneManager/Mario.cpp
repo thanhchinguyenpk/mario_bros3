@@ -213,6 +213,21 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		jump_fire_throw_start = 0;
 		//DebugOut(L"[INFO] ra luôn luôn?\n");
 	}
+	if (GetState() == MARIO_STATE_TRANSFORM && GetTickCount64() - time_to_transform >= MARIO_TIME_TO_STRANSFORM && time_to_transform)
+	{
+		SetState(MARIO_STATE_IDLE);
+		time_to_transform = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
+	if (GetState() == MARIO_STATE_APPEAR_TAIL && GetTickCount64() - time_to_appear_tail >= MARIO_TIME_TO_APPEAR_TAIL && time_to_appear_tail)
+	{
+		SetState(MARIO_STATE_IDLE);
+		time_to_appear_tail = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
+	
 	
 	if (GetState() == MARIO_STATE_DIE && GetTickCount64() - time_to_switch_scene >= MARIO_TIME_TO_SWITCH_SCENE)
 	{
@@ -607,18 +622,23 @@ void CMario::OnCollisionWithVirtalBox(LPCOLLISIONEVENT e)
 }
 void CMario::OnCollisionWithSuperLeaf(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
+	dynamic_cast<SuperLeaf*>(e->obj)->Delete();
+	SetState(MARIO_STATE_APPEAR_TAIL);
+	SetLevel(MARIO_LEVEL_BIG_TAIL);
+	//e->obj->Delete();
 	//coin++;
 
 }
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
-
+	//e->obj->Delete();
+	//DebugOut(L"[INFO]co vo va cham mushroom ko %d\n");
 	
 	if(dynamic_cast<Mushroom*>(e->obj)->type==MUSHROOM_RED)
-		SetLevel(MARIO_LEVEL_BIG);
-	
+		SetState(MARIO_STATE_TRANSFORM);
+		
+		
+	dynamic_cast<Mushroom*>(e->obj)->Delete();
 
 }
 void CMario::OnCollisionWithBrickCoin(LPCOLLISIONEVENT e)
@@ -710,7 +730,8 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
+	//e->obj->Delete();
+	dynamic_cast<CCoin*>(e->obj)->Delete();
 	coin++;
 	score += SCORE_COIN;
 	
@@ -1184,6 +1205,9 @@ int CMario::GetAniIdFire()
 
 void CMario::Render()
 {
+
+	//DebugOut(L"[INFO]mario state: %d\n", this->state);
+
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 
@@ -1238,6 +1262,17 @@ void CMario::Render()
 		nx = 1;
 
 	}
+
+	if (time_to_transform)
+	{
+		if (nx >= 0)
+			aniId = MARIO_ANI_TRANSFORM;
+		else
+			aniId = MARIO_ANI_TRANSFORM + TO_BECOME_LEFT;
+	}
+
+	if (time_to_appear_tail)
+		aniId = MARIO_ANI_APEAR_TAIL;
 	/*int count = 402;
 	GameTime* game_time = GameTime::GetInstance();
 
@@ -1303,15 +1338,12 @@ void CMario::SetState(int state)
 				vy = -MARIO_JUMP_SPEED_Y;
 				vx = 0;
 			}
-		
 			else
 			{
 				vy = -MARIO_JUMP_SPEED_Y;
 				vx = nx==1 ? MARIO_VX_JUMP : -MARIO_VX_JUMP;
 			}
 
-			
-		
 		}
 		break;
 
@@ -1375,7 +1407,14 @@ void CMario::SetState(int state)
 		fly_high_start = GetTickCount64();
 		vy = -MARIO_VY_FLY_HIGH;
 		break;
-	
+	case MARIO_STATE_TRANSFORM:
+		time_to_transform = GetTickCount64();
+		break;
+
+	case MARIO_STATE_APPEAR_TAIL:
+		time_to_appear_tail = GetTickCount64();
+		break;
+		
 		
 	}
 
@@ -1427,13 +1466,17 @@ void CMario::CollideWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat)
 				
 				//SetState(MARIO_STATE_TRANSFORM);
 				//score += 1000;
-				this->SetLevel(2);
+				 
+				// co the giu
+				//this->SetLevel(MARIO_LEVEL_BIG);
 			}
 			else if (dynamic_cast<SuperLeaf*>(item))
 			{
 				//SetState(MARIO_STATE_APPEAR_TAIL);
 				//score += 1000;
-				this->SetLevel(3);
+
+
+				//this->SetLevel(MARIO_LEVEL_BIG_TAIL);
 			}
 			//else if (dynamic_cast<Coin*>(item))
 			//{

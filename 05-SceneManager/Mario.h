@@ -48,6 +48,8 @@
 #define MARIO_TIME_FLY_HIGH	360
 #define MARIO_TIME_JUMP_AND_SHOOT	300
 #define MARIO_TIME_TO_SWITCH_SCENE	1000
+#define MARIO_TIME_TO_STRANSFORM	1500
+#define MARIO_TIME_TO_APPEAR_TAIL	600
 
 #define MARIO_GAP_HOLDING_X	40
 #define MARIO_GAP_HOLDING_Y	10
@@ -94,6 +96,10 @@
 #define MARIO_STATE_JUMP_SHOOT_BULLET		850
 
 #define MARIO_STATE_KICK		900
+
+#define MARIO_STATE_TRANSFORM		950
+
+#define MARIO_STATE_APPEAR_TAIL		1000
 
 #pragma region ANIMATION_ID
 
@@ -263,10 +269,17 @@
 #define MARIO_ANI_TAIL_BRING_JUMP_RIGHT			454
 #define MARIO_ANI_ORANGE_BRING_JUMP_RIGHT		455
 
+#define MARIO_ANI_TRANSFORM		456
+
+#define MARIO_ANI_APEAR_TAIL		457
+
 #define MARIO_ANI_SMALL_IN_MAP			763
 #define MARIO_ANI_BIG_IN_MAP			764
 #define MARIO_ANI_TAIL_IN_MAP			765
 #define MARIO_ANI_ORANGE_IN_MAP			766
+
+#define MARIO_ANI_TAIL_IN_MAP			765
+
 
 
 #define TO_BECOME_LEFT 100
@@ -285,6 +298,10 @@
 class CMario : public CGameObject
 {
 public:
+
+	
+	ULONGLONG time_to_appear_tail = 0;
+	ULONGLONG time_to_transform = 0;
 	bool is_in_end_castle = false;
 
 	int hit_brick_number = 0;

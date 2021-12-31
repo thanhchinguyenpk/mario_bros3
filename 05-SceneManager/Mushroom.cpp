@@ -42,6 +42,8 @@ void Mushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 
 	CCollision::GetInstance()->Process(this, dt, coObjects);
+
+	this->DeleteWhenOutOfCam();
 }
 
 void Mushroom::GetBoundingBox(float& l, float& t, float& r, float& b)

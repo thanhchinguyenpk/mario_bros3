@@ -424,8 +424,22 @@ void CPlayScene::Load()
 
 void CPlayScene::Update(DWORD dt)
 {
+
+
 	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
 	// TO-DO: This is a "dirty" way, need a more organized way 
+
+	if (player->GetState() == MARIO_STATE_TRANSFORM && GetTickCount64() - player->time_to_transform >= MARIO_TIME_TO_STRANSFORM && player->time_to_transform)
+	{
+		player->SetLevel(MARIO_LEVEL_BIG);
+		player->SetState(MARIO_STATE_IDLE);
+		player->time_to_transform = 0;
+		//DebugOut(L"[INFO] ra luôn luôn?\n");
+	}
+
+	if (player->GetState() == MARIO_STATE_TRANSFORM)
+		return;
+
 	CGame* game = CGame::GetInstance();
 
 	grid->GetListObjInGrid(game->GetCamX(), game->GetCamY());
@@ -437,8 +451,8 @@ void CPlayScene::Update(DWORD dt)
 	for (size_t i = 0; i < enemies.size(); i++)
 		coObjects.push_back(enemies[i]);
 
-	for (size_t i = 0; i < items.size(); i++)
-		coObjects.push_back(items[i]);
+	/*for (size_t i = 0; i < items.size(); i++)
+		coObjects.push_back(items[i]);*/
 	
 	
 	for (size_t i = 0; i < objects.size(); i++)
@@ -456,15 +470,21 @@ void CPlayScene::Update(DWORD dt)
 
 
 	
-	for (size_t i = 0; i < items.size(); i++)
+	/*for (size_t i = 0; i < items.size(); i++)
 	{
 		items[i]->Update(dt, &coObjects);
 		items[i]->is_appeared = false;
+	}*/
 
-		if (dynamic_cast<BrickCoin*>(items[i]))
+	for (size_t i = 0; i < enemies.size(); i++)
+	{
+		enemies[i]->Update(dt, &coObjects);
+		enemies[i]->is_appeared = false;
+
+		if (dynamic_cast<BrickCoin*>(enemies[i]))
 		{
 			//DebugOut(L"[INFO] ua day la brickcoin ne?\n");
-			BrickCoin* brick = dynamic_cast<BrickCoin*>(items[i]);
+			BrickCoin* brick = dynamic_cast<BrickCoin*>(enemies[i]);
 			float x, y;
 			brick->GetPosition(x, y);
 
@@ -528,15 +548,6 @@ void CPlayScene::Update(DWORD dt)
 			}
 
 		}
-
-		
-	}
-
-	for (size_t i = 0; i < enemies.size(); i++)
-	{
-		enemies[i]->Update(dt, &coObjects);
-		enemies[i]->is_appeared = false;
-
 
 		
 	}
@@ -619,8 +630,8 @@ void CPlayScene::Render()
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 
-	for (int i = 0; i < items.size(); i++)
-		items[i]->Render();
+	//for (int i = 0; i < items.size(); i++)
+		//items[i]->Render();
 
 	for (int i = 0; i < enemies.size(); i++)
 		enemies[i]->Render();
@@ -731,7 +742,7 @@ void CPlayScene::PurgeDeletedObjects()
 
 
 	
-	for (size_t i = 0; i < items.size(); i++)
+	/*for (size_t i = 0; i < items.size(); i++)
 	{
 		if (items[i]->IsDeleted() == true)
 		{
@@ -740,7 +751,7 @@ void CPlayScene::PurgeDeletedObjects()
 			items[i] = nullptr;
 			items.erase(items.begin() + i);
 		}
-	}
+	}*/
 
 
 	for (size_t i = 0; i < enemies.size(); i++)

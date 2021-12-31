@@ -24,13 +24,15 @@ void CGrid::Classify(LPGAMEOBJECT obj)
 {
 
 	
-	//type là loại để tạo, cũng dùng để phân loại trong grid
-	if (obj->type == OBJECT_TYPE_COIN|| obj->type == OBJECT_TYPE_BRICK_COIN|| obj->type == OBJECT_TYPE_RANDOM_BONUS)
-		items.push_back(obj);
+
+	//if (obj->type == OBJECT_TYPE_COIN|| obj->type == OBJECT_TYPE_BRICK_COIN|| obj->type == OBJECT_TYPE_RANDOM_BONUS)
+	//	items.push_back(obj);
+	
+	//else
+		enemies.push_back(obj);
+
 	/*else if (obj->type == OBJECT_TYPE_BRICK_BLINK)
 		bricks_blink.push_back(obj);*/
-	else
-		enemies.push_back(obj);
 }
 
 void CGrid::GetListObjInGrid(float cam_x, float cam_y)
@@ -38,7 +40,7 @@ void CGrid::GetListObjInGrid(float cam_x, float cam_y)
 	CGame* game = CGame::GetInstance();
 
 	enemies.clear();
-	items.clear();
+	//items.clear();
 	//bricks_blink.clear();
 
 	int top = (int)((cam_y) / CELL_HEIGHT);
@@ -94,7 +96,7 @@ void CGrid::GetListObjInGrid(float cam_x, float cam_y)
 	//if (dynamic_cast<CPlayScene*>(game->GetCurrentScene()))
 	//{
 		dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetEnemiesInScene(enemies);
-		dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetItems(items);
+		//dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetItems(items);
 		//dynamic_cast<CPlayScene*>(game->GetCurrentScene())->SetBrickBlink(bricks_blink);
 	//}
 }
@@ -114,7 +116,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 	//if (dynamic_cast<CPlayScene*>(game->GetCurrentScene()))
 	//{
 		enemies.clear();
-		items.clear();
+		//items.clear();
 		//bricks_blink.clear();
 
 		CPlayScene* scene = (CPlayScene*)game->GetCurrentScene();
@@ -147,7 +149,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 		}
 
 
-		items = scene->items;
+		/*items = scene->items;
 		for (int m = 0; m < items.size(); m++) {
 			LPGAMEOBJECT item = items[m];
 
@@ -171,7 +173,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 				for (int j = left; j <= right; j++) {
 					cells[i][j].push_back(item);
 				}
-		}
+		}*/
 
 		/*bricks_blink = scene->list_bricklink;
 		for (int m = 0; m < bricks_blink.size(); m++) {

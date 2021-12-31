@@ -33,6 +33,7 @@ void SuperLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(SUPER_LEAF_STATE_MOVE_RIGHT);
 	}
 	
+	this->DeleteWhenOutOfCam();
 }
 
 void SuperLeaf::GetBoundingBox(float& l, float& t, float& r, float& b)

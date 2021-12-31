@@ -31,8 +31,22 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	if (mario == NULL)
 		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+	if (mario->GetState() == MARIO_STATE_TRANSFORM)
+		return;
+
 	switch (KeyCode)
 	{
+	case DIK_M:
+		mario->SetState(MARIO_STATE_APPEAR_TAIL);
+
+		//DebugOut(L"[INFO]stransform marioooo\n");
+		break;
+	case DIK_L:
+		mario->SetState(MARIO_STATE_TRANSFORM);
+
+		//DebugOut(L"[INFO]stransform marioooo\n");
+		break;
+		
 	case DIK_O:
 		mario->SetPosition(IN_SKY_POS_X, IN_SKY_POS_Y);
 		break;
@@ -132,6 +146,9 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 	if (mario == NULL)
 		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+	if (mario->GetState() == MARIO_STATE_TRANSFORM)
+		return;
+
 	switch (KeyCode)
 	{
 	case DIK_A:
@@ -161,6 +178,9 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		mario = (CMario*)((LPCASTLESCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	//if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 	//	return;
+
+	if (mario->GetState() == MARIO_STATE_TRANSFORM)
+		return;
 
 	if (game->IsKeyDown(DIK_RIGHT))
 	{
@@ -220,6 +240,10 @@ void CSampleKeyHandler::KeyState(BYTE *states)
 		if (mario->GetState() == MARIO_STATE_FLY_HIGH)
 			return;
 		if (mario->GetState() == MARIO_STATE_JUMP_SHOOT_BULLET)
+			return;
+		if (mario->GetState() == MARIO_STATE_TRANSFORM)
+			return;
+		if (mario->GetState() == MARIO_STATE_APPEAR_TAIL)
 			return;
 		
 
