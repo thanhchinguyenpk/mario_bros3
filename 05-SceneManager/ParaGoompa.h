@@ -58,6 +58,9 @@
 class ParaGoompa : public CGameObject
 {
 protected:
+
+	bool is_cam_coming = false;
+
 	MoneyEffect* effect = NULL;
 
 	int is_minus_vx = false;

@@ -210,97 +210,108 @@ void Koompas::OnCollisionWithFlatForm(LPCOLLISIONEVENT e)
 
 void Koompas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (type == KOOMPAS_RED)
+	if (player->x + CAM_DISTANCE > this->x && this->is_cam_coming == false)
 	{
-		virtalbox->vx = this->vx;
-		virtalbox->Update(dt, coObjects);
+		is_cam_coming = true;
+	}
 
-
-		if (abs(virtalbox->y - this->y) > GAP_VIRTUAL_BOX_TO_KOOMPAS)
+	if (is_cam_coming == true)
+	{
+		if (type == KOOMPAS_RED)
 		{
-			if (this->state == CONCO_STATE_WALKING_LEFT)
+			virtalbox->vx = this->vx;
+			virtalbox->Update(dt, coObjects);
+
+
+			if (abs(virtalbox->y - this->y) > GAP_VIRTUAL_BOX_TO_KOOMPAS)
 			{
-				this->SetState(CONCO_STATE_WALKING_RIGHT);
-				virtalbox->SetPosition(this->x + GAP_VIRTUAL_BOX_TURAROUND_X, y);
+				if (this->state == CONCO_STATE_WALKING_LEFT)
+				{
+					this->SetState(CONCO_STATE_WALKING_RIGHT);
+					virtalbox->SetPosition(this->x + GAP_VIRTUAL_BOX_TURAROUND_X, y);
+				}
+				else if (this->state == CONCO_STATE_WALKING_RIGHT)
+				{
+					this->SetState(CONCO_STATE_WALKING_LEFT);
+					virtalbox->SetPosition(this->x - GAP_VIRTUAL_BOX_TURAROUND_X, y);
+				}
 			}
-			else if (this->state == CONCO_STATE_WALKING_RIGHT)
+		}
+
+		CGameObject::Update(dt, coObjects);// sao
+		if (is_brought == false)
+		{
+			vy += KOOMPAS_AY * dt;
+
+		}
+
+
+
+
+		/*if ((state == CONCO_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
+		{
+			isDeleted = true;
+			return;
+		}*/
+
+
+
+
+		CCollision::GetInstance()->Process(this, dt, coObjects);
+
+
+		if (state == GOOMBA_STATE_INDENT_IN && GetTickCount64() - time_to_indent_out > TIME_TO_SHELL_MOVING)
+		{
+			SetState(CONCO_STATE_SHELL_MOVING);
+
+		}
+		if (state == CONCO_STATE_SHELL_MOVING && GetTickCount64() - time_to_indent_out > TIME_TO_INDENT_OUT)
+		{
+			SetState(CONCO_STATE_INDENT_OUT);
+
+		}
+		if (state == CONCO_STATE_INDENT_OUT && GetTickCount64() - time_to_indent_out > TIME_TO_WALKING_LEFT)
+		{
+			SetPosition(this->x, this->y - GAP_AVOID_FALLING_DOWN);//để khi thọt ra mai rùa không bị rơi xuống
+			SetState(CONCO_STATE_WALKING_LEFT);
+
+			if (this->is_brought == true)
 			{
-				this->SetState(CONCO_STATE_WALKING_LEFT);
-				virtalbox->SetPosition(this->x - GAP_VIRTUAL_BOX_TURAROUND_X, y);
+				player->CollideWithEnemy();
+				player->holding_something = NULL;
+				player->SetState(MARIO_STATE_IDLE);
+				player->is_holding = false;
+
+				this->is_brought = false;
+
 			}
 		}
-	}
-
-	CGameObject::Update(dt, coObjects);// sao
-	if (is_brought == false)
-	{
-		vy += KOOMPAS_AY * dt;
-		
-	}
-	
-	
-
-
-	/*if ((state == CONCO_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
-	{
-		isDeleted = true;
-		return;
-	}*/
 
 
 
-	
-	CCollision::GetInstance()->Process(this, dt, coObjects);
 
 
-	if (state == GOOMBA_STATE_INDENT_IN && GetTickCount64() - time_to_indent_out > TIME_TO_SHELL_MOVING)
-	{
-		SetState(CONCO_STATE_SHELL_MOVING);
+		if (player->GetState() == MARIO_STATE_SPIN)
+			this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
 
-	}
-	if (state == CONCO_STATE_SHELL_MOVING && GetTickCount64() - time_to_indent_out > TIME_TO_INDENT_OUT)
-	{
-		SetState(CONCO_STATE_INDENT_OUT);
-
-	}
-	if (state == CONCO_STATE_INDENT_OUT && GetTickCount64() - time_to_indent_out > TIME_TO_WALKING_LEFT)
-	{
-		SetPosition(this->x, this->y - GAP_AVOID_FALLING_DOWN);//để khi thọt ra mai rùa không bị rơi xuống
-		SetState(CONCO_STATE_WALKING_LEFT);
-
-		if (this->is_brought == true)
+		if (effect)
 		{
-			player->CollideWithEnemy();
-			player->holding_something = NULL;
-			player->SetState(MARIO_STATE_IDLE);
-			player->is_holding = false;
-
-			this->is_brought = false;
-
+			effect->Update(dt, coObjects);
+			if (effect->isDeleted == true)
+			{
+				delete effect;
+				effect = NULL;
+			}
 		}
+
+
+
+		if (this->y > POS_Y_ENEMY_DELETE)
+			this->Delete();
+
 	}
 
-
-
-
-
-	if(player->GetState()== MARIO_STATE_SPIN)
-		this->CheckWetherBeingAttacked(player, CONCO_STATE_WAS_SHOOTED);
 	
-	if (effect)
-	{
-		effect->Update(dt, coObjects);
-		if (effect->isDeleted == true)
-		{
-			delete effect;
-			effect = NULL;
-		}
-	}
-
-
-	
-	if (this->y > POS_Y_ENEMY_DELETE)
-		this->Delete();
 }
 
 

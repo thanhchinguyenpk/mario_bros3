@@ -378,6 +378,7 @@ void CastleScene::Load()
 	//temp = new TextAndNumber();
 	//game_time = new GameTime();
 
+	game_time->Reset();
 	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -584,6 +585,9 @@ void CastleScene::Update(DWORD dt)
 
 
 	game_time->Update(dt);
+
+	if (GAME_TIME - game_time->GetTime() < 0)
+		CGame::GetInstance()->InitiateSwitchScene(MAP_SCENE);
 	//	DebugOut(L"[INFO] game time là: %d\n", game_time->gameTime);
 }
 

@@ -40,6 +40,8 @@ class CGoomba : public CGameObject
 {
 
 public:
+	bool is_cam_coming = false;
+
 	MoneyEffect* effect = NULL;
 	TimerCustom* time_to_disapear = new TimerCustom(TIME_TO_DISAPEAR);
 

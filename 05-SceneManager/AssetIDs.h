@@ -4,6 +4,8 @@
 // This file contains all IDs of game assets 
 //
 
+#define CAM_DISTANCE	600
+
 #define ID_ANI_BRICK 10000
 
 

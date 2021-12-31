@@ -146,63 +146,73 @@ void ParaGoompa::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void ParaGoompa::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
-
-	if ((state == PARA_GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
+	if (player->x + CAM_DISTANCE > this->x && this->is_cam_coming == false)
 	{
-		isDeleted = true;
-		return;
+		is_cam_coming = true;
 	}
 
-	CGameObject::Update(dt, coObjects);
-	//float no_thing;
-
-	CCollision::GetInstance()->Process(this, dt, coObjects);
-
-	/*float l_a, t_a, r_a, b_a;
-	float l_b, t_b, r_b, b_b;
-	this->GetBoundingBox(l_a, t_a, r_a, b_a);
-	player->GetBoundingBox(l_b, t_b, r_b, b_b);
-
-	if (this->CheckOverLap(l_a, t_a, r_a, b_a, l_b, t_b, r_b, b_b))
+	if (is_cam_coming == true)
 	{
-		DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
-	}*/
+		vy += ay * dt;
+		vx += ax * dt;
 
-
-	/*float ml, mt, mr, mb;
-	float il, it, ir, ib;
-
-	this->GetBoundingBox(il, it, ir, ib);
-	player->GetBoundingBox(ml, mt, mr, mb);*/
-	//DebugOut(L"[INFO] l của mario %f \n",ml);
-
-
-
-	//if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
-	//{
-		//SetState(CONCO_STATE_WAS_SHOOTED);
-
-		/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
-		this->SetState(GOOMBA_STATE_DIE);*/
-	//}
-	if (player->GetState() == MARIO_STATE_SPIN)
-		this->CheckWetherBeingAttacked(player, PARA_GOOMBA_STATE_WAS_SHOOTED);
-
-	if (effect)
-	{
-		effect->Update(dt, coObjects);
-		if (effect->isDeleted == true)
+		if ((state == PARA_GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
 		{
-			delete effect;
-			effect = NULL;
+			isDeleted = true;
+			return;
 		}
+
+		CGameObject::Update(dt, coObjects);
+		//float no_thing;
+
+		CCollision::GetInstance()->Process(this, dt, coObjects);
+
+		/*float l_a, t_a, r_a, b_a;
+		float l_b, t_b, r_b, b_b;
+		this->GetBoundingBox(l_a, t_a, r_a, b_a);
+		player->GetBoundingBox(l_b, t_b, r_b, b_b);
+
+		if (this->CheckOverLap(l_a, t_a, r_a, b_a, l_b, t_b, r_b, b_b))
+		{
+			DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
+		}*/
+
+
+		/*float ml, mt, mr, mb;
+		float il, it, ir, ib;
+
+		this->GetBoundingBox(il, it, ir, ib);
+		player->GetBoundingBox(ml, mt, mr, mb);*/
+		//DebugOut(L"[INFO] l của mario %f \n",ml);
+
+
+
+		//if (this->CheckOverLap(il, it, ir, ib, ml, mt, mr, mb))
+		//{
+			//SetState(CONCO_STATE_WAS_SHOOTED);
+
+			/*DebugOut(L"[INFO] đã vô hàm checkoverlap \n");
+			this->SetState(GOOMBA_STATE_DIE);*/
+			//}
+		if (player->GetState() == MARIO_STATE_SPIN)
+			this->CheckWetherBeingAttacked(player, PARA_GOOMBA_STATE_WAS_SHOOTED);
+
+		if (effect)
+		{
+			effect->Update(dt, coObjects);
+			if (effect->isDeleted == true)
+			{
+				delete effect;
+				effect = NULL;
+			}
+		}
+
+
+		if (this->y > POS_Y_ENEMY_DELETE)
+			this->Delete();
 	}
 
-
-	if (this->y > POS_Y_ENEMY_DELETE)
-		this->Delete();
+	
 }
 
 

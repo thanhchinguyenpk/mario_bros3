@@ -91,42 +91,54 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	vy += ay * dt;
-	vx += ax * dt;
-
-	/*if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
+	if (player->x + CAM_DISTANCE > this->x && this->is_cam_coming == false)
 	{
-		isDeleted = true;
-		return;
-	}*/
-	if (time_to_disapear->IsTimeUp())
-	{
-		this->Delete();
-		return;
+		is_cam_coming = true;
 	}
 
-	CGameObject::Update(dt, coObjects); 
-	//float no_thing;
-	CCollision::GetInstance()->Process(this, dt, coObjects);
-
-
-
-	if(player->GetState()== MARIO_STATE_SPIN)
-		this->CheckWetherBeingAttacked(player, GOOMBA_STATE_WAS_SHOOTED);
-
-
-	if (effect)
+	if (is_cam_coming == true)
 	{
-		effect->Update(dt, coObjects);
-		if (effect->isDeleted == true)
+		vy += ay * dt;
+		vx += ax * dt;
+
+		/*if ((state == GOOMBA_STATE_DIE) && (GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT))
 		{
-			delete effect;
-			effect = NULL;
+			isDeleted = true;
+			return;
+		}*/
+		if (time_to_disapear->IsTimeUp())
+		{
+			this->Delete();
+			return;
 		}
+
+		CGameObject::Update(dt, coObjects);
+		//float no_thing;
+		CCollision::GetInstance()->Process(this, dt, coObjects);
+
+
+
+		if (player->GetState() == MARIO_STATE_SPIN)
+			this->CheckWetherBeingAttacked(player, GOOMBA_STATE_WAS_SHOOTED);
+
+
+		if (effect)
+		{
+			effect->Update(dt, coObjects);
+			if (effect->isDeleted == true)
+			{
+				delete effect;
+				effect = NULL;
+			}
+		}
+
+		if (this->y > POS_Y_ENEMY_DELETE)
+			this->Delete();
+
+		//DebugOut(L"cam toi------------------------------- %d\n");
 	}
 
-	if (this->y > POS_Y_ENEMY_DELETE)
-		this->Delete();
+	
 }
 
 

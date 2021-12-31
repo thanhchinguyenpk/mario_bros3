@@ -1470,7 +1470,7 @@ void CMario::CollideWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat)
 				//score += 1000;
 				 
 				// co the giu
-				//this->SetLevel(MARIO_LEVEL_BIG);
+				this->SetLevel(MARIO_LEVEL_BIG);
 			}
 			else if (dynamic_cast<SuperLeaf*>(item))
 			{
@@ -1478,7 +1478,7 @@ void CMario::CollideWithItems(vector<LPGAMEOBJECT>* itemsMarioCanEat)
 				//score += 1000;
 
 
-				//this->SetLevel(MARIO_LEVEL_BIG_TAIL);
+				this->SetLevel(MARIO_LEVEL_BIG_TAIL);
 			}
 			//else if (dynamic_cast<Coin*>(item))
 			//{
