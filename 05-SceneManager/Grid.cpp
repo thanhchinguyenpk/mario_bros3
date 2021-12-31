@@ -50,7 +50,7 @@ void CGrid::GetListObjInGrid(float cam_x, float cam_y)
 
 
 	for (int i = top - BORDER_COLUMN_GRID_GET_OBJ; i <= bottom + BORDER_COLUMN_GRID_GET_OBJ; i++)
-		for (int j = left; j <= right; j++) { // trừ bớt 2  để test
+		for (int j = left- BORDER_ROW_GRID_GET_OBJ; j <= right; j++) { // trừ bớt 2  để test
 
 
 			if (j < 0) j = 0;
@@ -111,8 +111,8 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 
 
 
-	if (dynamic_cast<CPlayScene*>(game->GetCurrentScene()))
-	{
+	//if (dynamic_cast<CPlayScene*>(game->GetCurrentScene()))
+	//{
 		enemies.clear();
 		items.clear();
 		//bricks_blink.clear();
@@ -201,7 +201,7 @@ void CGrid::UpdatePositionInGrid(float cam_x, float cam_y)
 
 
 
-	}
+	
 	
 
 

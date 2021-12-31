@@ -13,9 +13,11 @@ goomba.txt
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
-0	200	1130	0
+#0	200	1130	0
+#truoc paragoomba
+0	2300	1130	0
 #brick blink
-#0	5796	1130	0
+0	5796	1130	0
 #gần random bonus
 #0	7766	1130	0
 #5215
@@ -114,7 +116,7 @@ goomba.txt
 #trên không trung
 6	3936	432	192	2	1
 6	4224	576	192	2	1
-6	4464	528	720	2	1
+6	4480	528	600	2	1
 
 
 
