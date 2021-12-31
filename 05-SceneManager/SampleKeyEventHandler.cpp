@@ -39,6 +39,10 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 
 	switch (KeyCode)
 	{
+	case DIK_P:
+		//mario->SetState(MARIO_STATE_KICK);
+		//mario->SetPosition(ABOVE_PINE_IN_SKY_X, ABOVE_PINE_IN_SKY_Y);
+		break;
 	case DIK_M:
 		//mario->SetState(MARIO_STATE_APPEAR_TAIL);
 
@@ -69,10 +73,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		*/
 		
 		break;
-	case DIK_P:
-		//mario->SetState(MARIO_STATE_KICK);
-		mario->SetPosition(ABOVE_PINE_IN_SKY_X, ABOVE_PINE_IN_SKY_Y);
-		break;
+	
 	case DIK_DOWN:
 		if (mario->go_down == true)
 		{
